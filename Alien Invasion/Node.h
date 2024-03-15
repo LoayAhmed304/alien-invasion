@@ -30,7 +30,6 @@ public:
 		next = nextNodePtr;
 	}
 
-
 	T getItem() const
 	{
 		return item;

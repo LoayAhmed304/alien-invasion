@@ -19,16 +19,14 @@ public:
 	}
 	bool push(const T& Item)
 	{
+		Node<T>* R = new Node<T>(Item);
 		if (!topPtr)
 		{
-			Node<T>* R = new Node<T>(Item);
-			R->setNext(topPtr);
 			topPtr = R;
 			rearPtr = R;
 		}
 		else
 		{
-			Node<T>* R = new Node<T>(Item);
 			rearPtr->setNext(R);
 			rearPtr = R;
 		}

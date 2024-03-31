@@ -59,4 +59,18 @@ public:
     bool isEmpty() const {
         return head == nullptr;
     }
+
+    void printAll() const
+    {
+        if (!head)
+            return;
+
+        priNode<T>* temp = head;
+
+        while (temp)
+        {
+            cout << temp->getItem() << endl;
+            temp = temp->getNext();
+        }
+    }
 };

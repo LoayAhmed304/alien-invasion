@@ -57,6 +57,20 @@ public:
 		return true;
 	}  // end peek
 
+	void printAll() const
+	{
+		if (!top)
+			return;
+
+		Node<T>* temp = top;
+
+		while (temp)
+		{
+			cout << temp->getItem() << endl;
+			temp = temp->getNext();
+		}
+	}
+
 }; // end ArrayStack
 
 #endif

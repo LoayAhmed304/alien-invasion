@@ -45,18 +45,22 @@ Single Node Case:
 #include "Node.h"
 #include "QueueADT.h"
 
+#include <iostream>
+using namespace std;
+
 template <typename T>
 class LinkedQueue:public QueueADT<T>
 {
-private :
+private:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 public :
 	LinkedQueue();	
-	bool isEmpty() const ;
+	bool isEmpty() const;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
-	bool peek(T& frntEntry)  const;	
+	bool peek(T& frntEntry)  const;
+	void printAll() const;
 	~LinkedQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -180,6 +184,21 @@ LinkedQueue<T>::~LinkedQueue()
 	
 	cout<<"\n Is LinkedQueue Empty now?? ==> "<<boolalpha<<isEmpty();
 	cout<<"\nEnding LinkedQueue destructor..."<<endl;
+}
+
+template<typename T>
+void LinkedQueue<T>::printAll() const
+{
+	if (!frontPtr)
+		return;
+
+	Node<T>* temp = frontPtr;
+
+	while (temp)
+	{
+		cout << temp->getItem() << endl;
+		temp = temp->getNext();
+	}
 }
 
 #endif

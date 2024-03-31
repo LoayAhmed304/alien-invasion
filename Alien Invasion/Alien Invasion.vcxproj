@@ -130,7 +130,15 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataStructures\ArrayStack.h" />
+    <ClInclude Include="DataStructures\Deque.h" />
+    <ClInclude Include="DataStructures\dequeNode.h" />
+    <ClInclude Include="DataStructures\LinkedQueue.h" />
     <ClInclude Include="DataStructures\Node.h" />
+    <ClInclude Include="DataStructures\priNode.h" />
+    <ClInclude Include="DataStructures\priQueue.h" />
+    <ClInclude Include="DataStructures\QueueADT.h" />
+    <ClInclude Include="DataStructures\StackADT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

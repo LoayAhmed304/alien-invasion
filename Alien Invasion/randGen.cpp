@@ -86,6 +86,4 @@ alienUnit* randGen::generateAlien(int timeStep)
     return newBorn;
 }
 
-randGen::~randGen()
-{
-}
+randGen::~randGen() {}

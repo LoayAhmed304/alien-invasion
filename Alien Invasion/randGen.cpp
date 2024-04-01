@@ -2,7 +2,10 @@
 #include <cstdlib>
 #include <time.h>
 
-randGen::randGen(int n, int es, int et, int eg, int as, int am, int ad, int probability, int epl, int eph, int ehl, int ehh, int ecl, int ech, int apl, int aph, int ahl, int ahh, int acl, int ach)
+randGen::randGen(int n, int es, int et, int eg, int as,
+                int am, int ad, int probability, int epl,
+                int eph,int ehl, int ehh, int ecl, int ech,
+                int apl,int aph, int ahl, int ahh, int acl, int ach)
 {
     N = n;
     ES = es;
@@ -32,7 +35,7 @@ bool randGen::probability()
     return (1 + (rand() % 100) <= prob);
 }
 
-earthUnit* randGen::generateEarth(int timeStep)
+unit* randGen::generateEarth(int timeStep)
 {
     srand(time(0));
 
@@ -41,7 +44,7 @@ earthUnit* randGen::generateEarth(int timeStep)
     h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
     c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
 
-    earthSoldier* newBorn;
+    unit* newBorn;
     int B = 1 + (rand() % 100);
     if (B < ES)
     {
@@ -59,7 +62,7 @@ earthUnit* randGen::generateEarth(int timeStep)
     return newBorn;
 }
 
-alienUnit* randGen::generateAlien(int timeStep)
+unit* randGen::generateAlien(int timeStep)
 {
     srand(time(0));
 
@@ -68,7 +71,7 @@ alienUnit* randGen::generateAlien(int timeStep)
     h = alienHealthLow + (rand() % (alienHealthHigh - alienHealthLow + 1));
     c = alienCapLow + (rand() % (alienCapHigh - alienCapLow + 1));
 
-    alienSoldier* newBorn;
+    unit* newBorn;
     int B = 1 + (rand() % 100);
     if (B < AS)
     {

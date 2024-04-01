@@ -16,7 +16,7 @@ public:
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach);
 	bool probability();
-	earthUnit* generateEarth(int timeStep);
-	alienUnit* generateAlien(int timeStep);
+	unit* generateEarth(int timeStep);
+	unit* generateAlien(int timeStep);
 	~randGen();
 };

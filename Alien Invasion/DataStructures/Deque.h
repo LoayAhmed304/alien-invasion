@@ -16,6 +16,7 @@ public:
 	Deque();
 	bool isEmpty() const;
 	bool enqueue(const T& newEntry);
+	bool enqueueFront(const T& newEntry);
 	bool dequeueFront(T& FrontEntry);
 	bool dequeue(T& RearEntry);
 	bool peek(T& FrontEntry) const;
@@ -50,6 +51,21 @@ bool Deque<T>::enqueue(const T& newEntry)
 	}
 	
 	backPtr = newNodePtr;
+	return true;
+}
+
+template<typename T>
+bool Deque<T>::enqueueFront(const T& newEntry)
+{
+	if (isEmpty())	//special case if this is the first node to insert
+		backPtr = newNodePtr; // The queue is empty
+	else
+	{
+		newNodePtr->setNext(frontPtr);
+		frontPtr->setPrev(newNodePtr); // The queue was not empty
+	}
+
+	frontPtr = newNodePtr;
 	return true;
 }
 

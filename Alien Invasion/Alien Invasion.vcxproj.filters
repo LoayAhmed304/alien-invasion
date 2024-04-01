@@ -18,6 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="randGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\Node.h">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="DataStructures\dequeNode.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="randGen.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

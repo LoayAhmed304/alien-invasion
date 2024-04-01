@@ -69,7 +69,8 @@ public:
 
         while (temp)
         {
-            cout << temp->getItem() << endl;
+            int dummy;
+            cout << temp->getItem(dummy) << endl;
             temp = temp->getNext();
         }
     }

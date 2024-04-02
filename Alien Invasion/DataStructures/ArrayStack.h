@@ -9,7 +9,7 @@
 #define ARRAY_STACK_
 
 #include "StackADT.h"
-
+using namespace std;
  //Unless spesificed by the stack user, the default size is 100
 template<typename T>
 class ArrayStack : public StackADT<T>
@@ -59,15 +59,11 @@ public:
 
 	void printAll() const
 	{
-		if (!top)
+		if (top == -1)
 			return;
-
-		Node<T>* temp = top;
-
-		while (temp)
+		for (int i = 0; i < top+1; i++)
 		{
-			cout << temp->getItem() << endl;
-			temp = temp->getNext();
+			cout << items[i] << endl;
 		}
 	}
 

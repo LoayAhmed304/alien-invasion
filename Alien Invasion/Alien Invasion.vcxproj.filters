@@ -50,6 +50,32 @@
     <ClInclude Include="DataStructures\dequeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Units\Units.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\EarthArmy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\AlienArmy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\EarthTanks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\EarthGunners.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\AlienSoldier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\AlienMonster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\AlienDrone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\EarthSoldier.h">
+      <Filter>Header Files</Filter>
     <ClInclude Include="randGen.h">
       <Filter>Source Files</Filter>
     </ClInclude>

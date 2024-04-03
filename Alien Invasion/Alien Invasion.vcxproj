@@ -140,6 +140,15 @@
     <ClInclude Include="DataStructures\priQueue.h" />
     <ClInclude Include="DataStructures\QueueADT.h" />
     <ClInclude Include="DataStructures\StackADT.h" />
+    <ClInclude Include="Units\AlienDrone.h" />
+    <ClInclude Include="Units\AlienMonster.h" />
+    <ClInclude Include="Units\AlienSoldier.h" />
+    <ClInclude Include="Units\EarthArmy.h" />
+    <ClInclude Include="Units\AlienArmy.h" />
+    <ClInclude Include="Units\EarthGunners.h" />
+    <ClInclude Include="Units\EarthTanks.h" />
+    <ClInclude Include="Units\EarthSoldier.h" />
+    <ClInclude Include="Units\Units.h" />
     <ClInclude Include="randGen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

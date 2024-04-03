@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="randGen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\ArrayStack.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Units\EarthTanks.h" />
     <ClInclude Include="Units\EarthSoldier.h" />
     <ClInclude Include="Units\Units.h" />
+    <ClInclude Include="randGen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

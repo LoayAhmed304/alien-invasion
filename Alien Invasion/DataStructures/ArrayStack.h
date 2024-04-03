@@ -61,7 +61,7 @@ public:
 	{
 		if (top == -1)
 			return;
-		for (int i = 0; i < top+1; i++)
+		for (int i = 0; i < top + 1; i++)
 		{
 			cout << items[i] << endl;
 		}

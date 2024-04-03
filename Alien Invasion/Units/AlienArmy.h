@@ -1,20 +1,33 @@
 #pragma once
 #include "Units.h"
-#include "Alien_Soldier.h"
-#include "Alien_Monster.h"
-#include "Alien_Drone.h"
+#include "AlienSoldier.h"
+#include "AlienMonster.h"
+#include "AlienDrone.h"
 #include "../DataStructures/LinkedQueue.h"
 #include "../DataStructures/Deque.h"
 
 class AlienArmy : public Units {
 private:
-    LinkedQueue <Alien_Soldier> *AS;
-    Alien_Monster * AM [1000];
+    LinkedQueue <AlienSoldier*> AS;
+    AlienMonster * AM [1000];
     int AMcount = 0;
-    Deque <Alien_Drone> AD;
+    Deque <AlienDrone*> AD;
 public:
-    bool addUnit()
+    bool addUnit(Units* X)
     {
+        if (dynamic_cast<AlienSoldier*>(X))
+        {
+            AS.enqueue(dynamic_cast<AlienSoldier*>(X));
+        }
+        if (dynamic_cast<AlienMonster*>(X))
+        {
+            AM[AMcount] = dynamic_cast<AlienMonster*>(X);
+        }
+        if (dynamic_cast<AlienDrone*>(X))
+        {
+            AD.enqueue(dynamic_cast<AlienDrone*>(X));
+        }
+        return true;
     }
     bool IsEmpty()
     {

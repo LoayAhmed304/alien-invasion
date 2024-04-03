@@ -56,22 +56,22 @@
     <ClInclude Include="Units\AlienArmy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth_Tanks.h">
+    <ClInclude Include="Units\EarthTanks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth_Gunners.h">
+    <ClInclude Include="Units\EarthGunners.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Alien_Soldier.h">
+    <ClInclude Include="Units\AlienSoldier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Alien_Monster.h">
+    <ClInclude Include="Units\AlienMonster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Alien_Drone.h">
+    <ClInclude Include="Units\AlienDrone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth_Soldier.h">
+    <ClInclude Include="Units\EarthSoldier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

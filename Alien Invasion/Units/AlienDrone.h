@@ -1,11 +1,11 @@
 #pragma once
-#include "EarthArmy.h"
-class Earth_Tanks : public Units
+#include "AlienArmy.h"
+class AlienDrone : public Units
 {
 private:
 	int ID;
 public:
-	Earth_Tanks() {}
+	AlienDrone() {}
 	bool SetID(int id)
 	{
 		ID = id;
@@ -20,5 +20,4 @@ public:
 	bool IsDead() {
 		return true;
 	}
-
 };

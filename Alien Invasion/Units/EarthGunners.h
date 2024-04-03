@@ -1,11 +1,11 @@
 #pragma once
 #include "EarthArmy.h"
-class Earth_Gunners :public Units
+class EarthGunners :public Units
 {
 private:
 	int ID;
 public:
-	Earth_Gunners() {}
+	EarthGunners() {}
 	bool SetID(int id)
 	{
 		ID = id;

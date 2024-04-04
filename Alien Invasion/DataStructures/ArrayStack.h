@@ -10,7 +10,7 @@
 
 #include "StackADT.h"
 using namespace std;
- //Unless spesificed by the stack user, the default size is 100
+//Unless spesificed by the stack user, the default size is 100
 template<typename T>
 class ArrayStack : public StackADT<T>
 {
@@ -30,6 +30,11 @@ public:
 	{
 		return top == -1;
 	}  // end isEmpty
+
+	int length() const
+	{
+		return (top + 1);
+	}
 
 	bool push(const T& newEntry)
 	{

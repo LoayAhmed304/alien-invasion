@@ -37,6 +37,11 @@ bool randGen::probability(int& n)
     return (1 + (rand() % 100) <= prob);
 }
 
+int randGen::getMonsterIndex(int val)
+{
+    return (rand() % val);
+}
+
 Units* randGen::generateEarth(int timeStep)
 {
 

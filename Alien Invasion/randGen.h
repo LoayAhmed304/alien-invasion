@@ -25,6 +25,7 @@ public:
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach);
 	bool probability(int&);
+	int getMonsterIndex(int val);
 	Units* generateEarth(int timeStep);
 	Units* generateAlien(int timeStep);
 	~randGen();

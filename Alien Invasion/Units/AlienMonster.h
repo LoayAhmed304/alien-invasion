@@ -1,16 +1,18 @@
-#pragma once
-#include "AlienArmy.h"
+#ifndef ALIEN_MONSTER_H
+#define ALIEN_MONSTER_H
 class AlienMonster : public Units
 {
-private:
-	int ID;
+
 public:
-	AlienMonster() {}
-	bool SetID(int id)
+	AlienMonster(int p, int h, int c, int timestep) : Units("AM", p, h, c, timestep) {
+		id = aID;
+
+	}
+	/*bool SetID(int id)
 	{
 		ID = id;
 		return true;
-	}
+	}*/
 	bool Attack() {
 		return true;
 	}
@@ -21,3 +23,5 @@ public:
 		return true;
 	}
 };
+
+#endif

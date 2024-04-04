@@ -57,6 +57,8 @@ bool Deque<T>::enqueue(const T& newEntry)
 template<typename T>
 bool Deque<T>::enqueueFront(const T& newEntry)
 {
+	dequeNode<T>* newNodePtr = new dequeNode<T>(newEntry);
+
 	if (isEmpty())	//special case if this is the first node to insert
 		backPtr = newNodePtr; // The queue is empty
 	else

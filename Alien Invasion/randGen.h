@@ -1,4 +1,13 @@
-#pragma once
+#ifndef RANDOM_H
+#define RANDOM_H
+
+#include "Units/Units.h"
+#include "Units/AlienMonster.h"
+#include "Units/AlienDrone.h"
+#include "Units/AlienSoldier.h"
+#include "Units/EarthSoldier.h"
+#include "Units/EarthGunners.h"
+#include "Units/EarthTanks.h"
 
 class randGen
 {
@@ -15,8 +24,10 @@ public:
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach);
-	bool probability();
-	unit* generateEarth(int timeStep);
-	unit* generateAlien(int timeStep);
+	bool probability(int&);
+	Units* generateEarth(int timeStep);
+	Units* generateAlien(int timeStep);
 	~randGen();
 };
+
+#endif

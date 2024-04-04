@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ALIEN_ARMY_H
+#define ALIEN_ARMY_H
+
 #include "Units.h"
 #include "AlienSoldier.h"
 #include "AlienMonster.h"
@@ -6,7 +8,7 @@
 #include "../DataStructures/LinkedQueue.h"
 #include "../DataStructures/Deque.h"
 
-class AlienArmy : public Units {
+class AlienArmy{
 private:
     LinkedQueue <AlienSoldier*> AS;
     AlienMonster * AM [1000];
@@ -21,7 +23,7 @@ public:
         }
         if (dynamic_cast<AlienMonster*>(X))
         {
-            AM[AMcount] = dynamic_cast<AlienMonster*>(X);
+            AM[AMcount++] = dynamic_cast<AlienMonster*>(X);
         }
         if (dynamic_cast<AlienDrone*>(X))
         {
@@ -35,6 +37,15 @@ public:
     }
     void print()
     {
+        cout << "AS = " << endl;
+        AS.printAll();
+        cout << "AM = " << endl;
+        for (int i = 0; i < AMcount; i++)
+        {
+            cout << AM[i] << endl;
+        }
+        cout << "AD = " << endl;
+        AD.printAll();
 
     }
     bool Attack()
@@ -45,6 +56,8 @@ public:
     {
 
     }
-    virtual bool IsDead() = 0;
+
 
 };
+
+#endif

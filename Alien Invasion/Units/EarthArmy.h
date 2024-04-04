@@ -27,7 +27,7 @@ public:
         }
         if (dynamic_cast<EarthGunners*>(X))
         {
-            /*EG.enqueue(dynamic_cast<EarthGunners*>(X));*/
+            EG.enqueue(dynamic_cast<EarthGunners*>(X), 3);
         }
         return true;
     }

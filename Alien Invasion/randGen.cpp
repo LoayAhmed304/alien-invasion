@@ -7,6 +7,8 @@ randGen::randGen(int n, int es, int et, int eg, int as,
                 int eph,int ehl, int ehh, int ecl, int ech,
                 int apl,int aph, int ahl, int ahh, int acl, int ach)
 {
+    srand(time(0));
+
     N = n;
     ES = es;
     ET = et;
@@ -29,61 +31,59 @@ randGen::randGen(int n, int es, int et, int eg, int as,
     alienCapHigh = ach;
 }
 
-bool randGen::probability()
+bool randGen::probability(int& n)
 {
-    srand(time(0));
+    n = N;
     return (1 + (rand() % 100) <= prob);
 }
 
-unit* randGen::generateEarth(int timeStep)
+Units* randGen::generateEarth(int timeStep)
 {
-    srand(time(0));
 
     int p, h, c;
     p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
     h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
     c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
 
-    unit* newBorn;
+    Units* newBorn;
     int B = 1 + (rand() % 100);
     if (B < ES)
     {
-        newBorn = new earthSoldier(p, h, c, timeStep);
+        newBorn = new EarthSoldier(p, h, c, timeStep);
     }
     else if (B < ES + ET)
     {
-        newBorn = new earthTank(p, h, c, timeStep);
+        newBorn = new EarthTanks(p, h, c, timeStep);
     }
     else
     {
-        newBorn = new earthGunnery(p, h, c, timeStep);
+        newBorn = new EarthGunners(p, h, c, timeStep);
     }
 
     return newBorn;
 }
 
-unit* randGen::generateAlien(int timeStep)
+Units* randGen::generateAlien(int timeStep)
 {
-    srand(time(0));
 
     int p, h, c;
     p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
     h = alienHealthLow + (rand() % (alienHealthHigh - alienHealthLow + 1));
     c = alienCapLow + (rand() % (alienCapHigh - alienCapLow + 1));
 
-    unit* newBorn;
+    Units* newBorn;
     int B = 1 + (rand() % 100);
     if (B < AS)
     {
-        newBorn = new alienSoldier(p, h, c, timeStep);
+        newBorn = new AlienSoldier(p, h, c, timeStep);
     }
     else if (B < AS + AM)
     {
-        newBorn = new alienMonster(p, h, c, timeStep);
+        newBorn = new AlienMonster(p, h, c, timeStep);
     }
     else
     {
-        newBorn = new alienDrone(p, h, c, timeStep);
+        newBorn = new AlienDrone(p, h, c, timeStep);
     }
 
     return newBorn;

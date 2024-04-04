@@ -1,16 +1,16 @@
 #pragma once
-#include "AlienArmy.h"
 class AlienDrone : public Units
 {
-private:
-	int ID;
+
 public:
-	AlienDrone() {}
-	bool SetID(int id)
+	AlienDrone(int p, int h, int c, int timestep) : Units("AD", p, h, c, timestep) {
+		id = aID;
+	}
+	/*bool SetID(int id)
 	{
 		ID = id;
 		return true;
-	}
+	}*/
 	bool Attack() {
 		return true;
 	}

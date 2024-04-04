@@ -1,21 +1,19 @@
 #pragma once
 #include <string>
+#include <iostream>
 using namespace std;
 class Units 
 {
 private:
-    int id;
     string type;
     int Tj,Ta,Td,Df,Dd,UAP;
     int health, Power, attack_cap;
 protected:
-    static int EarthId, AlienId;
+    int id;
+    static int eID;
+    static int aID;
 public:
-    Units()
-    {
-        id = EarthId;
-        EarthId++;
-    };
+    Units(string, int, int, int, int);
     virtual bool Attack() = 0;
     virtual bool GetAttacked() = 0;
     virtual bool IsDead() = 0;
@@ -25,6 +23,4 @@ public:
         return os;
     }
 };
-int Units::EarthId = 0;
-int Units::AlienId = 0;
 

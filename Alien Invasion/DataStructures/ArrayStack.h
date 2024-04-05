@@ -68,7 +68,7 @@ public:
 			return;
 		for (int i = 0; i < top + 1; i++)
 		{
-			cout << items[i] << endl;
+			cout << items[i] << " ";
 		}
 	}
 

@@ -37,15 +37,20 @@ public:
     }
     void print()
     {
-        cout << "AS = " << endl;
+        cout << "AS = [";
         AS.printAll();
-        cout << "AM = " << endl;
+        cout <<"]"<< endl;
+
+        cout << "AM = [";
         for (int i = 0; i < AMcount; i++)
         {
-            cout << AM[i] << endl;
+            cout << AM[i] << " ";
         }
-        cout << "AD = " << endl;
+        cout << "]" << endl;
+
+        cout << "AD = [";
         AD.printAll();
+        cout << "]" << endl;
 
     }
     bool Attack()

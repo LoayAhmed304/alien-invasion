@@ -33,12 +33,18 @@ public:
     }
     void print()
     {
-        cout << "ES = ";
+        cout << "ES = [";
         ES.printAll();
-        cout << "ET = ";
+        cout << "]" << endl;
+
+        cout << "ET = [";
         ET.printAll();
-        cout << "EG = ";
+        cout << "]" << endl;
+
+        cout << "EG = [";
         EG.printAll();
+        cout << "]" << endl;
+
 
     }
 };

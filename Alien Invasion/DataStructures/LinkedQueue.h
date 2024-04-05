@@ -166,7 +166,7 @@ void LinkedQueue<T>::printAll() const
 
 	while (temp)
 	{
-		cout << temp->getItem() << endl;
+		cout << temp->getItem()<< " ";
 		temp = temp->getNext();
 	}
 }

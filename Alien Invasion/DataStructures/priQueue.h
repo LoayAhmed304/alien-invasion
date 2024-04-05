@@ -79,7 +79,7 @@ public:
         while (temp)
         {
             int pri;
-            cout << temp->getItem(pri) << endl;
+            cout << temp->getItem(pri) << " ";
             temp = temp->getNext();
         }
     }

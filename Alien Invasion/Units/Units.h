@@ -19,7 +19,7 @@ public:
     virtual bool IsDead() = 0;
     friend std::ostream& operator<<(std::ostream& os, const Units* obj) 
     {
-        os << " " << obj->id << endl;
+        os << " " << obj->id ;
         return os;
     }
 };

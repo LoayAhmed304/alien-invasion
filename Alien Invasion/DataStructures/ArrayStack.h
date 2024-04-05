@@ -66,9 +66,10 @@ public:
 	{
 		if (top == -1)
 			return;
-		for (int i = 0; i < top + 1; i++)
+		cout << items[0];
+		for (int i = 1; i < top + 1; i++)
 		{
-			cout << items[i] << endl;
+			cout <<", "<< items[i];
 		}
 	}
 

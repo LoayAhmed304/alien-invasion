@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game(){
-	timestep = 0;
+	timestep = 1;
 	N = 0;
 	isOver = false;
 	eArmy = new EarthArmy;
@@ -29,15 +29,18 @@ void Game::setRandom() {
 }
 
 void Game::printAll() {
+	cout << "============== Earth Army Alive Units =============\n";
 	eArmy->print();
 	cout << endl;
+	cout << "============== Alien Army Alive Units =============\n";
 	aArmy->print();
 }
 
 void Game::addArmy() {
 	Units* newBorn;
 	int i = 0;
-	while (i<2) { //!isOver()
+	while (i < 50)
+	{ //!isOver()
 		if (random->probability(N)) {
 			for (int i = 0; i < N; i++) {
 				newBorn = random->generateAlien(timestep);
@@ -50,7 +53,13 @@ void Game::addArmy() {
 				eArmy->AddUnit(newBorn);
 			}
 		}
-			timestep++;
-			i++;
-		}
+		i++;
+		cout << "Current Timestep " << timestep++ << endl;
+		printAll();
+
+		do
+		{
+			cout << '\n' << "Press Enter to continue...";
+		} while (cin.get() != '\n');
+	}
 }

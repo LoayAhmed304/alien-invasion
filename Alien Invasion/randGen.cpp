@@ -93,5 +93,8 @@ Units* randGen::generateAlien(int timeStep)
 
     return newBorn;
 }
-
+int randGen::generateNum() // for phase 1.2 simulation
+{
+    return (1 + rand() % 100);
+}
 randGen::~randGen() {}

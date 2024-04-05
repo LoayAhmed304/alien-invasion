@@ -73,13 +73,13 @@ public:
     {
         if (!head)
             return;
-
+        int pri;
         priNode<T>* temp = head;
-
+        cout << temp->getItem(pri);
+        temp = temp->getNext();
         while (temp)
         {
-            int pri;
-            cout << temp->getItem(pri) << endl;
+            cout <<", "<< temp->getItem(pri) ;
             temp = temp->getNext();
         }
     }

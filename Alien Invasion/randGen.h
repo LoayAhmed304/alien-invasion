@@ -28,6 +28,7 @@ public:
 	int getMonsterIndex(int val);
 	Units* generateEarth(int timeStep);
 	Units* generateAlien(int timeStep);
+	int generateNum(); // for phase 1.2 simulation
 	~randGen();
 };
 

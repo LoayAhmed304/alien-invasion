@@ -163,10 +163,12 @@ void LinkedQueue<T>::printAll() const
 		return;
 
 	Node<T>* temp = frontPtr;
+	cout << temp->getItem();
+	temp = temp->getNext();
 
 	while (temp)
 	{
-		cout << temp->getItem() << endl;
+		cout << ", " << temp->getItem();
 		temp = temp->getNext();
 	}
 }

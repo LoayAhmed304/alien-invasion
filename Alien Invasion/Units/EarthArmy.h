@@ -10,38 +10,39 @@ using namespace std;
 class EarthArmy
 {
 private:
-    LinkedQueue <EarthSoldier*> ES;
-    ArrayStack <EarthTanks*> ET;
-    priQueue <EarthGunners*> EG;
+    LinkedQueue <Units*> ES;
+    ArrayStack <Units*> ET;
+    priQueue <Units*> EG;
 public:
     virtual void dummy() {}
     bool AddUnit(Units* X)
     {
-        if (dynamic_cast<EarthSoldier*>(X))
+        switch (X->getType()[1])
         {
-            ES.enqueue(dynamic_cast<EarthSoldier*>(X));
-        }
-        if (dynamic_cast<EarthTanks*>(X))
-        {
-            ET.push(dynamic_cast<EarthTanks*>(X));
-        }
-        if (dynamic_cast<EarthGunners*>(X))
-        {
-            EG.enqueue(dynamic_cast<EarthGunners*>(X), 3);
+        case 'S':
+            ES.enqueue(X);
+            break;
+        case 'T':
+            ET.push(X);
+            break;
+        case 'G':
+            EG.enqueue(X, (X->getCurHealth() + X->getPower()));
+            break;
         }
         return true;
+
     }
     void print()
     {
-        cout << "ES = [";
+        cout << ES.length() << " ES = [";
         ES.printAll();
         cout << "]" << endl;
 
-        cout << "ET = [";
+        cout << ET.length() << " ET = [";
         ET.printAll();
         cout << "]" << endl;
 
-        cout << "EG = [";
+        cout << EG.length() << " EG = [";
         EG.printAll();
         cout << "]" << endl;
 

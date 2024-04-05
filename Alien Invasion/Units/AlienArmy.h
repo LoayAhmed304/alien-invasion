@@ -10,24 +10,34 @@
 
 class AlienArmy{
 private:
-    LinkedQueue <AlienSoldier*> AS;
-    AlienMonster * AM [1000];
+    LinkedQueue <Units*> AS;
+    Units * AM [1000];
     int AMcount = 0;
-    Deque <AlienDrone*> AD;
+    Deque <Units*> AD;
+    bool swap = false;
 public:
     bool addUnit(Units* X)
     {
-        if (dynamic_cast<AlienSoldier*>(X))
+        switch (X->getType()[1])
         {
-            AS.enqueue(dynamic_cast<AlienSoldier*>(X));
-        }
-        if (dynamic_cast<AlienMonster*>(X))
-        {
-            AM[AMcount++] = dynamic_cast<AlienMonster*>(X);
-        }
-        if (dynamic_cast<AlienDrone*>(X))
-        {
-            AD.enqueue(dynamic_cast<AlienDrone*>(X));
+        case 'S':
+            AS.enqueue(X);
+            break;
+        case 'M':
+            AM[AMcount++] = X;
+            break;
+        case 'D':
+            if(swap)
+            {
+                AD.enqueue(X);
+                swap = false;
+            }
+            else
+            {
+                AD.enqueueFront(X);
+                swap = true;
+            }
+            break;
         }
         return true;
     }
@@ -37,18 +47,19 @@ public:
     }
     void print()
     {
-        cout << "AS = [";
+        cout <<AS.length() << " AS = [";
         AS.printAll();
-        cout <<"]"<< endl;
+        cout << "]" << endl;
 
-        cout << "AM = [";
-        for (int i = 0; i < AMcount; i++)
+        cout <<AMcount<< " AM = [";
+        cout << AM[0];
+        for (int i = 1; i < AMcount; i++)
         {
-            cout << AM[i] << " ";
+            cout <<", "<< AM[i] ;
         }
         cout << "]" << endl;
 
-        cout << "AD = [";
+        cout << AD.length() <<" AD = [";
         AD.printAll();
         cout << "]" << endl;
 

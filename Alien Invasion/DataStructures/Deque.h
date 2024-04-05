@@ -149,10 +149,12 @@ void Deque<T>::printAll() const
 		return;
 
 	dequeNode<T>* temp = frontPtr;
+	cout << temp->getItem();
+	temp = temp->getNext();
 
 	while (temp)
 	{
-		cout << temp->getItem() << " ";
+		cout << ", " << temp->getItem();
 		temp = temp->getNext();
 	}
 }

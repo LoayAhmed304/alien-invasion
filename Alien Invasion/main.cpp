@@ -6,6 +6,5 @@ int main()
 {
     Game game;
     game.simulate();
-    game.printAll();
     return 0;
 }

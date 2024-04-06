@@ -1,9 +1,6 @@
 #include "Game.h"
 
-Game::Game(){
-	timestep = 1;
-	N = 0;
-	isOver = false;
+Game::Game(): timestep(1), N(0), isOver(false){
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
@@ -11,20 +8,20 @@ Game::Game(){
 
 void Game::setRandom() {
 	int es, et, eg, as, am, ad, probability, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;
+		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
 
 	fstream inputFile;
 	string fileName = "input.txt";
 	inputFile.open(fileName, ios::in);
 	if (inputFile.is_open()) {
-		inputFile >> N >> es >> et >> eg >> as >> am >> ad >> probability;									//Reading first 8 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;		// Take absolute to any high value
+		inputFile >> N >> es >> et >> eg >> as >> am >> ad >> probability;									// Reading first 8 digits
+		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
 
-		random = new randGen(N, es, et, eg, as, am, ad, probability, epl, abs(eph),
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac));
+		random = new randGen(N, es, et, eg, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac));						//	to handle the range dash '-'
 	}
 	else {
-		throw std::ios_base::failure("Failed to open file");
+		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
 	} 
 }
 
@@ -43,13 +40,13 @@ void Game::printAll() {
 
 void Game::simulate()
 {
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
 	{
 		addArmy();
 		int x = random->generateNum();
 		cout << "Current Timestep " << timestep++ << "\n";
-		LinkedQueue<Units*> tempList;
-		Units* tempUnit = nullptr;
+		LinkedQueue<Units*> tempList;		// To store units temporarily
+		Units* tempUnit = nullptr;			// To point to a unit temporarily
 
 		if (x < 10)
 		{

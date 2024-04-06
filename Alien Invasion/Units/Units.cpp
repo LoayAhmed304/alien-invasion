@@ -15,6 +15,11 @@ Units::Units(string t, int h, int p, int c, int timestep) {
 	attack_cap = c;
 	Tj = timestep;
 }
+bool Units::GetAttacked(int dmg)
+{
+	cur_health -= dmg; // to be (dmg / sqrt(cur-health)) in phase 2
+	return true;
+}
 string Units::getType() const
 {
 	return type;

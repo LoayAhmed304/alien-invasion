@@ -42,7 +42,7 @@ bool Deque<T>::isEmpty() const
 }
 
 template<typename T>
-inline int Deque<T>::length() const
+int Deque<T>::length() const
 {
 	return count;
 }

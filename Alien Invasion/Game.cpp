@@ -25,7 +25,7 @@ void Game::setRandom() {
 	}
 	else {
 		throw std::ios_base::failure("Failed to open file");
-	}
+	} 
 }
 
 void Game::printAll() {
@@ -34,32 +34,115 @@ void Game::printAll() {
 	cout << endl;
 	cout << "============== Alien Army Alive Units =============\n";
 	aArmy->print();
+	cout << endl;
+	cout << "============== Killed/Destructed Units =============\n";
+	cout << killedList.length()<< " units [";
+	killedList.printAll();
+	cout << "]\n";
+}
+
+void Game::simulate()
+{
+	for (int i = 0; i < 50; ++i)
+	{
+		addArmy();
+		int x = random->generateNum();
+		cout << "Current Timestep " << timestep++ << "\n";
+		LinkedQueue<Units*> tempList;
+		Units* tempUnit = nullptr;
+
+		if (x < 10)
+		{
+			if (!eArmy->IsEmptyES())
+			{
+				tempUnit = eArmy->removeSoldier();
+				eArmy->AddUnit(tempUnit);
+			}
+		}
+		else if (x < 20)
+		{
+			if (!eArmy->IsEmptyET())
+			{
+				tempUnit = eArmy->removeTank();
+				killedList.enqueue(tempUnit);
+			}
+		}
+		else if (x < 30)
+		{
+			if (!eArmy->IsEmptyEG())
+			{
+				tempUnit = eArmy->removeGunnery();
+				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
+				eArmy->AddUnit(tempUnit);
+			}
+		}
+		else if (x < 40)
+		{
+			if (aArmy->lengthAS() >= 5)
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					tempUnit = aArmy->removeSoldier();
+					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
+			}
+		}
+		else if (x < 50)
+		{
+			if (aArmy->lengthAM() >= 5)
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					tempUnit = aArmy->removeMonster(random->getMonsterIndex(aArmy->lengthAM()));
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
+			}
+		}
+		else if (x < 60)
+		{
+			if (aArmy->lengthAD() >= 6)
+			{
+				for (int i = 0; i < 6; ++i)
+				{
+					tempUnit = aArmy->removeDrone();
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 6; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					killedList.enqueue(tempUnit);
+				}
+			}
+		}
+		printAll();
+		system("pause");
+		cout << endl;
+	}
 }
 
 void Game::addArmy() {
 	Units* newBorn;
-	int i = 0;
-	while (i < 50)
-	{ //!isOver()
-		if (random->probability(N)) {
-			for (int i = 0; i < N; i++) {
-				newBorn = random->generateAlien(timestep);
-				aArmy->addUnit(newBorn);
-			}
+	if (random->probability(N)) {
+		for (int i = 0; i < N; i++) {
+			newBorn = random->generateAlien(timestep);
+			aArmy->addUnit(newBorn);
 		}
-		if (random->probability(N)) {
-			for (int i = 0; i < N; i++) {
-				newBorn = random->generateEarth(timestep);
-				eArmy->AddUnit(newBorn);
-			}
+	}
+	if (random->probability(N)) {
+		for (int i = 0; i < N; i++) {
+			newBorn = random->generateEarth(timestep);
+			eArmy->AddUnit(newBorn);
 		}
-		i++;
-		cout << "Current Timestep " << timestep++ << endl;
-		printAll();
-
-		do
-		{
-			cout << '\n' << "Press Enter to continue...";
-		} while (cin.get() != '\n');
 	}
 }

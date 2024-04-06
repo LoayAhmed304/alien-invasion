@@ -4,13 +4,11 @@
 #include "Units/AlienArmy.h"
 #include "Game.h"
 #include "randGen.h"
-
-
 using namespace std;
 int main() 
 {
     Game game;
-    game.addArmy();
+    game.simulate();
     game.printAll();
     return 0;
 }

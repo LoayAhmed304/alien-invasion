@@ -15,7 +15,7 @@ protected:
 public:
     Units(string, int, int, int, int);
     virtual bool Attack() = 0;
-    virtual bool GetAttacked() = 0;
+    virtual bool GetAttacked(int dmg);
     virtual bool IsDead() = 0;
     virtual string getType() const;
     virtual int getHealth() const;
@@ -24,7 +24,7 @@ public:
     virtual int getAttackCap() const;
     friend std::ostream& operator<<(std::ostream& os, const Units* obj) 
     {
-        os << obj->id;
+        os << obj->id ;
         return os;
     }
 };

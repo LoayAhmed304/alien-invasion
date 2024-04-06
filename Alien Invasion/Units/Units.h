@@ -24,7 +24,7 @@ public:
     virtual int getAttackCap() const;
     friend std::ostream& operator<<(std::ostream& os, const Units* obj) 
     {
-        os << obj->id;
+        os << obj->id ;
         return os;
     }
 };

@@ -7,6 +7,8 @@
 #include "Units/Units.h"
 #include "randGen.h"
 #include <fstream>
+using namespace std;
+
 class Game {
 private:
 	int timestep;

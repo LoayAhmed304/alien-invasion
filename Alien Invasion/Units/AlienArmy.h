@@ -61,12 +61,12 @@ public:
         Units* unit = nullptr;
         if (swapRemove)
         {
-            AD.dequeueFront(unit);
+            AD.dequeue(unit);
             swapRemove = false;
         }
         else
         {
-            AD.dequeue(unit);
+            AD.dequeueFront(unit);
             swapRemove = true;
         }
         return unit;
@@ -97,25 +97,24 @@ public:
         }
         return true;
     }
-    bool IsEmpty()
-    {
-
-    }
     void print()
     {
-        cout <<AS.length() << " AS = [";
+        cout <<AS.length() << " AS [";
         AS.printAll();
         cout << "]" << endl;
 
-        cout <<AMcount<< " AM = [";
-        cout << AM[0];
-        for (int i = 1; i < AMcount; i++)
+        cout <<AMcount<< " AM [";
+        if(!IsEmptyAM())
         {
-            cout <<", "<< AM[i] ;
+            cout << AM[0];
+            for (int i = 1; i < AMcount; i++)
+            {
+                cout << ", " << AM[i];
+            }
         }
-        cout << "]" << endl;
+            cout << "]" << endl;
 
-        cout << AD.length() <<" AD = [";
+        cout << AD.length() <<" AD [";
         AD.printAll();
         cout << "]" << endl;
 
@@ -128,8 +127,56 @@ public:
     {
 
     }
-
-
+    bool IsEmptyAS()
+    {
+        return AS.isEmpty();
+    }
+    bool IsEmptyAM()
+    {
+        return !AMcount;
+    }
+    bool IsEmptyAD()
+    {
+        return AD.isEmpty();
+    }
+    bool IsEmpty()
+    {
+        return (IsEmptyAS() && IsEmptyAM() && IsEmptyAD());
+    }
+    int lengthAS()
+    {
+        return AS.length();
+    }
+    int lengthAM()
+    {
+        return AMcount;
+    }
+    int lengthAD()
+    {
+        return AD.length();
+    }
+    void PrintAS()
+    {
+        cout << "AS : [ ";
+        AS.printAll();
+        cout << " ]\n";
+    }
+    void PrintAM()
+    {
+        cout << "AM : [ ";
+        cout << AM[0];
+        for (int i = 1; i < AMcount; i++)
+        {
+            cout << ", " << AM[i];
+        }
+        cout << " ]\n";
+    }
+    void PrintAD()
+    {
+        cout << "AD : [ ";
+        AD.printAll();
+        cout << " ]\n";
+    }
 };
 
 #endif

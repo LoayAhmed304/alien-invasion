@@ -25,7 +25,7 @@ void Game::setRandom() {
 	}
 	else {
 		throw std::ios_base::failure("Failed to open file");
-	}
+	} 
 }
 
 void Game::printAll() {
@@ -34,8 +34,11 @@ void Game::printAll() {
 	cout << endl;
 	cout << "============== Alien Army Alive Units =============\n";
 	aArmy->print();
-	cout << "============== Killed List =============\n";
+	cout << endl;
+	cout << "============== Killed/Destructed Units =============\n";
+	cout << killedList.length()<< " units [";
 	killedList.printAll();
+	cout << "]\n";
 }
 
 void Game::simulate()
@@ -43,140 +46,88 @@ void Game::simulate()
 	for (int i = 0; i < 50; ++i)
 	{
 		addArmy();
-
 		int x = random->generateNum();
+		cout << "Current Timestep " << timestep++ << "\n";
+		LinkedQueue<Units*> tempList;
+		Units* tempUnit = nullptr;
 
 		if (x < 10)
 		{
-			Units* tempES = nullptr;
-			tempES = eArmy->removeSoldier();
-			if (tempES)
+			if (!eArmy->IsEmptyES())
 			{
-				eArmy->AddUnit(tempES);
-				cout << "Removed ES " << tempES << " from it's list and returned it again.\n";
+				tempUnit = eArmy->removeSoldier();
+				eArmy->AddUnit(tempUnit);
 			}
-			else
-				cout << "no ES found";
 		}
 		else if (x < 20)
 		{
-			Units* tempET = nullptr;
-			tempET = eArmy->removeTank();
-			if (tempET)
+			if (!eArmy->IsEmptyET())
 			{
-				killedList.enqueue(tempET);
-				cout << "Moved ET " << tempET << " to killed list.\n";
+				tempUnit = eArmy->removeTank();
+				killedList.enqueue(tempUnit);
 			}
-			else
-				cout << "no ET found";
 		}
 		else if (x < 30)
 		{
-			Units* tempEG = nullptr;
-			tempEG = eArmy->removeGunnery();
-			if (tempEG)
+			if (!eArmy->IsEmptyEG())
 			{
-				tempEG->GetAttacked(tempEG->getCurHealth() / 2);
-				eArmy->AddUnit(tempEG);
-				cout << "Decremented Gunnery " << tempEG << "'s health to it's half and returned it to it's list list.\n";
+				tempUnit = eArmy->removeGunnery();
+				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
+				eArmy->AddUnit(tempUnit);
 			}
-			else
-				cout << "no EG found";
 		}
 		else if (x < 40)
 		{
-			LinkedQueue<Units*> tempList;
-			Units* tempAS;
-			for (int i = 0; i < 5; ++i)
+			if (aArmy->lengthAS() >= 5)
 			{
-				tempAS = aArmy->removeSoldier();
-				if (tempAS)
-				{
-					tempAS->GetAttacked(tempAS->getCurHealth() / 3);
-					tempList.enqueue(tempAS);
-				}
-				else
-				{
-					cout << "no AS found";
-					break;
-				}
-			}
-			if (tempAS)
-			{
-				cout << "Picked 5 AS, Decremented their health by it's third and inserted them again.\nAS IDs: [ ";
 				for (int i = 0; i < 5; ++i)
 				{
-					tempList.dequeue(tempAS);
-					cout << tempAS << " ";
-					aArmy->addUnit(tempAS);
+					tempUnit = aArmy->removeSoldier();
+					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
+					tempList.enqueue(tempUnit);
 				}
-				cout << "].";
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
 			}
 		}
 		else if (x < 50)
 		{
-			LinkedQueue<Units*> tempList;
-			Units* tempAM;
-			int m = random->generateNum();
-			for (int i = 0; i < 5; ++i)
+			if (aArmy->lengthAM() >= 5)
 			{
-				tempAM = aArmy->removeMonster(m);
-				if (tempAM)
-					tempList.enqueue(tempAM);
-				else
-				{
-					cout << "no AM found";
-					break;
-				}
-			}
-			if (tempAM)
-			{
-				cout << "Picked 5 AM and inserted them again.\nAM IDs: [ ";
 				for (int i = 0; i < 5; ++i)
 				{
-					tempList.dequeue(tempAM);
-					cout << tempAM << " ";
-					aArmy->addUnit(tempAM);
+					tempUnit = aArmy->removeMonster(random->getMonsterIndex(aArmy->lengthAM()));
+					tempList.enqueue(tempUnit);
 				}
-				cout << "].";
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
 			}
 		}
 		else if (x < 60)
 		{
-			Units* tempAD;
-			tempAD = aArmy->removeDrone();
-			if (tempAD)
+			if (aArmy->lengthAD() >= 6)
 			{
-				cout << "Moved 6 ADs to killed list.\nAD IDs: [ ";
 				for (int i = 0; i < 6; ++i)
 				{
-					tempAD = aArmy->removeDrone();
-					if (tempAD)
-					{
-						cout << tempAD << " ";
-						killedList.enqueue(tempAD);
-					}
-					else
-					{
-						cout << "no AD found";
-						break;
-					}
+					tempUnit = aArmy->removeDrone();
+					tempList.enqueue(tempUnit);
 				}
-				cout << "].";
+				for (int i = 0; i < 6; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					killedList.enqueue(tempUnit);
+				}
 			}
-			else
-				cout << "no AD found";
 		}
-		else 
-			cout << "prob > 60\n";
-
-		cout << "Current Timestep " << timestep++ << endl;	
-
-		/*do
-		{
-			cout << '\n' << "Press Enter to continue...";
-		} while (cin.get() != '\n');*/
-
+		printAll();
+		system("pause");
+		cout << endl;
 	}
 }
 

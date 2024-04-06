@@ -14,7 +14,50 @@ private:
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
 public:
-    virtual void dummy() {}
+    Units* getSoldier()
+    {
+        Units* temp= nullptr;
+        (ES.peek(temp));
+        return temp;
+    }
+
+    Units* getTank()
+    {
+        Units* temp = nullptr;
+        ET.peek(temp);
+        return temp;
+    }
+
+    Units* getGunnery()
+    {
+        Units* temp= nullptr;
+        int n;
+        EG.peek(temp, n);
+        return temp;
+    }
+
+    Units* removeSoldier()
+    {
+        Units* temp = nullptr;
+        ES.dequeue(temp);
+        return(temp);
+    }
+
+    Units* removeTank()
+    {
+        Units* temp = nullptr;
+        ET.pop(temp);
+        return temp;
+    }
+
+    Units* removeGunnery()
+    {
+        int n;
+        Units* temp = nullptr;
+        EG.dequeue(temp, n);
+        return temp;
+    }
+
     bool AddUnit(Units* X)
     {
         switch (X->getType()[1])
@@ -32,6 +75,7 @@ public:
         return true;
 
     }
+
     void print()
     {
         cout << ES.length() << " ES = [";

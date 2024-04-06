@@ -16,16 +16,15 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
-
 public:
 	Game();
-	void setRandom(); // Replaced to be loaded in the constructor
+	void setRandom();
 	//void exportFile(); // Phase 2
 	void addArmy(); //earthArmy
 	//void fight(alienArmy*, earthArmy*);	//Phase 2
 	//int checkStatus(alienArmy*, earthArmy*);	//Phase 2
 	void printAll();
-	//void sim();
+	void simulate();
 };
 
 #endif

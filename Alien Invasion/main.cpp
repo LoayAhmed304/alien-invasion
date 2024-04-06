@@ -10,7 +10,7 @@ using namespace std;
 int main() 
 {
     Game game;
-    game.addArmy();
+    game.simulate();
     game.printAll();
     return 0;
 }

@@ -53,7 +53,7 @@
     <ClInclude Include="Units\Earth\EarthArmy.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth\EarthGunners.h">
+    <ClInclude Include="Units\Earth\EarthGunnery.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
     <ClInclude Include="Units\Earth\EarthSoldier.h">

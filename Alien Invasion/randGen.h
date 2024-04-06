@@ -6,7 +6,7 @@
 #include "Units/Aliens/AlienDrone.h"
 #include "Units/Aliens/AlienSoldier.h"
 #include "Units/Earth/EarthSoldier.h"
-#include "Units/Earth/EarthGunners.h"
+#include "Units/Earth/EarthGunnery.h"
 #include "Units/Earth/EarthTanks.h"
 
 class randGen

@@ -62,7 +62,7 @@ Units* randGen::generateEarth(int timeStep)
     }
     else
     {
-        newBorn = new EarthGunners(p, h, c, timeStep);
+        newBorn = new EarthGunnery(p, h, c, timeStep);
     }
 
     return newBorn;

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Units.h"
-#include "EarthGunners.h"
+#include "EarthGunnery.h"
 #include "EarthTanks.h"
 #include "EarthSoldier.h"
 #include "../../DataStructures/LinkedQueue.h"

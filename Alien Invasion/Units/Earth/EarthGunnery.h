@@ -1,9 +1,9 @@
 #pragma once
-class EarthGunners :public Units
+class EarthGunnery: public Units
 {
 
 public:
-	EarthGunners(int p, int h, int c, int timestep) : Units("EG", p, h, c, timestep) {
+	EarthGunnery(int p, int h, int c, int timestep): Units("EG", p, h, c, timestep) {
 		id = eID;
 
 	}

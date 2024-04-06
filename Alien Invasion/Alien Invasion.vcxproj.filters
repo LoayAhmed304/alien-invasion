@@ -4,28 +4,83 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="randGen.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Units\Units.cpp" />
+    <ClCompile Include="Units\Units.cpp">
+      <Filter>Armies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataStructures\ArrayStack.h" />
-    <ClInclude Include="DataStructures\Deque.h" />
-    <ClInclude Include="DataStructures\dequeNode.h" />
-    <ClInclude Include="DataStructures\LinkedQueue.h" />
-    <ClInclude Include="DataStructures\Node.h" />
-    <ClInclude Include="DataStructures\priNode.h" />
-    <ClInclude Include="DataStructures\priQueue.h" />
-    <ClInclude Include="DataStructures\QueueADT.h" />
-    <ClInclude Include="DataStructures\StackADT.h" />
-    <ClInclude Include="Units\AlienDrone.h" />
-    <ClInclude Include="Units\AlienMonster.h" />
-    <ClInclude Include="Units\AlienSoldier.h" />
-    <ClInclude Include="Units\EarthArmy.h" />
-    <ClInclude Include="Units\AlienArmy.h" />
-    <ClInclude Include="Units\EarthGunners.h" />
-    <ClInclude Include="Units\EarthTanks.h" />
-    <ClInclude Include="Units\EarthSoldier.h" />
-    <ClInclude Include="Units\Units.h" />
     <ClInclude Include="randGen.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="DataStructures\ArrayStack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Deque.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\dequeNode.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\LinkedQueue.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\QueueADT.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\priQueue.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\priNode.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\Node.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\StackADT.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Aliens\AlienArmy.h">
+      <Filter>Armies\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Aliens\AlienDrone.h">
+      <Filter>Armies\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Aliens\AlienMonster.h">
+      <Filter>Armies\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Aliens\AlienSoldier.h">
+      <Filter>Armies\Aliens</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Earth\EarthArmy.h">
+      <Filter>Armies\Earth</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Earth\EarthGunners.h">
+      <Filter>Armies\Earth</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Earth\EarthSoldier.h">
+      <Filter>Armies\Earth</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Earth\EarthTanks.h">
+      <Filter>Armies\Earth</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Units.h">
+      <Filter>Armies</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Armies">
+      <UniqueIdentifier>{b487386c-435e-4502-afde-3fc98fccae36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{d5f0d837-7d6f-4e0a-849c-97c9287dce2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Armies\Aliens">
+      <UniqueIdentifier>{80db8cde-7434-4fd4-bd51-c4cb735e0b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Armies\Earth">
+      <UniqueIdentifier>{c17026bd-e8f9-43b5-9d35-2d68b0e31f97}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
   </ItemGroup>
 </Project>

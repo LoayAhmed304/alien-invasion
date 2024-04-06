@@ -1,12 +1,12 @@
 #ifndef ALIEN_ARMY_H
 #define ALIEN_ARMY_H
 
-#include "Units.h"
+#include "../Units.h"
 #include "AlienSoldier.h"
 #include "AlienMonster.h"
 #include "AlienDrone.h"
-#include "../DataStructures/LinkedQueue.h"
-#include "../DataStructures/Deque.h"
+#include "../../DataStructures/LinkedQueue.h"
+#include "../../DataStructures/Deque.h"
 
 class AlienArmy{
 private:

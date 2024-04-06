@@ -2,8 +2,8 @@
 #define GAME_H
 
 #include "DataStructures/LinkedQueue.h"
-#include "Units/AlienArmy.h"
-#include "Units/EarthArmy.h"
+#include "Units/Aliens/AlienArmy.h"
+#include "Units/Earth/EarthArmy.h"
 #include "Units/Units.h"
 #include "randGen.h"
 #include <fstream>

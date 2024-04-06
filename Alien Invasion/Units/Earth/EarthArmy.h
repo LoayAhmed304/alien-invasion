@@ -1,11 +1,11 @@
 #pragma once
-#include "Units.h"
+#include "../Units.h"
 #include "EarthGunners.h"
 #include "EarthTanks.h"
 #include "EarthSoldier.h"
-#include "../DataStructures/LinkedQueue.h"
-#include "../DataStructures/ArrayStack.h"
-#include "../DataStructures/priQueue.h"
+#include "../../DataStructures/LinkedQueue.h"
+#include "../../DataStructures/ArrayStack.h"
+#include "../../DataStructures/priQueue.h"
 using namespace std;
 class EarthArmy
 {

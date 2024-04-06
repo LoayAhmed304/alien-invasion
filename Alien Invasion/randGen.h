@@ -2,12 +2,12 @@
 #define RANDOM_H
 
 #include "Units/Units.h"
-#include "Units/AlienMonster.h"
-#include "Units/AlienDrone.h"
-#include "Units/AlienSoldier.h"
-#include "Units/EarthSoldier.h"
-#include "Units/EarthGunners.h"
-#include "Units/EarthTanks.h"
+#include "Units/Aliens/AlienMonster.h"
+#include "Units/Aliens/AlienDrone.h"
+#include "Units/Aliens/AlienSoldier.h"
+#include "Units/Earth/EarthSoldier.h"
+#include "Units/Earth/EarthGunners.h"
+#include "Units/Earth/EarthTanks.h"
 
 class randGen
 {

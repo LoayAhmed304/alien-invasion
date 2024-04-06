@@ -7,7 +7,7 @@
 #include "Units/Aliens/AlienSoldier.h"
 #include "Units/Earth/EarthSoldier.h"
 #include "Units/Earth/EarthGunnery.h"
-#include "Units/Earth/EarthTanks.h"
+#include "Units/Earth/EarthTank.h"
 
 class randGen
 {
@@ -24,7 +24,7 @@ public:
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach);
-	bool probability(int&);
+	bool probability(int& n);
 	int getMonsterIndex(int val);
 	Units* generateEarth(int timeStep);
 	Units* generateAlien(int timeStep);

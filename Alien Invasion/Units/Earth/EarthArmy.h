@@ -1,8 +1,7 @@
-#pragma once
+#ifndef EARTH_ARMY_H
+#define EARTH_ARMY_H
+
 #include "../Units.h"
-#include "EarthGunnery.h"
-#include "EarthTanks.h"
-#include "EarthSoldier.h"
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/ArrayStack.h"
 #include "../../DataStructures/priQueue.h"
@@ -14,50 +13,6 @@ private:
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
 public:
-    Units* getSoldier()
-    {
-        Units* temp= nullptr;
-        (ES.peek(temp));
-        return temp;
-    }
-
-    Units* getTank()
-    {
-        Units* temp = nullptr;
-        ET.peek(temp);
-        return temp;
-    }
-
-    Units* getGunnery()
-    {
-        Units* temp= nullptr;
-        int n;
-        EG.peek(temp, n);
-        return temp;
-    }
-
-    Units* removeSoldier()
-    {
-        Units* temp = nullptr;
-        ES.dequeue(temp);
-        return(temp);
-    }
-
-    Units* removeTank()
-    {
-        Units* temp = nullptr;
-        ET.pop(temp);
-        return temp;
-    }
-
-    Units* removeGunnery()
-    {
-        int n;
-        Units* temp = nullptr;
-        EG.dequeue(temp, n);
-        return temp;
-    }
-
     bool AddUnit(Units* X)
     {
         switch (X->getType()[1])
@@ -73,67 +28,101 @@ public:
             break;
         }
         return true;
-
     }
 
-    void print()
+    bool peekSoldier(Units*& unit)
     {
-        cout << ES.length() << " ES [";
-        ES.printAll();
-        cout << "]" << endl;
-
-        cout << ET.length() << " ET [";
-        ET.printAll();
-        cout << "]" << endl;
-
-        cout << EG.length() << " EG [";
-        EG.printAll();
-        cout << "]" << endl;
+        return (ES.peek(unit));
     }
-    bool IsEmptyES()
+
+    bool peekTank(Units*& unit)
+    {
+        return (ET.peek(unit));
+    }
+
+    bool peekGunnery(Units*& unit)
+    {
+        int n;
+        return (EG.peek(unit, n));
+    }
+
+    bool removeSoldier(Units*& unit)
+    {
+        return (ES.dequeue(unit));
+    }
+
+    bool removeTank(Units*& unit)
+    {
+        return (ET.pop(unit));
+    }
+
+    bool removeGunnery(Units*& unit)
+    {
+        int n;
+        return (EG.dequeue(unit, n));
+    }
+
+    bool isEmptyES()
     {
         return ES.isEmpty();
     }
-    bool IsEmptyET()
+
+    bool isEmptyET()
     {
         return ET.isEmpty();
     }
-    bool IsEmptyEG()
+
+    bool isEmptyEG()
     {
         return EG.isEmpty();
     }
-    bool IsEmpty()
+
+    bool isEmpty()
     {
-        return (IsEmptyES() && IsEmptyET() && IsEmptyEG());
+        return (isEmptyES() && isEmptyET() && isEmptyEG());
     }
+
     int lengthES()
     {
         return ES.length();
     }
-    int lengthEG()
-    {
-        return EG.length();
-    }
+
     int lengthET()
     {
         return ET.length();
     }
-    void PrintES()
+
+    int lengthEG()
     {
-        cout << "ES : [ ";
+        return EG.length();
+    }
+
+    void printES()
+    {
+        cout << ES.length() << " ES [";
         ES.printAll();
-        cout << " ]\n";
+        cout << "]\n";
     }
-    void PrintEG()
+
+    void printET()
     {
-        cout << "EG : [ ";
-        EG.printAll();
-        cout << " ]\n";
-    }
-    void PrintET()
-    {
-        cout << "ET : [ ";
+        cout << ET.length() << " ET [";
         ET.printAll();
-        cout << " ]\n";
+        cout << "]\n";
+    }
+
+    void printEG()
+    {
+        cout << EG.length() << " EG [";
+        EG.printAll();
+        cout << "]\n";
+    }
+
+    void print()
+    {
+        printES();
+        printET();
+        printEG();
     }
 };
+#endif

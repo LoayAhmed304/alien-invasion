@@ -34,7 +34,7 @@ randGen::randGen(int n, int es, int et, int eg, int as,
 bool randGen::probability(int& n)
 {
     n = N;
-    return (1 + (rand() % 100) <= prob);
+    return ((rand() % 101) <= prob);
 }
 
 int randGen::getMonsterIndex(int val)
@@ -58,7 +58,7 @@ Units* randGen::generateEarth(int timeStep)
     }
     else if (B < ES + ET)
     {
-        newBorn = new EarthTanks(p, h, c, timeStep);
+        newBorn = new EarthTank(p, h, c, timeStep);
     }
     else
     {

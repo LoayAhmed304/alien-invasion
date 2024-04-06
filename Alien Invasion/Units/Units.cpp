@@ -6,12 +6,12 @@ int Units::aID = 2000;
 Units::Units(string t, int h, int p, int c, int timestep) {
 	type = t;
 	if(type[0] == 'E')
-		eID++;
+		++eID;
 	else
-		aID++;
-	Power = p;
+		++aID;
+	power = p;
 	health = h;
-	cur_health = health;
+	cur_health = h;
 	attack_cap = c;
 	Tj = timestep;
 }
@@ -37,10 +37,16 @@ int Units::getCurHealth() const
 
 int Units::getPower() const
 {
-	return Power;
+	return power;
 }
 
 int Units::getAttackCap() const
 {
 	return attack_cap;
+}
+
+std::ostream& operator<<(std::ostream& os, const Units* obj)
+{
+	os << obj->id;
+	return os;
 }

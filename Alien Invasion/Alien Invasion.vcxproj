@@ -149,7 +149,7 @@
     <ClInclude Include="Units\Earth\EarthArmy.h" />
     <ClInclude Include="Units\Aliens\AlienArmy.h" />
     <ClInclude Include="Units\Earth\EarthGunnery.h" />
-    <ClInclude Include="Units\Earth\EarthTanks.h" />
+    <ClInclude Include="Units\Earth\EarthTank.h" />
     <ClInclude Include="Units\Earth\EarthSoldier.h" />
     <ClInclude Include="Units\Units.h" />
     <ClInclude Include="randGen.h" />

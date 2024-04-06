@@ -1,31 +1,36 @@
 #include "Game.h"
 
-Game::Game(): timestep(1), N(0), isOver(false){
+Game::Game(): timestep(1), isOver(false)
+{
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
 }
 
-void Game::setRandom() {
-	int es, et, eg, as, am, ad, probability, epl, eph,
+void Game::setRandom() 
+{
+	int N, es, et, eg, as, am, ad, probability, epl, eph,
 		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
 
 	fstream inputFile;
 	string fileName = "input.txt";
 	inputFile.open(fileName, ios::in);
-	if (inputFile.is_open()) {
+	if (inputFile.is_open()) 
+	{
 		inputFile >> N >> es >> et >> eg >> as >> am >> ad >> probability;									// Reading first 8 digits
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
 
 		random = new randGen(N, es, et, eg, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
 			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac));						//	to handle the range dash '-'
 	}
-	else {
+	else 
+	{
 		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
 	} 
 }
 
-void Game::printAll() {
+void Game::printAll() 
+{
 	cout << "============== Earth Army Alive Units =============\n";
 	eArmy->print();
 	cout << endl;
@@ -40,46 +45,46 @@ void Game::printAll() {
 
 void Game::simulate()
 {
+	LinkedQueue<Units*> tempList;		// To store units temporarily
+	Units* tempUnit = nullptr;			// To point to a unit temporarily
 	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
 	{
 		addArmy();
 		int x = random->generateNum();
 		cout << "Current Timestep " << timestep++ << "\n";
-		LinkedQueue<Units*> tempList;		// To store units temporarily
-		Units* tempUnit = nullptr;			// To point to a unit temporarily
 
 		if (x < 10)
 		{
-			if (!eArmy->IsEmptyES())
+			if (!eArmy->isEmptyES())		// if no soldiers found do nothing
 			{
-				tempUnit = eArmy->removeSoldier();
+				eArmy->removeSoldier(tempUnit);
 				eArmy->AddUnit(tempUnit);
 			}
 		}
 		else if (x < 20)
 		{
-			if (!eArmy->IsEmptyET())
+			if (!eArmy->isEmptyET())		// if no tanks found do nothing
 			{
-				tempUnit = eArmy->removeTank();
+				eArmy->removeTank(tempUnit);
 				killedList.enqueue(tempUnit);
 			}
 		}
 		else if (x < 30)
 		{
-			if (!eArmy->IsEmptyEG())
+			if (!eArmy->isEmptyEG())		// if no Gunneries found do nothing
 			{
-				tempUnit = eArmy->removeGunnery();
+				eArmy->removeGunnery(tempUnit);
 				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
 				eArmy->AddUnit(tempUnit);
 			}
 		}
 		else if (x < 40)
 		{
-			if (aArmy->lengthAS() >= 5)
+			if (aArmy->lengthAS() >= 5)		// if soldiers are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					tempUnit = aArmy->removeSoldier();
+					aArmy->removeSoldier(tempUnit);
 					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
 					tempList.enqueue(tempUnit);
 				}
@@ -92,11 +97,11 @@ void Game::simulate()
 		}
 		else if (x < 50)
 		{
-			if (aArmy->lengthAM() >= 5)
+			if (aArmy->lengthAM() >= 5)		// if monsters are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					tempUnit = aArmy->removeMonster(random->getMonsterIndex(aArmy->lengthAM()));
+					aArmy->removeMonster(random->getMonsterIndex(aArmy->lengthAM()), tempUnit);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 5; ++i)
@@ -106,13 +111,13 @@ void Game::simulate()
 				}
 			}
 		}
-		else if (x < 60)
+		else if (x < 60)					// if drones are less than 6 do nothing
 		{
 			if (aArmy->lengthAD() >= 6)
 			{
 				for (int i = 0; i < 6; ++i)
 				{
-					tempUnit = aArmy->removeDrone();
+					aArmy->removeDrone(tempUnit);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 6; ++i)
@@ -122,14 +127,17 @@ void Game::simulate()
 				}
 			}
 		}
+		tempUnit = nullptr;
 		printAll();
 		system("pause");
 		cout << endl;
 	}
 }
 
-void Game::addArmy() {
+void Game::addArmy() 
+{
 	Units* newBorn;
+	int N;
 	if (random->probability(N)) {
 		for (int i = 0; i < N; i++) {
 			newBorn = random->generateAlien(timestep);

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef	EARTH_GUNNERY_H
+#define EARTH_GUNNERY_H
+
 class EarthGunnery: public Units
 {
 
@@ -7,19 +9,18 @@ public:
 		id = eID;
 
 	}
-	/*bool SetID(int id)
-	{
-		ID = id;
-		return true;
-	}*/
+	
 	bool Attack() {
 		return true;
 	}
+
 	bool GetAttacked() {
 		return true;
 	}
+
 	bool IsDead() {
 		return true;
 	}
 
 };
+#endif

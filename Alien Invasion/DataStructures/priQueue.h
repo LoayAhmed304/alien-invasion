@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PRIQUEUE_H
+#define PRIQUEUE_H
+
 #include "priNode.h"
 using namespace std;
 
@@ -84,3 +86,4 @@ public:
         }
     }
 };
+#endif

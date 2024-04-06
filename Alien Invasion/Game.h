@@ -1,10 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "DataStructures/LinkedQueue.h"
 #include "Units/Aliens/AlienArmy.h"
 #include "Units/Earth/EarthArmy.h"
-#include "Units/Units.h"
 #include "randGen.h"
 #include <fstream>
 using namespace std;
@@ -12,7 +10,6 @@ using namespace std;
 class Game {
 private:
 	int timestep;
-	int N;
 	bool isOver;
 	LinkedQueue<Units*> killedList;
 	randGen* random;

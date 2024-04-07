@@ -11,9 +11,9 @@ private:
     Units* AM[1000];
     int AMcount = 0;
     Deque<Units*> AD;
-    bool swapAdd = false;
-    bool swapRemove = false;
-    bool swapPeek = false;
+    bool swapAdd = true;
+    bool swapRemove = true;
+    bool swapPeek = true;
 public:
     bool addUnit(Units* X)
     {
@@ -26,16 +26,11 @@ public:
             AM[AMcount++] = X;
             break;
         case 'D':
-            if(swapAdd)
-            {
+            swapAdd = !swapAdd;
+            if (swapAdd)
                 AD.enqueue(X);
-                swapAdd = false;
-            }
             else
-            {
                 AD.enqueueFront(X);
-                swapAdd = true;
-            }
             break;
         }
         return true;
@@ -58,16 +53,10 @@ public:
 
     bool peekDrone(Units*& unit)
     {
+        swapPeek = !swapPeek;
         if (swapPeek)
-        {
-            swapPeek = false;
             return (AD.peekRear(unit));
-        }
-        else
-        {
-            swapPeek = true;
-            return (AD.peek(unit));
-        }
+        return (AD.peek(unit));
     }
 
     bool removeSoldier(Units*& unit)
@@ -89,16 +78,10 @@ public:
 
     bool removeDrone(Units*& unit)
     {
+        swapRemove = !swapRemove;
         if (swapRemove)
-        {
-            swapRemove = false;
-            return (AD.dequeueRear(unit));
-        }
-        else
-        {
-            swapRemove = true;
-            return (AD.dequeue(unit));
-        }
+            return AD.dequeueRear(unit);
+        return AD.dequeue(unit);
     }
 
     bool isEmptyAS()

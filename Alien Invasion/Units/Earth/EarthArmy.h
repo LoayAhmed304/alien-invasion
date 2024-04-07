@@ -72,7 +72,7 @@ public:
             return EG.isEmpty();
         case 'T':
             return ET.isEmpty();
-        default:
+        case 'A':
             return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
         }
     }
@@ -96,10 +96,12 @@ public:
         cout << ES.length() << " ES [";
         ES.printAll();
         cout << "]\n";
+        
         ///     Print all Earth Tanks
         cout << ET.length() << " ET [";
         ET.printAll();
         cout << "]\n";
+        
         ///     Print all Earth Gunneries
         cout << EG.length() << " EG [";
         EG.printAll();

@@ -32,6 +32,7 @@ public:
 
     bool peekSoldier(Units*& unit)
     {
+        unit->getType();
         return (ES.peek(unit));
     }
 
@@ -62,67 +63,47 @@ public:
         return (EG.dequeue(unit, n));
     }
 
-    bool isEmptyES()
+    bool isEmpty(char s = 'A')
     {
-        return ES.isEmpty();
+        switch (s) {
+        case 'S':
+            return ES.isEmpty();
+        case 'G':
+            return EG.isEmpty();
+        case 'T':
+            return ET.isEmpty();
+        default:
+            return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
+        }
     }
 
-    bool isEmptyET()
-    {
-        return ET.isEmpty();
-    }
 
-    bool isEmptyEG()
+    int length(char e)
     {
-        return EG.isEmpty();
-    }
-
-    bool isEmpty()
-    {
-        return (isEmptyES() && isEmptyET() && isEmptyEG());
-    }
-
-    int lengthES()
-    {
-        return ES.length();
-    }
-
-    int lengthET()
-    {
-        return ET.length();
-    }
-
-    int lengthEG()
-    {
-        return EG.length();
-    }
-
-    void printES()
-    {
-        cout << ES.length() << " ES [";
-        ES.printAll();
-        cout << "]\n";
-    }
-
-    void printET()
-    {
-        cout << ET.length() << " ET [";
-        ET.printAll();
-        cout << "]\n";
-    }
-
-    void printEG()
-    {
-        cout << EG.length() << " EG [";
-        EG.printAll();
-        cout << "]\n";
+        switch (e) {
+        case 'S':
+            return ES.length();
+        case 'T':
+            return ET.length();
+        case 'G':
+            return EG.length();
+        }
     }
 
     void print()
     {
-        printES();
-        printET();
-        printEG();
+        ///     Print all Earth Soldiers
+        cout << ES.length() << " ES [";
+        ES.printAll();
+        cout << "]\n";
+        ///     Print all Earth Tanks
+        cout << ET.length() << " ET [";
+        ET.printAll();
+        cout << "]\n";
+        ///     Print all Earth Gunneries
+        cout << EG.length() << " EG [";
+        EG.printAll();
+        cout << "]\n";
     }
 };
 #endif

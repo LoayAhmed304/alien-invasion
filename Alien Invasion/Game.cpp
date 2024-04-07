@@ -55,7 +55,7 @@ void Game::simulate()
 
 		if (x < 10)
 		{
-			if (!eArmy->isEmptyES())		// if no soldiers found do nothing
+			if (!eArmy->isEmpty('S'))		// if no soldiers found do nothing
 			{
 				eArmy->removeSoldier(tempUnit);
 				eArmy->AddUnit(tempUnit);
@@ -63,7 +63,7 @@ void Game::simulate()
 		}
 		else if (x < 20)
 		{
-			if (!eArmy->isEmptyET())		// if no tanks found do nothing
+			if (!eArmy->isEmpty('T'))		// if no tanks found do nothing
 			{
 				eArmy->removeTank(tempUnit);
 				killedList.enqueue(tempUnit);
@@ -71,7 +71,7 @@ void Game::simulate()
 		}
 		else if (x < 30)
 		{
-			if (!eArmy->isEmptyEG())		// if no Gunneries found do nothing
+			if (!eArmy->isEmpty('G'))		// if no Gunneries found do nothing
 			{
 				eArmy->removeGunnery(tempUnit);
 				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
@@ -80,7 +80,7 @@ void Game::simulate()
 		}
 		else if (x < 40)
 		{
-			if (aArmy->lengthAS() >= 5)		// if soldiers are less than 5 do nothing
+			if (aArmy->length('S') >= 5)		// if soldiers are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
@@ -97,11 +97,11 @@ void Game::simulate()
 		}
 		else if (x < 50)
 		{
-			if (aArmy->lengthAM() >= 5)		// if monsters are less than 5 do nothing
+			if (aArmy->length('M') >= 5)		// if monsters are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					aArmy->removeMonster(random->getMonsterIndex(aArmy->lengthAM()), tempUnit);
+					aArmy->removeMonster(random->getMonsterIndex(aArmy->length('M')), tempUnit);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 5; ++i)
@@ -113,7 +113,7 @@ void Game::simulate()
 		}
 		else if (x < 60)					// if drones are less than 6 do nothing
 		{
-			if (aArmy->lengthAD() >= 6)
+			if (aArmy->length('D') >= 6)
 			{
 				for (int i = 0; i < 6; ++i)
 				{

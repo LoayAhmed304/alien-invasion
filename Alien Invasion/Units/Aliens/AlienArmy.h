@@ -43,7 +43,7 @@ public:
 
     bool peekMonster(int m, Units*& unit)
     {
-        if (!isEmptyAM())
+        if (!isEmpty('M'))
         {
             unit = AM[m];
             return true;
@@ -66,7 +66,7 @@ public:
 
     bool removeMonster(int m, Units*& unit)
     {
-        if (!isEmptyAM())
+        if (!isEmpty('M'))
         {
             unit = AM[m];
             AM[m] = AM[--AMcount];
@@ -84,52 +84,42 @@ public:
         return AD.dequeue(unit);
     }
 
-    bool isEmptyAS()
+    bool isEmpty(char s = 'A')
     {
-        return AS.isEmpty();
+        switch (s) {
+        case 'S':
+            return AS.isEmpty();
+        case 'M':
+            return !AMcount;
+        case 'D':
+            return AD.isEmpty();
+        case 'A':
+            return (AS.isEmpty() && !AMcount && AD.isEmpty());
+        }
     }
 
-    bool isEmptyAM()
+    int length(char e)
     {
-        return !AMcount;
+        switch (e) {
+        case 'S':
+            return AS.length();
+        case 'M':
+            return AMcount;
+        case 'D':
+            return AD.length();
+        }
     }
 
-    bool isEmptyAD()
+    void print()
     {
-        return AD.isEmpty();
-    }
-
-    bool isEmpty()
-    {
-        return (isEmptyAS() && isEmptyAM() && isEmptyAD());
-    }
-
-    int lengthAS()
-    {
-        return AS.length();
-    }
-
-    int lengthAM()
-    {
-        return AMcount;
-    }
-
-    int lengthAD()
-    {
-        return AD.length();
-    }
-
-    void printAS()
-    {
+        ///     Print all Alien Soldiers
         cout << AS.length() << " AS [";
         AS.printAll();
         cout << "]\n";
-    }
 
-    void printAM()
-    {
+        ///     Print all Alien Monsters
         cout << AMcount << " AM [";
-        if(!isEmptyAM())
+        if (!isEmpty('M'))
         {
             cout << AM[0];
             for (int i = 1; i < AMcount; i++)
@@ -138,20 +128,11 @@ public:
             }
         }
         cout << "]\n";
-    }
 
-    void printAD()
-    {
+        ///     Print all Alien Drones
         cout << AD.length() << " AD [";
         AD.printAll();
         cout << "]\n";
-    }
-
-    void print()
-    {
-        printAS();
-        printAM();
-        printAD();
     }
 };
 

@@ -17,15 +17,15 @@ private:
 public:
     bool addUnit(Units* X)
     {
-        switch (X->getType()[1])
+        switch (X->getType())
         {
-        case 'S':
+        case alienSoldier:
             AS.enqueue(X);
             break;
-        case 'M':
+        case alienMonster:
             AM[AMcount++] = X;
             break;
-        case 'D':
+        case alienDrone:
             swapAdd = !swapAdd;
             if (swapAdd)
                 AD.enqueue(X);
@@ -36,76 +36,71 @@ public:
         return true;
     }
 
-    bool peekSoldier(Units*& unit)
+    bool peekUnit(unitType type, Units*& unit, int m = 0)
     {
-        return (AS.peek(unit));
-    }
-
-    bool peekMonster(int m, Units*& unit)
-    {
-        if (!isEmpty('M'))
-        {
-            unit = AM[m];
-            return true;
+        int n;
+        switch (type) {
+        case alienSoldier:
+            return (AS.peek(unit));
+        case alienMonster:
+            if (!isEmpty(alienMonster))
+            {
+                unit = AM[m];
+                return true;
+            }
+            return false;
+        case alienDrone:
+            swapPeek = !swapPeek;
+            if (swapPeek)
+                return (AD.peekRear(unit));
+            return (AD.peek(unit));
         }
-        return false;
     }
 
-    bool peekDrone(Units*& unit)
+    bool getUnit(unitType type, Units*& unit, int m = 0)
     {
-        swapPeek = !swapPeek;
-        if (swapPeek)
-            return (AD.peekRear(unit));
-        return (AD.peek(unit));
-    }
-
-    bool removeSoldier(Units*& unit)
-    {
-        return (AS.dequeue(unit));
-    }
-
-    bool removeMonster(int m, Units*& unit)
-    {
-        if (!isEmpty('M'))
-        {
-            unit = AM[m];
-            AM[m] = AM[--AMcount];
-            AM[AMcount] = nullptr;
-            return true;
+        switch (type) {
+        case alienSoldier:
+            return (AS.dequeue(unit));
+        case alienMonster:
+            if (!isEmpty(alienMonster))
+            {
+                unit = AM[m];
+                AM[m] = AM[--AMcount];
+                AM[AMcount] = nullptr;
+                return true;
+            }
+            return false;
+        case alienDrone:
+            swapRemove = !swapRemove;
+            if (swapRemove)
+                return AD.dequeueRear(unit);
+            return AD.dequeue(unit);
         }
-        return false;
     }
 
-    bool removeDrone(Units*& unit)
+    bool isEmpty(unitType type)
     {
-        swapRemove = !swapRemove;
-        if (swapRemove)
-            return AD.dequeueRear(unit);
-        return AD.dequeue(unit);
-    }
-
-    bool isEmpty(char s = 'A')
-    {
-        switch (s) {
-        case 'S':
+        switch (type) {
+        case alienSoldier:
             return AS.isEmpty();
-        case 'M':
+        case alienMonster:
             return !AMcount;
-        case 'D':
+        case alienDrone:
             return AD.isEmpty();
-        case 'A':
+        case alien:
             return (AS.isEmpty() && !AMcount && AD.isEmpty());
         }
     }
 
-    int length(char e)
+    int length(unitType type)
     {
-        switch (e) {
-        case 'S':
+        switch (type) {
+        case alienSoldier:
             return AS.length();
-        case 'M':
+        case alienMonster:
             return AMcount;
-        case 'D':
+        case alienDrone:
             return AD.length();
         }
     }
@@ -119,7 +114,7 @@ public:
 
         ///     Print all Alien Monsters
         cout << AMcount << " AM [";
-        if (!isEmpty('M'))
+        if (!isEmpty(alienMonster))
         {
             cout << AM[0];
             for (int i = 1; i < AMcount; i++)

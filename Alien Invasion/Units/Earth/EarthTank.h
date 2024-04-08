@@ -5,7 +5,7 @@ class EarthTank : public Units
 {
 
 public:
-	EarthTank(int p, int h, int c, int timestep) : Units("ET", p, h, c, timestep) {
+	EarthTank(int p, int h, int c, int timestep) : Units(earthTank, p, h, c, timestep) {
 		id = eID;
 	}
 	

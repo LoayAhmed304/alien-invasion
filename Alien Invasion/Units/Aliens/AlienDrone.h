@@ -5,7 +5,7 @@ class AlienDrone : public Units
 {
 
 public:
-	AlienDrone(int p, int h, int c, int timestep) : Units("AD", p, h, c, timestep) {
+	AlienDrone(int p, int h, int c, int timestep) : Units(alienDrone, p, h, c, timestep) {
 		id = aID;
 	}
 

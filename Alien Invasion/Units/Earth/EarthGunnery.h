@@ -5,7 +5,7 @@ class EarthGunnery: public Units
 {
 
 public:
-	EarthGunnery(int p, int h, int c, int timestep): Units("EG", p, h, c, timestep) {
+	EarthGunnery(int p, int h, int c, int timestep): Units(earthGunnery, p, h, c, timestep) {
 		id = eID;
 
 	}

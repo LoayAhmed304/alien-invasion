@@ -3,9 +3,9 @@
 int Units::eID = 0;
 int Units::aID = 2000;
 
-Units::Units(string t, int h, int p, int c, int timestep) {
+Units::Units(unitType t, int h, int p, int c, int timestep) {
 	type = t;
-	if(type[0] == 'E')
+	if(type < 4)
 		++eID;
 	else
 		++aID;
@@ -20,7 +20,7 @@ bool Units::GetAttacked(int dmg)
 	cur_health -= dmg; // to be (dmg / sqrt(cur-health)) in phase 2
 	return true;
 }
-string Units::getType() const
+unitType Units::getType() const
 {
 	return type;
 }

@@ -55,36 +55,36 @@ void Game::simulate()
 
 		if (x < 10)
 		{
-			if (!eArmy->isEmpty('S'))		// if no soldiers found do nothing
+			if (!eArmy->isEmpty(earthSoldier))		// if no soldiers found do nothing
 			{
-				eArmy->removeSoldier(tempUnit);
+				eArmy->getUnit(earthSoldier, tempUnit);
 				eArmy->AddUnit(tempUnit);
 			}
 		}
 		else if (x < 20)
 		{
-			if (!eArmy->isEmpty('T'))		// if no tanks found do nothing
+			if (!eArmy->isEmpty(earthTank))		// if no tanks found do nothing
 			{
-				eArmy->removeTank(tempUnit);
+				eArmy->getUnit(earthTank, tempUnit);
 				killedList.enqueue(tempUnit);
 			}
 		}
 		else if (x < 30)
 		{
-			if (!eArmy->isEmpty('G'))		// if no Gunneries found do nothing
+			if (!eArmy->isEmpty(earthGunnery))		// if no Gunneries found do nothing
 			{
-				eArmy->removeGunnery(tempUnit);
+				eArmy->getUnit(earthGunnery, tempUnit);
 				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
 				eArmy->AddUnit(tempUnit);
 			}
 		}
 		else if (x < 40)
 		{
-			if (aArmy->length('S') >= 5)		// if soldiers are less than 5 do nothing
+			if (aArmy->length(alienSoldier) >= 5)		// if soldiers are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					aArmy->removeSoldier(tempUnit);
+					aArmy->getUnit(alienSoldier, tempUnit);
 					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
 					tempList.enqueue(tempUnit);
 				}
@@ -97,11 +97,11 @@ void Game::simulate()
 		}
 		else if (x < 50)
 		{
-			if (aArmy->length('M') >= 5)		// if monsters are less than 5 do nothing
+			if (aArmy->length(alienMonster) >= 5)		// if monsters are less than 5 do nothing
 			{
 				for (int i = 0; i < 5; ++i)
 				{
-					aArmy->removeMonster(random->getMonsterIndex(aArmy->length('M')), tempUnit);
+					aArmy->getUnit(alienMonster, tempUnit, random->getMonsterIndex(aArmy->length(alienMonster)));
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 5; ++i)
@@ -113,11 +113,11 @@ void Game::simulate()
 		}
 		else if (x < 60)					// if drones are less than 6 do nothing
 		{
-			if (aArmy->length('D') >= 6)
+			if (aArmy->length(alienDrone) >= 6)
 			{
 				for (int i = 0; i < 6; ++i)
 				{
-					aArmy->removeDrone(tempUnit);
+					aArmy->getUnit(alienDrone, tempUnit);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 6; ++i)

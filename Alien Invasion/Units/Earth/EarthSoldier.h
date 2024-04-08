@@ -5,7 +5,7 @@ class EarthSoldier: public Units
 {
 
 public:
-	EarthSoldier(int p, int h, int c, int timestep):Units("ES",p, h, c, timestep) {
+	EarthSoldier(int p, int h, int c, int timestep):Units(earthSoldier,p, h, c, timestep) {
 		id = eID;
 	}
 

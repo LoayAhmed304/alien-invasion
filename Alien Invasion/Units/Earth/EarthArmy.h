@@ -15,77 +15,69 @@ private:
 public:
     bool AddUnit(Units* X)
     {
-        switch (X->getType()[1])
+        switch (X->getType())
         {
-        case 'S':
+        case earthSoldier:
             ES.enqueue(X);
             break;
-        case 'T':
+        case earthTank:
             ET.push(X);
             break;
-        case 'G':
+        case earthGunnery:
             EG.enqueue(X, (X->getCurHealth() + X->getPower()));
             break;
         }
         return true;
     }
 
-    bool peekSoldier(Units*& unit)
-    {
-        unit->getType();
-        return (ES.peek(unit));
-    }
-
-    bool peekTank(Units*& unit)
-    {
-        return (ET.peek(unit));
-    }
-
-    bool peekGunnery(Units*& unit)
+    bool peekUnit(unitType type, Units*& unit)
     {
         int n;
-        return (EG.peek(unit, n));
+        switch (type) {
+        case earthSoldier:
+            return (ES.peek(unit));
+        case earthTank:
+            return ET.peek(unit);
+        case earthGunnery:
+            return EG.peek(unit, n);
+        }
     }
 
-    bool removeSoldier(Units*& unit)
-    {
-        return (ES.dequeue(unit));
-    }
-
-    bool removeTank(Units*& unit)
-    {
-        return (ET.pop(unit));
-    }
-
-    bool removeGunnery(Units*& unit)
+    bool getUnit(unitType type, Units*& unit)
     {
         int n;
-        return (EG.dequeue(unit, n));
+        switch (type) {
+        case earthSoldier:
+            return (ES.dequeue(unit));
+        case earthTank:
+            return ET.pop(unit);
+        case earthGunnery:
+            return EG.dequeue(unit, n);
+        }
     }
 
-    bool isEmpty(char s = 'A')
+    bool isEmpty(unitType type)
     {
-        switch (s) {
-        case 'S':
+        switch (type) {
+        case earthSoldier:
             return ES.isEmpty();
-        case 'G':
-            return EG.isEmpty();
-        case 'T':
+        case earthTank:
             return ET.isEmpty();
-        case 'A':
+        case earthGunnery:
+            return EG.isEmpty();
+        case earth:
             return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
         }
     }
 
-
-    int length(char e)
+    int length(unitType type)
     {
-        switch (e) {
-        case 'S':
+        switch (type) {
+        case earthSoldier:
             return ES.length();
-        case 'T':
+        case earthTank:
             return ET.length();
-        case 'G':
+        case earthGunnery:
             return EG.length();
         }
     }

@@ -32,31 +32,31 @@ public:
 
     bool peekUnit(unitType type, Units*& unit)
     {
-        int n;
         switch (type) {
         case earthSoldier:
             return (ES.peek(unit));
         case earthTank:
             return ET.peek(unit);
         case earthGunnery:
+            int n;
             return EG.peek(unit, n);
         }
     }
 
     bool getUnit(unitType type, Units*& unit)
     {
-        int n;
         switch (type) {
         case earthSoldier:
             return (ES.dequeue(unit));
         case earthTank:
             return ET.pop(unit);
         case earthGunnery:
+            int n;
             return EG.dequeue(unit, n);
         }
     }
 
-    bool isEmpty(unitType type = earth)
+    bool isEmpty(unitType type)
     {
         switch (type) {
         case earthSoldier:
@@ -65,7 +65,7 @@ public:
             return ET.isEmpty();
         case earthGunnery:
             return EG.isEmpty();
-        case earth:
+        default:
             return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
         }
     }

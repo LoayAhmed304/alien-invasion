@@ -79,7 +79,7 @@ public:
         }
     }
 
-    bool isEmpty(unitType type = alien)
+    bool isEmpty(unitType type)
     {
         switch (type) {
         case alienSoldier:
@@ -88,7 +88,7 @@ public:
             return !AMcount;
         case alienDrone:
             return AD.isEmpty();
-        case alien:
+        default:
             return (AS.isEmpty() && !AMcount && AD.isEmpty());
         }
     }

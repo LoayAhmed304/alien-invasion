@@ -7,11 +7,9 @@ class Game;
 
 enum unitType
 {
-    earth,
     earthSoldier,
     earthTank,
     earthGunnery,
-    alien,
     alienSoldier,
     alienMonster,
     alienDrone

@@ -5,7 +5,7 @@ int Units::aID = 2000;
 
 Units::Units(unitType t, int h, int p, int c, int timestep) {
 	type = t;
-	if(type < 4)
+	if(type < 3)
 		++eID;
 	else
 		++aID;

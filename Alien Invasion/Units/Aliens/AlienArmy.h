@@ -79,7 +79,7 @@ public:
         }
     }
 
-    bool isEmpty(unitType type)
+    bool isEmpty(unitType type = alien)
     {
         switch (type) {
         case alienSoldier:

@@ -56,7 +56,7 @@ public:
         }
     }
 
-    bool isEmpty(unitType type)
+    bool isEmpty(unitType type = earth)
     {
         switch (type) {
         case earthSoldier:

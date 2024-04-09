@@ -45,6 +45,11 @@ int Units::getAttackCap() const
 	return attack_cap;
 }
 
+void Units::setGame(Game* g)
+{
+	game = g;
+}
+
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
 	os << obj->id;

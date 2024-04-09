@@ -141,6 +141,7 @@ void Game::addArmy()
 	if (random->probability(N)) {
 		for (int i = 0; i < N; i++) {
 			newBorn = random->generateAlien(timestep);
+			newBorn->setGame(this);
 			aArmy->addUnit(newBorn);
 		}
 	}

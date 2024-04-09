@@ -3,15 +3,15 @@
 int Units::eID = 0;
 int Units::aID = 2000;
 
-Units::Units(string t, int h, int p, int c, int timestep) {
+Units::Units(unitType t, int h, int p, int c, int timestep) {
 	type = t;
-	if(type[0] == 'E')
-		eID++;
+	if(type < 3)
+		++eID;
 	else
-		aID++;
-	Power = p;
+		++aID;
+	power = p;
 	health = h;
-	cur_health = health;
+	cur_health = h;
 	attack_cap = c;
 	Tj = timestep;
 }
@@ -20,7 +20,7 @@ bool Units::GetAttacked(int dmg)
 	cur_health -= dmg; // to be (dmg / sqrt(cur-health)) in phase 2
 	return true;
 }
-string Units::getType() const
+unitType Units::getType() const
 {
 	return type;
 }
@@ -37,10 +37,21 @@ int Units::getCurHealth() const
 
 int Units::getPower() const
 {
-	return Power;
+	return power;
 }
 
 int Units::getAttackCap() const
 {
 	return attack_cap;
+}
+
+void Units::setGame(Game* g)
+{
+	game = g;
+}
+
+std::ostream& operator<<(std::ostream& os, const Units* obj)
+{
+	os << obj->id;
+	return os;
 }

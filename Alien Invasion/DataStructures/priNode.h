@@ -1,4 +1,6 @@
-#pragma once
+#ifndef	PRINODE_H
+#define PRINODE_H
+
 template < typename T>
 class priNode
 {
@@ -32,4 +34,4 @@ public :
 	int getPri() const
 	{		return pri; 	}
 }; // end Node
-
+#endif

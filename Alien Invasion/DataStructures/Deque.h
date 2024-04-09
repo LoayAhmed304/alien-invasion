@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEQUE_H
+#define DEQUE_H
 
 #include "dequeNode.h"
 #include "QueueADT.h"
@@ -19,13 +20,14 @@ public:
 	int length() const;
 	bool enqueue(const T& newEntry);
 	bool enqueueFront(const T& newEntry);
-	bool dequeueFront(T& FrontEntry);
 	bool dequeue(T& RearEntry);
+	bool dequeueRear(T& FrontEntry);
 	bool peek(T& FrontEntry) const;
 	bool peekRear(T& RearEntry) const;
 	void printAll() const;
 	~Deque();
 };
+#endif
 
 template<typename T>
 Deque<T>::Deque()
@@ -82,7 +84,7 @@ bool Deque<T>::enqueueFront(const T& newEntry)
 }
 
 template<typename T>
-bool Deque<T>::dequeueFront(T& FrontEntry)
+bool Deque<T>::dequeue(T& FrontEntry)
 {
 	if (isEmpty())
 		return false;
@@ -105,7 +107,7 @@ bool Deque<T>::dequeueFront(T& FrontEntry)
 }
 
 template<typename T>
-bool Deque<T>::dequeue(T& RearEntry)
+bool Deque<T>::dequeueRear(T& RearEntry)
 {
 	if (isEmpty())
 		return false;
@@ -163,5 +165,5 @@ template<typename T>
 Deque<T>::~Deque()
 {
 	T tst;
-	while (dequeueFront(tst));
+	while (dequeue(tst));
 }

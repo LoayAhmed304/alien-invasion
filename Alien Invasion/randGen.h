@@ -2,12 +2,12 @@
 #define RANDOM_H
 
 #include "Units/Units.h"
-#include "Units/AlienMonster.h"
-#include "Units/AlienDrone.h"
-#include "Units/AlienSoldier.h"
-#include "Units/EarthSoldier.h"
-#include "Units/EarthGunners.h"
-#include "Units/EarthTanks.h"
+#include "Units/Aliens/AlienMonster.h"
+#include "Units/Aliens/AlienDrone.h"
+#include "Units/Aliens/AlienSoldier.h"
+#include "Units/Earth/EarthSoldier.h"
+#include "Units/Earth/EarthGunnery.h"
+#include "Units/Earth/EarthTank.h"
 
 class randGen
 {
@@ -24,7 +24,7 @@ public:
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach);
-	bool probability(int&);
+	bool probability(int& n);
 	int getMonsterIndex(int val);
 	Units* generateEarth(int timeStep);
 	Units* generateAlien(int timeStep);

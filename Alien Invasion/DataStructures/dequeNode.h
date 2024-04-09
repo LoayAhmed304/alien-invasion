@@ -1,4 +1,6 @@
-#pragma once
+#ifndef	DEQUENODE_H
+#define DEQUENODE_H
+
 template < typename T>
 class dequeNode
 {
@@ -18,6 +20,7 @@ public:
 	dequeNode<T>* getPrev();
 	void setPrev(dequeNode<T>* prevNodePtr);
 };
+#endif
 
 template<typename T>
 dequeNode<T>::dequeNode()

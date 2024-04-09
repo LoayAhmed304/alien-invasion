@@ -148,6 +148,7 @@ void Game::addArmy()
 	if (random->probability(N)) {
 		for (int i = 0; i < N; i++) {
 			newBorn = random->generateEarth(timestep);
+			newBorn->setGame(this);
 			eArmy->AddUnit(newBorn);
 		}
 	}

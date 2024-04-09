@@ -20,16 +20,17 @@ class Units
 private:
     unitType type;
     int Tj, Ta, Td, Df, Dd, UAP, health, power, attack_cap, cur_health;
-    Game* game;
 protected:
     int id;
     static int eID;
     static int aID;
+    Game* game;
 public:
     Units(unitType type, int power, int health, int atk_cap, int timestep);
     virtual bool Attack() = 0;
     virtual bool GetAttacked(int dmg);
     virtual bool IsDead() = 0;
+    virtual void setGame(Game*);
     virtual unitType getType() const;
     virtual int getHealth() const;
     virtual int getCurHealth() const;

@@ -93,18 +93,6 @@ public:
         }
     }
 
-    int length(unitType type)
-    {
-        switch (type) {
-        case alienSoldier:
-            return AS.length();
-        case alienMonster:
-            return AMcount;
-        case alienDrone:
-            return AD.length();
-        }
-    }
-
     void print()
     {
         ///     Print all Alien Soldiers
@@ -128,6 +116,11 @@ public:
         cout << AD.length() << " AD [";
         AD.printAll();
         cout << "]\n";
+    }
+
+    bool fight()        // Peeks each earth unit and calls its attack
+    {
+        return true;
     }
 };
 

@@ -70,18 +70,6 @@ public:
         }
     }
 
-    int length(unitType type)
-    {
-        switch (type) {
-        case earthSoldier:
-            return ES.length();
-        case earthTank:
-            return ET.length();
-        case earthGunnery:
-            return EG.length();
-        }
-    }
-
     void print()
     {
         ///     Print all Earth Soldiers
@@ -98,6 +86,11 @@ public:
         cout << EG.length() << " EG [";
         EG.printAll();
         cout << "]\n";
+    }
+
+    bool fight()        // Peeks each earth unit and calls its attack
+    {
+        return true;
     }
 };
 #endif

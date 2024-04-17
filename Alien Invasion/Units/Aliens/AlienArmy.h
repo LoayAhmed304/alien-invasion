@@ -25,6 +25,9 @@ public:
 
     void print();
 
+    int length(unitType);
+
+
     bool fight();        // Peeks each earth unit and calls its attack
 };
 

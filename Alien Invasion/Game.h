@@ -27,6 +27,7 @@ public:
 	EarthArmy* getEarth();
 	int getTimestep();
 
+	void simulate();
 	// void exportFile();
 };
 

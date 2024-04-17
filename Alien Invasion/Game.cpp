@@ -78,6 +78,100 @@ int Game::getTimestep()
 	return timestep;
 }
 
+void Game::simulate()
+{
+	LinkedQueue<Units*> tempList;		// To store units temporarily
+	Units* tempUnit = nullptr;			// To point to a unit temporarily
+	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
+	{
+		addArmy();
+		int x = random->generateNum();
+		cout << "Current Timestep " << timestep++ << "\n";
+		cout << "\n\tProbability: " << x << endl;
+
+
+		if (x < 10)
+		{
+			if (!eArmy->isEmpty(earthSoldier))		// if no soldiers found do nothing
+			{
+				eArmy->getUnit(earthSoldier, tempUnit);
+				eArmy->addUnit(tempUnit);
+			}
+		}
+		else if (x < 20)
+		{
+			if (!eArmy->isEmpty(earthTank))		// if no tanks found do nothing
+			{
+				eArmy->getUnit(earthTank, tempUnit);
+				killedList.enqueue(tempUnit);
+			}
+		}
+		else if (x < 30)
+		{
+			if (!eArmy->isEmpty(earthGunnery))		// if no Gunneries found do nothing
+			{
+				eArmy->getUnit(earthGunnery, tempUnit);
+				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
+				eArmy->addUnit(tempUnit);
+			}
+		}
+		else if (x < 40)
+		{
+			if (aArmy->length(alienSoldier) >= 5)		// if soldiers are less than 5 do nothing
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					aArmy->getUnit(alienSoldier, tempUnit);
+					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
+			}
+		}
+		else if (x < 50)
+		{
+			if (aArmy->length(alienMonster) >= 5)		// if monsters are less than 5 do nothing
+			{
+				for (int i = 0; i < 5; ++i)
+				{
+					aArmy->getUnit(alienMonster, tempUnit, random->getMonsterIndex(aArmy->length(alienMonster)));
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 5; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					aArmy->addUnit(tempUnit);
+				}
+			}
+		}
+		else if (x < 60)					// if drones are less than 6 do nothing
+		{
+			if (aArmy->length(alienDrone) >= 6)
+			{
+				for (int i = 0; i < 6; ++i)
+				{
+					aArmy->getUnit(alienDrone, tempUnit);
+					tempList.enqueue(tempUnit);
+				}
+				for (int i = 0; i < 6; ++i)
+				{
+					tempList.dequeue(tempUnit);
+					killedList.enqueue(tempUnit);
+				}
+			}
+		}
+		tempUnit = nullptr;
+		printAll();
+		system("pause");
+		cout << endl;
+	}
+}
+
+
 void Game::addArmy() 
 {
 	random->generateArmy();

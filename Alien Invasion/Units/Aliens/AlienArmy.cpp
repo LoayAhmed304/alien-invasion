@@ -103,6 +103,18 @@ void AlienArmy::print()
     cout << "]\n";
 }
 
+int AlienArmy::length(unitType type)
+{
+    switch (type) {
+    case alienSoldier:
+        return AS.length();
+    case alienMonster:
+        return AMcount;
+    case alienDrone:
+        return AD.length();
+    }
+}
+
 bool AlienArmy::fight() {
     return true;
 }

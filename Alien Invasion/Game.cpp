@@ -94,7 +94,7 @@ void Game::simulate()
 	Units* tempUnit = nullptr;			// To point to a unit temporarily
 	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
 	{
-		addArmy();
+		random->addUnits();
 		int x = random->generateNum();
 		cout << "Current Timestep " << timestep++ << "\n";
 		cout << "\n\tProbability: " << x << endl;
@@ -121,7 +121,7 @@ void Game::simulate()
 			if (!eArmy->isEmpty(earthGunnery))		// if no Gunneries found do nothing
 			{
 				eArmy->getUnit(earthGunnery, tempUnit);
-				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
+				tempUnit->getAttacked(tempUnit->getCurHealth() / 2);
 				eArmy->addUnit(tempUnit);
 			}
 		}
@@ -132,7 +132,7 @@ void Game::simulate()
 				for (int i = 0; i < 5; ++i)
 				{
 					aArmy->getUnit(alienSoldier, tempUnit);
-					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
+					tempUnit->getAttacked(tempUnit->getCurHealth() / 3);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 5; ++i)
@@ -179,10 +179,4 @@ void Game::simulate()
 		system("pause");
 		cout << endl;
 	}
-}
-
-
-void Game::addArmy() 
-{
-	random->generateArmy();
 }

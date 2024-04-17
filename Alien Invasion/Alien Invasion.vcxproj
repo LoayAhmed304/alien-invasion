@@ -141,6 +141,7 @@
     <ClCompile Include="Units\Units.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataStructures\ArrayADT.h" />
     <ClInclude Include="DataStructures\ArrayStack.h" />
     <ClInclude Include="DataStructures\Deque.h" />
     <ClInclude Include="DataStructures\dequeNode.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="DataStructures\priNode.h" />
     <ClInclude Include="DataStructures\priQueue.h" />
     <ClInclude Include="DataStructures\QueueADT.h" />
+    <ClInclude Include="DataStructures\RandomArray.h" />
     <ClInclude Include="DataStructures\StackADT.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Units\Aliens\AlienDrone.h" />

@@ -4,12 +4,12 @@
 #include "../Units.h"
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/Deque.h"
+#include "../../DataStructures/RandomArray.h"
 
 class AlienArmy{
 private:
     LinkedQueue<Units*> AS;
-    Units* AM[1000];
-    int AMcount = 0;
+    RandomArray<Units*> AM;
     Deque<Units*> AD;
     bool swapAdd = true;
     bool swapRemove = true;

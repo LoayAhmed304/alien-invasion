@@ -8,7 +8,7 @@ bool AlienArmy::addUnit(Units* X)
         AS.enqueue(X);
         break;
     case alienMonster:
-        AM[AMcount++] = X;
+        AM.insert(X);
         break;
     case alienDrone:
         swapAdd = !swapAdd;
@@ -28,12 +28,7 @@ bool AlienArmy::peekUnit(unitType type, Units*& unit, int m)
     case alienSoldier:
         return (AS.peek(unit));
     case alienMonster:
-        if (!isEmpty(alienMonster))
-        {
-            unit = AM[m];
-            return true;
-        }
-        return false;
+        return AM.peek(unit, m);
     case alienDrone:
         swapPeek = !swapPeek;
         if (swapPeek)
@@ -48,14 +43,7 @@ bool AlienArmy::getUnit(unitType type, Units*& unit, int m)
     case alienSoldier:
         return (AS.dequeue(unit));
     case alienMonster:
-        if (!isEmpty(alienMonster))
-        {
-            unit = AM[m];
-            AM[m] = AM[--AMcount];
-            AM[AMcount] = nullptr;
-            return true;
-        }
-        return false;
+        return AM.remove(unit, m);
     case alienDrone:
         swapRemove = !swapRemove;
         if (swapRemove)
@@ -70,11 +58,11 @@ bool AlienArmy::isEmpty(unitType type)
     case alienSoldier:
         return AS.isEmpty();
     case alienMonster:
-        return !AMcount;
+        return AM.isEmpty();
     case alienDrone:
         return AD.isEmpty();
     default:
-        return (AS.isEmpty() && !AMcount && AD.isEmpty());
+        return (AS.isEmpty() && AM.isEmpty() && AD.isEmpty());
     }
 }
 
@@ -86,15 +74,8 @@ void AlienArmy::print()
     cout << "]\n";
 
     ///     Print all Alien Monsters
-    cout << AMcount << " AM [";
-    if (!isEmpty(alienMonster))
-    {
-        cout << AM[0];
-        for (int i = 1; i < AMcount; i++)
-        {
-            cout << ", " << AM[i];
-        }
-    }
+    cout << AM.length() << " AM [";
+    AM.printAll();
     cout << "]\n";
 
     ///     Print all Alien Drones
@@ -109,7 +90,7 @@ int AlienArmy::length(unitType type)
     case alienSoldier:
         return AS.length();
     case alienMonster:
-        return AMcount;
+        return AM.length();
     case alienDrone:
         return AD.length();
     }

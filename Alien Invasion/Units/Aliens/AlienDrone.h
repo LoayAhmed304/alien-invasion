@@ -1,24 +1,17 @@
 #ifndef	ALIEND_DRONE_H
 #define ALIEND_DRONE_H
+#include "../Units.h"
+
+#include "../Units.h"
+
+class Game;
 
 class AlienDrone : public Units
 {
-
 public:
-	AlienDrone(int p, int h, int c, int timestep) : Units(alienDrone, p, h, c, timestep) {
-		id = aID;
-	}
-
-	bool Attack() {
-		return true;
-	}
-
-	bool GetAttacked() {
-		return true;
-	}
-
-	bool IsDead() {
-		return true;
-	}
+	AlienDrone(int p, int h, int c, Game* g);
+	bool attack();
+	bool getAttacked();
+	bool isDead();
 };
 #endif

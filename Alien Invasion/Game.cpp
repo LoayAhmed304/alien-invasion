@@ -21,7 +21,7 @@ void Game::setRandom()
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
 
 		random = new randGen(N, es, et, eg, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac));						//	to handle the range dash '-'
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
 	}
 	else 
 	{
@@ -43,22 +43,69 @@ void Game::printAll()
 	cout << "]\n";
 }
 
+void Game::fight()
+{
+	eArmy->fight();
+	aArmy->fight();
+}
+
+EarthArmy* Game::getEarthArmy()
+{
+	return eArmy;
+}
+
+AlienArmy* Game::getAlienArmy()
+{
+	return aArmy;
+}
+
+bool Game::getUnit(unitType s, Units*& unit)
+{
+	if(s<alienSoldier)
+		return eArmy->getUnit(s, unit);
+	return aArmy->getUnit(s, unit);
+}
+
+bool Game::peekUnit(unitType s, Units*& unit)
+{
+	if (s < alienSoldier)
+		return eArmy->peekUnit(s, unit);
+	return aArmy->peekUnit(s, unit);
+}
+
+AlienArmy* Game::getAlien()
+{
+	return aArmy;
+}
+
+EarthArmy* Game::getEarth()
+{
+	return eArmy;
+}
+
+int Game::getTimestep()
+{
+	return timestep;
+}
+
 void Game::simulate()
 {
 	LinkedQueue<Units*> tempList;		// To store units temporarily
 	Units* tempUnit = nullptr;			// To point to a unit temporarily
 	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
 	{
-		addArmy();
+		random->addUnits();
 		int x = random->generateNum();
 		cout << "Current Timestep " << timestep++ << "\n";
+		cout << "\n\tProbability: " << x << endl;
+
 
 		if (x < 10)
 		{
 			if (!eArmy->isEmpty(earthSoldier))		// if no soldiers found do nothing
 			{
 				eArmy->getUnit(earthSoldier, tempUnit);
-				eArmy->AddUnit(tempUnit);
+				eArmy->addUnit(tempUnit);
 			}
 		}
 		else if (x < 20)
@@ -74,8 +121,8 @@ void Game::simulate()
 			if (!eArmy->isEmpty(earthGunnery))		// if no Gunneries found do nothing
 			{
 				eArmy->getUnit(earthGunnery, tempUnit);
-				tempUnit->GetAttacked(tempUnit->getCurHealth() / 2);
-				eArmy->AddUnit(tempUnit);
+				tempUnit->getAttacked(tempUnit->getCurHealth() / 2);
+				eArmy->addUnit(tempUnit);
 			}
 		}
 		else if (x < 40)
@@ -85,7 +132,7 @@ void Game::simulate()
 				for (int i = 0; i < 5; ++i)
 				{
 					aArmy->getUnit(alienSoldier, tempUnit);
-					tempUnit->GetAttacked(tempUnit->getCurHealth() / 3);
+					tempUnit->getAttacked(tempUnit->getCurHealth() / 3);
 					tempList.enqueue(tempUnit);
 				}
 				for (int i = 0; i < 5; ++i)
@@ -131,25 +178,5 @@ void Game::simulate()
 		printAll();
 		system("pause");
 		cout << endl;
-	}
-}
-
-void Game::addArmy() 
-{
-	Units* newBorn;
-	int N;
-	if (random->probability(N)) {
-		for (int i = 0; i < N; i++) {
-			newBorn = random->generateAlien(timestep);
-			newBorn->setGame(this);
-			aArmy->addUnit(newBorn);
-		}
-	}
-	if (random->probability(N)) {
-		for (int i = 0; i < N; i++) {
-			newBorn = random->generateEarth(timestep);
-			newBorn->setGame(this);
-			eArmy->AddUnit(newBorn);
-		}
 	}
 }

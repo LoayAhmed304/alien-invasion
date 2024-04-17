@@ -1,11 +1,12 @@
 #include "randGen.h"
+#include "Game.h"
 #include <cstdlib>
 #include <time.h>
 
 randGen::randGen(int n, int es, int et, int eg, int as,
-                int am, int ad, int probability, int epl,
-                int eph,int ehl, int ehh, int ecl, int ech,
-                int apl,int aph, int ahl, int ahh, int acl, int ach)
+    int am, int ad, int probability, int epl,
+    int eph, int ehl, int ehh, int ecl, int ech,
+    int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
 {
     srand(time(0));
 
@@ -29,11 +30,11 @@ randGen::randGen(int n, int es, int et, int eg, int as,
     alienHealthHigh = ahh;
     alienCapLow = acl;
     alienCapHigh = ach;
+    game = g;
 }
 
-bool randGen::probability(int& n)
+bool randGen::probability()
 {
-    n = N;
     return ((rand() % 101) <= prob);
 }
 
@@ -42,9 +43,8 @@ int randGen::getMonsterIndex(int val)
     return (rand() % val);
 }
 
-Units* randGen::generateEarth(int timeStep)
+Units* randGen::generateEarth()
 {
-
     int p, h, c;
     p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
     h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
@@ -53,24 +53,17 @@ Units* randGen::generateEarth(int timeStep)
     Units* newBorn;
     int B = 1 + (rand() % 100);
     if (B < ES)
-    {
-        newBorn = new EarthSoldier(p, h, c, timeStep);
-    }
+        newBorn = new EarthSoldier(p, h, c, game);
     else if (B < ES + ET)
-    {
-        newBorn = new EarthTank(p, h, c, timeStep);
-    }
+        newBorn = new EarthTank(p, h, c, game);
     else
-    {
-        newBorn = new EarthGunnery(p, h, c, timeStep);
-    }
+        newBorn = new EarthGunnery(p, h, c, game);
 
     return newBorn;
 }
 
-Units* randGen::generateAlien(int timeStep)
+Units* randGen::generateAlien()
 {
-
     int p, h, c;
     p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
     h = alienHealthLow + (rand() % (alienHealthHigh - alienHealthLow + 1));
@@ -79,19 +72,30 @@ Units* randGen::generateAlien(int timeStep)
     Units* newBorn;
     int B = 1 + (rand() % 100);
     if (B < AS)
-    {
-        newBorn = new AlienSoldier(p, h, c, timeStep);
-    }
+        newBorn = new AlienSoldier(p, h, c, game);
     else if (B < AS + AM)
-    {
-        newBorn = new AlienMonster(p, h, c, timeStep);
-    }
+        newBorn = new AlienMonster(p, h, c, game);
     else
-    {
-        newBorn = new AlienDrone(p, h, c, timeStep);
-    }
+        newBorn = new AlienDrone(p, h, c, game);
 
     return newBorn;
+}
+bool randGen::addUnits()
+{
+    Units* newBorn = nullptr;
+    if (probability())
+        for (int i = 0; i < N; i++)
+        {
+            newBorn = generateEarth();
+            game->getEarthArmy()->addUnit(newBorn);
+        }
+    if (probability())
+        for (int i = 0; i < N; i++)
+        {
+            newBorn = generateAlien();
+            game->getAlienArmy()->addUnit(newBorn);
+        }
+    return true;
 }
 int randGen::generateNum() // for phase 1.2 simulation
 {

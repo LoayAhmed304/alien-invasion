@@ -5,7 +5,7 @@
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/ArrayStack.h"
 #include "../../DataStructures/priQueue.h"
-using namespace std;
+
 class EarthArmy
 {
 private:

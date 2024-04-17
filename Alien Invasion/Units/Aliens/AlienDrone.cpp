@@ -1,22 +1,22 @@
 #include "AlienDrone.h"
+#include "../../Game.h"
 
-AlienDrone::AlienDrone(int p, int h, int c, int timestep) : Units(alienDrone, p, h, c, timestep)
+AlienDrone::AlienDrone(int p, int h, int c, Game* g) : Units(alienDrone, p, h, c, g) 
 {
 	id = aID;
 }
 
-bool AlienDrone::Attack()
+bool AlienDrone::attack()
 {
-	return true;
+	return false;
 }
 
-bool AlienDrone::GetAttacked()
+bool AlienDrone::getAttacked()
 {
-	return true;
+	return false;
 }
 
-bool AlienDrone::IsDead()
+bool AlienDrone::isDead()
 {
-	return true;
-
+	return false;
 }

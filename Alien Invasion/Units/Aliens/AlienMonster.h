@@ -2,17 +2,17 @@
 #define ALIEN_MONSTER_H
 #include "../Units.h"
 
+#include "../Units.h"
+
+class Game;
+
 class AlienMonster : public Units
 {
-
 public:
-	AlienMonster(int, int, int, int);
-
-	bool Attack();
-
-	bool GetAttacked();
-
-	bool IsDead();
+	AlienMonster(int p, int h, int c, Game*);
+	bool attack();
+	bool getAttacked();
+	bool isDead();
 };
 
 #endif

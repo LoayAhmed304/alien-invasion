@@ -1,21 +1,22 @@
 #include "AlienMonster.h"
+#include "../../Game.h"
 
-AlienMonster::AlienMonster(int p, int h, int c, int timestep) : Units(alienMonster, p, h, c, timestep) 
+AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p, h, c, g)
 {
 	id = aID;
 }
 
-bool AlienMonster::Attack()
+bool AlienMonster::attack()
 {
 	return false;
 }
 
-bool AlienMonster::GetAttacked()
+bool AlienMonster::getAttacked()
 {
 	return false;
 }
 
-bool AlienMonster::IsDead()
+bool AlienMonster::isDead()
 {
 	return false;
 }

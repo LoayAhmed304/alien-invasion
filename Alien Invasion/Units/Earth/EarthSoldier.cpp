@@ -1,21 +1,24 @@
 #include "EarthSoldier.h"
+#include "../../Game.h"
 
-EarthSoldier::EarthSoldier(int p, int h, int c, int timestep) : Units(earthSoldier, p, h, c, timestep) 
+EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p, h, c, g) 
 {
 	id = eID;
 }
 
-bool EarthSoldier::Attack()
+bool EarthSoldier::attack()
 {
-	return false;
+	Units* enemy;
+	game->getUnit(alienSoldier, enemy);
+	return true;
 }
 
-bool EarthSoldier::GetAttacked()
+bool EarthSoldier::getAttacked()
 {
-	return false;
+	return true;
 }
 
-bool EarthSoldier::IsDead()
+bool EarthSoldier::isDead()
 {
 	return false;
 }

@@ -26,14 +26,13 @@ public:
 	randGen(int n, int es, int et, int eg,
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
-		int apl, int aph, int ahl, int ahh, int acl, int ach, Game*);
+		int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g);
 	bool probability();
 	int getMonsterIndex(int val);
-	Units* generateEarth(int timeStep);
-	Units* generateAlien(int timeStep);
-	bool generateArmy();
+	Units* generateEarth();
+	Units* generateAlien();
+	bool addUnits();
 	int generateNum(); // for phase 1.2 simulation
 	~randGen();
 };
-
 #endif

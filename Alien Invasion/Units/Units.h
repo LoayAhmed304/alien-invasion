@@ -26,11 +26,10 @@ protected:
     static int aID;
     Game* game;
 public:
-    Units(unitType type, int power, int health, int atk_cap, int timestep);
-    virtual bool Attack() = 0;
-    virtual bool GetAttacked(int dmg);
-    virtual bool IsDead() = 0;
-    virtual void setGame(Game*);
+    Units(unitType type, int power, int health, int atk_cap, Game* g);
+    virtual bool attack() = 0;
+    virtual bool getAttacked(int dmg);
+    virtual bool isDead() = 0;
     virtual unitType getType() const;
     virtual int getHealth() const;
     virtual int getCurHealth() const;

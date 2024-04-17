@@ -2,16 +2,16 @@
 #define ALIEND_DRONE_H
 #include "../Units.h"
 
+#include "../Units.h"
+
+class Game;
+
 class AlienDrone : public Units
 {
-
 public:
-	AlienDrone(int, int, int, int);
-
-	bool Attack();
-
-	bool GetAttacked();
-
-	bool IsDead();
+	AlienDrone(int p, int h, int c, Game* g);
+	bool attack();
+	bool getAttacked();
+	bool isDead();
 };
 #endif

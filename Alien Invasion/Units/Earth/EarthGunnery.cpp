@@ -1,21 +1,22 @@
 #include "EarthGunnery.h"
+#include "../../Game.h"
 
-EarthGunnery::EarthGunnery(int p, int h, int c, int timestep) : Units(earthGunnery, p, h, c, timestep) 
+EarthGunnery::EarthGunnery(int p, int h, int c, Game* g) : Units(earthGunnery, p, h, c, g)
 {
 	id = eID;
 }
 
-bool EarthGunnery::Attack()
+bool EarthGunnery::attack()
 {
 	return false;
 }
 
-bool EarthGunnery::GetAttacked()
+bool EarthGunnery::getAttacked()
 {
 	return false;
 }
 
-bool EarthGunnery::IsDead()
+bool EarthGunnery::isDead()
 {
 	return false;
 }

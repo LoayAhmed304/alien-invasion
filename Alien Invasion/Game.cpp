@@ -49,6 +49,16 @@ void Game::fight()
 	aArmy->fight();
 }
 
+EarthArmy* Game::getEarthArmy()
+{
+	return eArmy;
+}
+
+AlienArmy* Game::getAlienArmy()
+{
+	return aArmy;
+}
+
 bool Game::getUnit(unitType s, Units*& unit)
 {
 	if(s<alienSoldier)

@@ -1,21 +1,22 @@
 #include "EarthTank.h"
+#include "../../Game.h"
 
-EarthTank::EarthTank(int p, int h, int c, int timestep) : Units(earthTank, p, h, c, timestep)
+EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g) 
 {
 	id = eID;
 }
 
-bool EarthTank::Attack()
+bool EarthTank::attack()
+{
+	return true;
+}
+
+bool EarthTank::getAttacked()
 {
 	return false;
 }
 
-bool EarthTank::GetAttacked()
-{
-	return false;
-}
-
-bool EarthTank::IsDead()
+bool EarthTank::isDead()
 {
 	return false;
 }

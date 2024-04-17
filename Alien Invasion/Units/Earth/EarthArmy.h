@@ -13,7 +13,7 @@ private:
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
 public:
-    bool AddUnit(Units* X)
+    bool addUnit(Units* X)
     {
         switch (X->getType())
         {

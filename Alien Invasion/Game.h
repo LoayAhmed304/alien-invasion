@@ -23,6 +23,8 @@ public:
 	void fight();
 	bool getUnit(unitType, Units*&);
 	bool peekUnit(unitType, Units*&);
+	AlienArmy* getAlien();
+	EarthArmy* getEarth();
 	int getTimestep();
 
 	// void exportFile();

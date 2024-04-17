@@ -1,11 +1,12 @@
 #include "randGen.h"
 #include <cstdlib>
 #include <time.h>
+#include "Game.h"
 
 randGen::randGen(int n, int es, int et, int eg, int as,
-                int am, int ad, int probability, int epl,
-                int eph,int ehl, int ehh, int ecl, int ech,
-                int apl,int aph, int ahl, int ahh, int acl, int ach)
+    int am, int ad, int probability, int epl,
+    int eph, int ehl, int ehh, int ecl, int ech,
+    int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
 {
     srand(time(0));
 
@@ -29,11 +30,11 @@ randGen::randGen(int n, int es, int et, int eg, int as,
     alienHealthHigh = ahh;
     alienCapLow = acl;
     alienCapHigh = ach;
+    this->game = g;
 }
 
-bool randGen::probability(int& n)
+bool randGen::probability()
 {
-    n = N;
     return ((rand() % 101) <= prob);
 }
 
@@ -91,6 +92,28 @@ Units* randGen::generateAlien(int timeStep)
         newBorn = new AlienDrone(p, h, c, timeStep);
     }
 
+    return newBorn;
+}
+bool randGen::generateArmy()
+{
+    Units* newBorn = nullptr;
+    if (probability())
+    {
+        for (int i = 0; i < N; i++) {
+            newBorn = generateAlien(game->getTimestep());
+            newBorn->setGame(game);
+            game->getAlien()->addUnit(newBorn);
+        }
+    }
+
+    if (probability())
+    {
+        for (int i = 0; i < N; i++) {
+            newBorn = generateEarth(game->getTimestep());
+            newBorn->setGame(game);
+            game->getEarth()->addUnit(newBorn);
+        }
+    }
     return newBorn;
 }
 int randGen::generateNum() // for phase 1.2 simulation

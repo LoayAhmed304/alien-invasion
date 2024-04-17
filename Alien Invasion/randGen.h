@@ -9,6 +9,8 @@
 #include "Units/Earth/EarthGunnery.h"
 #include "Units/Earth/EarthTank.h"
 
+class Game;
+
 class randGen
 {
 private:
@@ -19,15 +21,17 @@ private:
 		alienPowerLow, alienPowerHigh,
 		alienHealthLow, alienHealthHigh,
 		alienCapLow, alienCapHigh;
+	Game* game;
 public:
 	randGen(int n, int es, int et, int eg,
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
-		int apl, int aph, int ahl, int ahh, int acl, int ach);
-	bool probability(int& n);
+		int apl, int aph, int ahl, int ahh, int acl, int ach, Game*);
+	bool probability();
 	int getMonsterIndex(int val);
 	Units* generateEarth(int timeStep);
 	Units* generateAlien(int timeStep);
+	bool generateArmy();
 	int generateNum(); // for phase 1.2 simulation
 	~randGen();
 };

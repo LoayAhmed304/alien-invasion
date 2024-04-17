@@ -1,25 +1,18 @@
 #ifndef ALIEN_MONSTER_H
 #define ALIEN_MONSTER_H
+#include "../Units.h"
 
 class AlienMonster : public Units
 {
 
 public:
-	AlienMonster(int p, int h, int c, int timestep) : Units(alienMonster, p, h, c, timestep) {
-		id = aID;
-	}
+	AlienMonster(int p, int h, int c, int timestep);
 
-	bool Attack() {
-		return true;
-	}
+	bool Attack();
 
-	bool GetAttacked() {
-		return true;
-	}
+	bool GetAttacked();
 
-	bool IsDead() {
-		return true;
-	}
+	bool IsDead();
 };
 
 #endif

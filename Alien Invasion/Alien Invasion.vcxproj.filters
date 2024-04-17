@@ -7,6 +7,18 @@
     <ClCompile Include="Units\Units.cpp">
       <Filter>Armies</Filter>
     </ClCompile>
+    <ClCompile Include="Units\Aliens\AlienArmy.cpp">
+      <Filter>Armies\Aliens</Filter>
+    </ClCompile>
+    <ClCompile Include="Units\Aliens\AlienDrone.cpp">
+      <Filter>Armies\Aliens</Filter>
+    </ClCompile>
+    <ClCompile Include="Units\Aliens\AlienMonster.cpp">
+      <Filter>Armies\Aliens</Filter>
+    </ClCompile>
+    <ClCompile Include="Units\Aliens\AlienSoldier.cpp">
+      <Filter>Armies\Aliens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="randGen.h" />
@@ -59,11 +71,11 @@
     <ClInclude Include="Units\Earth\EarthSoldier.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth\EarthTanks.h">
-      <Filter>Armies\Earth</Filter>
-    </ClInclude>
     <ClInclude Include="Units\Units.h">
       <Filter>Armies</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Earth\EarthTank.h">
+      <Filter>Armies\Earth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

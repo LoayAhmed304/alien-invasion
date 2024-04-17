@@ -21,7 +21,7 @@ void Game::setRandom()
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
 
 		random = new randGen(N, es, et, eg, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac));						//	to handle the range dash '-'
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
 	}
 	else 
 	{
@@ -49,6 +49,16 @@ void Game::fight()
 	aArmy->fight();
 }
 
+EarthArmy* Game::getEarthArmy()
+{
+	return eArmy;
+}
+
+AlienArmy* Game::getAlienArmy()
+{
+	return aArmy;
+}
+
 bool Game::getUnit(unitType s, Units*& unit)
 {
 	if(s<alienSoldier)
@@ -66,24 +76,4 @@ bool Game::peekUnit(unitType s, Units*& unit)
 int Game::getTimestep()
 {
 	return timestep;
-}
-
-void Game::addArmy() 
-{
-	Units* newBorn;
-	int N;
-	if (random->probability(N)) {
-		for (int i = 0; i < N; i++) {
-			newBorn = random->generateAlien(timestep);
-			newBorn->setGame(this);
-			aArmy->addUnit(newBorn);
-		}
-	}
-	if (random->probability(N)) {
-		for (int i = 0; i < N; i++) {
-			newBorn = random->generateEarth(timestep);
-			newBorn->setGame(this);
-			eArmy->AddUnit(newBorn);
-		}
-	}
 }

@@ -18,9 +18,10 @@ private:
 public:
 	Game();
 	void setRandom();	// Reads the input file and initializes randGen object
-	void addArmy();		// Adds random army to both armies
 	void printAll();	// Prints all the lists
 	void fight();
+	EarthArmy* getEarthArmy();
+	AlienArmy* getAlienArmy();
 	bool getUnit(unitType, Units*&);
 	bool peekUnit(unitType, Units*&);
 	int getTimestep();

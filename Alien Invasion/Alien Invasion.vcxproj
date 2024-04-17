@@ -130,6 +130,14 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="randGen.cpp" />
+    <ClCompile Include="Units\Aliens\AlienArmy.cpp" />
+    <ClCompile Include="Units\Aliens\AlienDrone.cpp" />
+    <ClCompile Include="Units\Aliens\AlienMonster.cpp" />
+    <ClCompile Include="Units\Aliens\AlienSoldier.cpp" />
+    <ClCompile Include="Units\Earth\EarthArmy.cpp" />
+    <ClCompile Include="Units\Earth\EarthGunnery.cpp" />
+    <ClCompile Include="Units\Earth\EarthSoldier.cpp" />
+    <ClCompile Include="Units\Earth\EarthTank.cpp" />
     <ClCompile Include="Units\Units.cpp" />
   </ItemGroup>
   <ItemGroup>

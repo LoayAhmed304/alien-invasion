@@ -1,26 +1,18 @@
 #ifndef	EARTH_GUNNERY_H
 #define EARTH_GUNNERY_H
+#include "../Units.h"
 
 class EarthGunnery: public Units
 {
 
 public:
-	EarthGunnery(int p, int h, int c, int timestep): Units(earthGunnery, p, h, c, timestep) {
-		id = eID;
-
-	}
+	EarthGunnery(int p, int h, int c, int timestep);
 	
-	bool Attack() {
-		return true;
-	}
+	bool Attack();
 
-	bool GetAttacked() {
-		return true;
-	}
+	bool GetAttacked();
 
-	bool IsDead() {
-		return true;
-	}
+	bool IsDead();
 
 };
 #endif

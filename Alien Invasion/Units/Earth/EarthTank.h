@@ -1,24 +1,17 @@
 #ifndef	EARTH_TANK_H
 #define EARTH_TANK_H
+#include "../Units.h"
 
 class EarthTank : public Units
 {
 
 public:
-	EarthTank(int p, int h, int c, int timestep) : Units(earthTank, p, h, c, timestep) {
-		id = eID;
-	}
+	EarthTank(int p, int h, int c, int timestep);
 	
-	bool Attack() {
-		return true;
-	}
+	bool Attack();
 
-	bool GetAttacked() {
-		return true;
-	}
+	bool GetAttacked();
 
-	bool IsDead() {
-		return true;
-	}
+	bool IsDead();
 };
 #endif

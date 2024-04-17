@@ -6,7 +6,7 @@ class AlienSoldier : public Units
 {
 
 public:
-	AlienSoldier(int p, int h, int c, int timestep);
+	AlienSoldier(int, int, int, int);
 	
 	bool Attack();
 

@@ -6,7 +6,7 @@ class EarthGunnery: public Units
 {
 
 public:
-	EarthGunnery(int p, int h, int c, int timestep);
+	EarthGunnery(int, int, int, int);
 	
 	bool Attack();
 

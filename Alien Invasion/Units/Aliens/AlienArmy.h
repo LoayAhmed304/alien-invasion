@@ -15,7 +15,7 @@ private:
     bool swapRemove = true;
     bool swapPeek = true;
 public:
-    bool addUnit(Units* X);
+    bool addUnit(Units*);
 
     bool peekUnit(unitType, Units*&, int = 0);
 

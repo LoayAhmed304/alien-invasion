@@ -1,13 +1,13 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
-#include "Units/Units.h"
-#include "Units/Aliens/AlienMonster.h"
-#include "Units/Aliens/AlienDrone.h"
-#include "Units/Aliens/AlienSoldier.h"
-#include "Units/Earth/EarthSoldier.h"
-#include "Units/Earth/EarthGunnery.h"
-#include "Units/Earth/EarthTank.h"
+#include "../Units/Units.h"
+#include "../Units/Aliens/AlienMonster.h"
+#include "../Units/Aliens/AlienDrone.h"
+#include "../Units/Aliens/AlienSoldier.h"
+#include "../Units/Earth/EarthSoldier.h"
+#include "../Units/Earth/EarthGunnery.h"
+#include "../Units/Earth/EarthTank.h"
 
 class Game;
 

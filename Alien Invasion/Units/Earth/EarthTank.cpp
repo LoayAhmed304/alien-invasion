@@ -1,5 +1,5 @@
 #include "EarthTank.h"
-#include "../../Game.h"
+#include "../../Game/Game.h"
 
 EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g) 
 {

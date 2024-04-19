@@ -1,5 +1,5 @@
 #include "AlienSoldier.h"
-#include "../../Game.h"
+#include "../../Game/Game.h"
 
 AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p, h, c, g)
 {

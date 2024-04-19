@@ -1,5 +1,5 @@
 #include "randGen.h"
-#include "Game.h"
+#include "../Game/Game.h"
 #include <cstdlib>
 #include <time.h>
 

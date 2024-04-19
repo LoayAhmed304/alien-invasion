@@ -73,15 +73,6 @@ bool Game::peekUnit(unitType s, Units*& unit)
 	return aArmy->peekUnit(s, unit);
 }
 
-AlienArmy* Game::getAlien()
-{
-	return aArmy;
-}
-
-EarthArmy* Game::getEarth()
-{
-	return eArmy;
-}
 
 int Game::getTimestep()
 {

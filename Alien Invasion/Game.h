@@ -15,6 +15,11 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
+//////////////////////////////
+	priQueue<Units*> UML;
+	priQueue<Units*> temp;
+
+
 public:
 	Game();
 	void setRandom();	// Reads the input file and initializes randGen object
@@ -29,6 +34,10 @@ public:
 	int getTimestep();
 
 	void simulate();
+	bool getUML(Units*&);
+	bool totemp(Units*&);
+	bool checkstatus();
+	bool addUnit(Units*&);
 	// void exportFile();
 };
 

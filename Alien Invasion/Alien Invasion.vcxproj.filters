@@ -31,6 +31,7 @@
     <ClCompile Include="Units\Earth\EarthTank.cpp">
       <Filter>Armies\Earth</Filter>
     </ClCompile>
+    <ClCompile Include="Units\Earth\EarthHeal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="randGen.h" />
@@ -89,6 +90,9 @@
     <ClInclude Include="Units\Earth\EarthTank.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
+    <ClInclude Include="DataStructures\ArrayADT.h" />
+    <ClInclude Include="DataStructures\RandomArray.h" />
+    <ClInclude Include="Units\Earth\EarthHeal.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Armies">

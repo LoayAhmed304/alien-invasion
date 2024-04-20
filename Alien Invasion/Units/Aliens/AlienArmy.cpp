@@ -96,6 +96,11 @@ int AlienArmy::length(unitType type)
     }
 }
 
-bool AlienArmy::fight() {
-    return true;
+bool AlienArmy::fight() 
+{
+    Units* unit;
+    if (peekUnit(alienSoldier, unit))
+    unit->attack();
+
+    return false;
 }

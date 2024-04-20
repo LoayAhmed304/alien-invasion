@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <time.h>
 
-randGen::randGen(int n, int es, int et, int eg, int as,
+randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     int am, int ad, int probability, int epl,
     int eph, int ehl, int ehh, int ecl, int ech,
     int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
@@ -14,6 +14,7 @@ randGen::randGen(int n, int es, int et, int eg, int as,
     ES = es;
     ET = et;
     EG = eg;
+    EH = eh;
     AS = as;
     AM = am;
     AD = ad;
@@ -56,9 +57,10 @@ Units* randGen::generateEarth()
         newBorn = new EarthSoldier(p, h, c, game);
     else if (B < ES + ET)
         newBorn = new EarthTank(p, h, c, game);
-    else
+    else if (B < ES + ET + EG)
         newBorn = new EarthGunnery(p, h, c, game);
-
+    else
+        newBorn = new EarthHeal(p, h, c, game);
     return newBorn;
 }
 

@@ -9,7 +9,15 @@ EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p
 bool EarthSoldier::attack()
 {
 	Units* enemy;
-	game->getUnit(alienSoldier, enemy);
+	Units* unit = nullptr;
+
+	for(int i =0 ; i < getAttackCap(); i++)
+	{
+		if (game->getUnit(alienSoldier, enemy))
+		{
+			enemy->getAttacked(getPower());
+		}
+	}
 	return true;
 }
 

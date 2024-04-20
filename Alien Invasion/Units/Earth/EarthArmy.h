@@ -12,6 +12,9 @@ private:
     LinkedQueue <Units*> ES;
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
+    ///////////
+    ArrayStack <Units*> EH;
+
 public:
     bool addUnit(Units*);
 

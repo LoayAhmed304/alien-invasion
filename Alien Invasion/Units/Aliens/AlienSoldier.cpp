@@ -18,5 +18,15 @@ bool AlienSoldier::isDead()
 
 bool AlienSoldier::attack()
 {
-	return false;
+	Units* enemy;
+	Units* unit = nullptr;
+
+	for (int i = 0; i < getAttackCap(); i++)
+	{
+		if (game->getUnit(earthSoldier, enemy))
+		{
+			enemy->getAttacked(getPower());
+		}
+	}
+	return true;
 }

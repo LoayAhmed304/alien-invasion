@@ -29,6 +29,7 @@ public:
 
 
     bool fight();        // Peeks each earth unit and calls its attack
+    ~AlienArmy();
 };
 
 #endif

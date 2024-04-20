@@ -24,11 +24,10 @@ public:
 	AlienArmy* getAlienArmy();
 	bool getUnit(unitType, Units*&);
 	bool peekUnit(unitType, Units*&);
-
 	int getTimestep();
-
 	void simulate();
 	// void exportFile();
+	~Game();
 };
 
 #endif

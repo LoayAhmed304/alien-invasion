@@ -24,5 +24,6 @@ public:
     void print();
 
     bool fight();        // Peeks each earth unit and calls its attack
+    ~EarthArmy();
 };
 #endif

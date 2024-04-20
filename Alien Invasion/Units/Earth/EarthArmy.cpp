@@ -79,3 +79,24 @@ bool EarthArmy::fight()
 {
     return false;
 }
+
+EarthArmy::~EarthArmy()
+{
+    Units* temp;
+    int n;
+    while (ES.dequeue(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (EG.dequeue(temp, n))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (ET.pop(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+}

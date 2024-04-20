@@ -20,5 +20,5 @@ bool EarthSoldier::getAttacked()
 
 bool EarthSoldier::isDead()
 {
-	return false;
+	return this->getCurHealth() == 0;
 }

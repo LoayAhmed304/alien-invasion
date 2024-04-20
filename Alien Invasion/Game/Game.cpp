@@ -112,7 +112,10 @@ void Game::simulate()
 			{
 				eArmy->getUnit(earthGunnery, tempUnit);
 				tempUnit->getAttacked(tempUnit->getCurHealth() / 2);
-				eArmy->addUnit(tempUnit);
+				if (tempUnit->isDead())
+					killedList.enqueue(tempUnit);
+				else
+					eArmy->addUnit(tempUnit);
 			}
 		}
 		else if (x < 40)
@@ -123,13 +126,13 @@ void Game::simulate()
 				{
 					aArmy->getUnit(alienSoldier, tempUnit);
 					tempUnit->getAttacked(tempUnit->getCurHealth() / 3);
-					tempList.enqueue(tempUnit);
+					if (tempUnit->isDead())
+						killedList.enqueue(tempUnit);
+					else
+						tempList.enqueue(tempUnit);
 				}
-				for (int i = 0; i < 5; ++i)
-				{
-					tempList.dequeue(tempUnit);
+				while(tempList.dequeue(tempUnit))
 					aArmy->addUnit(tempUnit);
-				}
 			}
 		}
 		else if (x < 50)

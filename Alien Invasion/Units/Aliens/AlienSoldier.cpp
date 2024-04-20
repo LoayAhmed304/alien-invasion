@@ -13,7 +13,7 @@ bool AlienSoldier::getAttacked()
 
 bool AlienSoldier::isDead()
 {
-	return false;
+	return this->getCurHealth() == 0;
 }
 
 bool AlienSoldier::attack()

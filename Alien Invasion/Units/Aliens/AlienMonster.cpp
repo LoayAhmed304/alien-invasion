@@ -18,6 +18,6 @@ bool AlienMonster::getAttacked()
 
 bool AlienMonster::isDead()
 {
-	return false;
+	return this->getCurHealth() == 0;
 }
 

@@ -11,7 +11,7 @@ public:
 	virtual bool remove(T&, int) = 0;
 	virtual int length() const = 0;
 	virtual void printAll() const = 0;
-	virtual ~ArrayADT(){ }
+	virtual ~ArrayADT() {}
 };
 
 #endif

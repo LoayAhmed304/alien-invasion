@@ -109,7 +109,7 @@ AlienArmy::~AlienArmy()
         delete temp;
         temp = nullptr;
     }
-    while (!AS.dequeue(temp))
+    while (AS.dequeue(temp))
     {
         delete temp;
         temp = nullptr;

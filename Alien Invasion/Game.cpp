@@ -195,12 +195,11 @@ void Game::simulate()
 void Game::fight()
 {
 	int i = 0;
-
 	while(i < 1000)
 	{
+		cout << "Current Timestep " << timestep++<<endl;
 
 		random->addUnits();
-		cout << "Current Timestep " << timestep++<<endl;
 		printAll();
 
 		eArmy->fight();
@@ -212,7 +211,6 @@ void Game::fight()
 		system("pause");
 		cout << endl;
 		i++;
-
 	}
 }
 
@@ -244,12 +242,12 @@ bool Game::checkstatus()
 		{
 			if (unit->getType() == earthSoldier)
 			{
-				unit->insideUML();
+				unit->enterUML();
 				UML.enqueue(unit, -unit->getCurHealth());
 			}
 			else if (unit->getType() == earthTank)
 			{
-				unit->insideUML();
+				unit->enterUML();
 				UML.enqueue(unit, -INT_MAX);
 			}
 			else

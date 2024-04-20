@@ -15,8 +15,3 @@ bool AlienDrone::getAttacked()
 {
 	return false;
 }
-
-bool AlienDrone::isDead()
-{
-	return this->getCurHealth() == 0;
-}

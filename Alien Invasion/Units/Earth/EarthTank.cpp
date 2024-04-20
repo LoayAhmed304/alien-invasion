@@ -15,8 +15,3 @@ bool EarthTank::getAttacked()
 {
 	return false;
 }
-
-bool EarthTank::isDead()
-{
-	return this->getCurHealth() == 0;
-}

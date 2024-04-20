@@ -29,7 +29,7 @@ public:
     Units(unitType type, int power, int health, int atk_cap, Game* g);
     virtual bool attack() = 0;
     virtual bool getAttacked(int dmg);
-    virtual bool isDead() = 0;
+    virtual bool isDead() ;
     virtual unitType getType() const;
     virtual int getHealth() const;
     virtual int getCurHealth() const;

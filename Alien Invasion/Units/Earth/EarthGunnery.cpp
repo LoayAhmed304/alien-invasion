@@ -15,8 +15,3 @@ bool EarthGunnery::getAttacked()
 {
 	return false;
 }
-
-bool EarthGunnery::isDead()
-{
-	return this->getCurHealth() == 0;
-}

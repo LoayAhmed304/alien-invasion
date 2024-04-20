@@ -17,8 +17,3 @@ bool EarthSoldier::getAttacked()
 {
 	return true;
 }
-
-bool EarthSoldier::isDead()
-{
-	return this->getCurHealth() == 0;
-}

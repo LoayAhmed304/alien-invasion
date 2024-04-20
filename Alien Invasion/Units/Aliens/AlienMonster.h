@@ -12,7 +12,6 @@ public:
 	AlienMonster(int p, int h, int c, Game*);
 	bool attack();
 	bool getAttacked();
-	bool isDead();
 };
 
 #endif

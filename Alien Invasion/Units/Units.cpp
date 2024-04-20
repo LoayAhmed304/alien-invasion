@@ -22,6 +22,10 @@ bool Units::getAttacked(int dmg)
 	cur_health -= dmg; // to be (dmg / sqrt(cur-health)) in phase 2
 	return true;
 }
+bool Units::isDead()
+{
+	return (cur_health == 0);
+}
 unitType Units::getType() const
 {
 	return type;

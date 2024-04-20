@@ -14,15 +14,11 @@ private:
     priQueue <Units*> EG;
 public:
     bool addUnit(Units*);
-
     bool peekUnit(unitType, Units*&);
-
     bool getUnit(unitType, Units*&);
-
     bool isEmpty(unitType);
-
     void print();
-
     bool fight();        // Peeks each earth unit and calls its attack
+    ~EarthArmy();
 };
 #endif

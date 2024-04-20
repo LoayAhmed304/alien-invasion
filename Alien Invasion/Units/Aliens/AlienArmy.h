@@ -16,19 +16,13 @@ private:
     bool swapPeek = true;
 public:
     bool addUnit(Units*);
-
     bool peekUnit(unitType, Units*&, int = 0);
-
     bool getUnit(unitType, Units*&, int = 0);
-
     bool isEmpty(unitType);
-
     void print();
-
     int length(unitType);
-
-
     bool fight();        // Peeks each earth unit and calls its attack
+    ~AlienArmy();
 };
 
 #endif

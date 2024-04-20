@@ -66,6 +66,11 @@ public:
 			cout << ", " << arr[i];
 		}
 	}
+
+	~RandomArray() 
+	{
+		delete [] arr;
+	}
 };
 
 #endif

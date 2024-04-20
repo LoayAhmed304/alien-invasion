@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Units/Aliens/AlienArmy.h"
-#include "Units/Earth/EarthArmy.h"
-#include "randGen.h"
+#include "../Units/Aliens/AlienArmy.h"
+#include "../Units/Earth/EarthArmy.h"
+#include "../RandomGenerator/randGen.h"
 #include <fstream>
 using namespace std;
 
@@ -24,12 +24,10 @@ public:
 	AlienArmy* getAlienArmy();
 	bool getUnit(unitType, Units*&);
 	bool peekUnit(unitType, Units*&);
-	AlienArmy* getAlien();
-	EarthArmy* getEarth();
 	int getTimestep();
-
 	void simulate();
 	// void exportFile();
+	~Game();
 };
 
 #endif

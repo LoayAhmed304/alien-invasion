@@ -99,3 +99,24 @@ int AlienArmy::length(unitType type)
 bool AlienArmy::fight() {
     return true;
 }
+
+AlienArmy::~AlienArmy()
+{
+    Units* temp;
+    for (int i = 0; !AM.isEmpty(); ++i)
+    {
+        AM.remove(temp, i);
+        delete temp;
+        temp = nullptr;
+    }
+    while (AS.dequeue(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (AD.dequeue(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+}

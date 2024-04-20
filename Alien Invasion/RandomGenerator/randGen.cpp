@@ -1,5 +1,5 @@
 #include "randGen.h"
-#include "Game.h"
+#include "../Game/Game.h"
 #include <cstdlib>
 #include <time.h>
 
@@ -101,4 +101,3 @@ int randGen::generateNum() // for phase 1.2 simulation
 {
     return (1 + (rand() % 100));
 }
-randGen::~randGen() {}

@@ -6,11 +6,6 @@ AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p
 	id = aID;
 }
 
-bool AlienSoldier::getAttacked()
-{
-	return false;
-}
-
 bool AlienSoldier::attack()
 {
 	return false;

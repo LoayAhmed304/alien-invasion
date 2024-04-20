@@ -10,8 +10,3 @@ bool EarthGunnery::attack()
 {
 	return false;
 }
-
-bool EarthGunnery::getAttacked()
-{
-	return false;
-}

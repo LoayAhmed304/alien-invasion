@@ -10,8 +10,3 @@ bool AlienDrone::attack()
 {
 	return false;
 }
-
-bool AlienDrone::getAttacked()
-{
-	return false;
-}

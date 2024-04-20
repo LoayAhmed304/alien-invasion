@@ -10,8 +10,3 @@ bool EarthTank::attack()
 {
 	return true;
 }
-
-bool EarthTank::getAttacked()
-{
-	return false;
-}

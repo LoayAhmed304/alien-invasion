@@ -11,6 +11,5 @@ class AlienDrone : public Units
 public:
 	AlienDrone(int p, int h, int c, Game* g);
 	bool attack();
-	bool getAttacked();
 };
 #endif

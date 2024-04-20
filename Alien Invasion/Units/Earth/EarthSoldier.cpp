@@ -12,8 +12,3 @@ bool EarthSoldier::attack()
 	game->getUnit(alienSoldier, enemy);
 	return true;
 }
-
-bool EarthSoldier::getAttacked()
-{
-	return true;
-}

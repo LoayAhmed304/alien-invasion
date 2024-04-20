@@ -11,7 +11,6 @@ class AlienMonster : public Units
 public:
 	AlienMonster(int p, int h, int c, Game*);
 	bool attack();
-	bool getAttacked();
 };
 
 #endif

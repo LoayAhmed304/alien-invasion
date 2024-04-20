@@ -10,8 +10,3 @@ bool AlienMonster::attack()
 {
 	return false;
 }
-
-bool AlienMonster::getAttacked()
-{
-	return false;
-}

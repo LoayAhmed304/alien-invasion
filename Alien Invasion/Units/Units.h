@@ -16,7 +16,7 @@ enum unitType
     alienDrone
 };
 
-class Units 
+class Units
 {
 private:
     unitType type;

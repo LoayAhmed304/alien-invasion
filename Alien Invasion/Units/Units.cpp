@@ -4,9 +4,9 @@
 int Units::eID = 0;
 int Units::aID = 2000;
 
-Units::Units(unitType t, int h, int p, int c, Game* g) {
+Units::Units(unitType t, int p, int h, int c, Game* g) {
 	type = t;
-	if(type < alienSoldier)
+	if (type < alienSoldier)
 		++eID;
 	else
 		++aID;
@@ -23,7 +23,6 @@ bool Units::getAttacked(int dmg)
 {
 	Units* u = this;
 	cur_health -= dmg;
-	game->totemp(u); 
 	return true;
 }
 unitType Units::getType() const
@@ -53,7 +52,7 @@ int Units::getAttackCap() const
 
 int Units::getHealthPerc() const
 {
-	return ((cur_health*100)/health);
+	return ((cur_health * 100) / health);
 }
 
 bool Units::checkUML() const
@@ -85,6 +84,6 @@ bool Units::enterUML()
 }
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
-	os << obj->id ;
+	os << obj->id;
 	return os;
 }

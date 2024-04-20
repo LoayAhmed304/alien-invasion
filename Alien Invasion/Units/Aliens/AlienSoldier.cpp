@@ -26,6 +26,18 @@ bool AlienSoldier::attack()
 		if (game->getUnit(earthSoldier, enemy))
 		{
 			enemy->getAttacked(getPower());
+			if (enemy->getCurHealth() <= 0)
+			{
+				game->kill(enemy);
+			}
+			else if (enemy->getHealthPerc() < 20 && enemy->getHealthPerc() > 0)
+			{
+				game->toUML(enemy);
+			}
+			else
+			{
+				game->addUnit(enemy);
+			}
 		}
 	}
 	return true;

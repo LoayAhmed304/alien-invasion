@@ -1,13 +1,13 @@
 #include "Game.h"
 #include <Windows.h>
-Game::Game(): timestep(1), isOver(false)
+Game::Game() : timestep(1), isOver(false)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
 }
 
-void Game::setRandom() 
+void Game::setRandom()
 {
 	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
 		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
@@ -15,7 +15,7 @@ void Game::setRandom()
 	fstream inputFile;
 	string fileName = "input.txt";
 	inputFile.open(fileName, ios::in);
-	if (inputFile.is_open()) 
+	if (inputFile.is_open())
 	{
 		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability;									// Reading first 8 digits
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
@@ -23,15 +23,15 @@ void Game::setRandom()
 		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
 			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
 	}
-	else 
+	else
 	{
 		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
-	} 
+	}
 }
 
-void Game::printAll() 
+void Game::printAll()
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 11);
 	cout << "\n============== Earth Army Alive Units =============\n";
 	eArmy->print();
@@ -42,7 +42,7 @@ void Game::printAll()
 	cout << endl;
 	SetConsoleTextAttribute(hConsole, 12);
 	cout << "============== Killed/Destructed Units =============\n";
-	cout << killedList.length()<< " units [";
+	cout << killedList.length() << " units [";
 	killedList.printAll();
 	cout << "]\n\n";
 	SetConsoleTextAttribute(hConsole, 14);
@@ -66,7 +66,7 @@ AlienArmy* Game::getAlienArmy()
 
 bool Game::getUnit(unitType s, Units*& unit)
 {
-	if(s<alienSoldier)
+	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
 	return aArmy->getUnit(s, unit);
 }
@@ -75,6 +75,27 @@ bool Game::addUnit(Units*& unit)
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
 	return aArmy->addUnit(unit);
+}
+
+bool Game::kill(Units*& unit)
+{
+	return killedList.enqueue(unit);;
+}
+
+bool Game::toUML(Units*& unit)
+{
+
+	if (unit->getType() == earthSoldier)
+	{
+		unit->enterUML();
+		UML.enqueue(unit, -unit->getCurHealth());
+	}
+	else if (unit->getType() == earthTank)
+	{
+		unit->enterUML();
+		UML.enqueue(unit, -INT_MAX);
+	}
+	return true;
 }
 
 bool Game::peekUnit(unitType s, Units*& unit)
@@ -195,18 +216,16 @@ void Game::simulate()
 void Game::fight()
 {
 	int i = 0;
-	while(i < 1000)
+	while (i < 1000)
 	{
-		cout << "Current Timestep " << timestep++<<endl;
+		cout << "Current Timestep " << timestep++ << endl;
 
 		random->addUnits();
 		printAll();
 
 		eArmy->fight();
-		checkstatus();
 
 		aArmy->fight();
-		checkstatus();
 
 		system("pause");
 		cout << endl;
@@ -220,52 +239,6 @@ bool Game::getUML(Units*& unit)
 	if (UML.dequeue(unit, p))
 		return true;
 	return false;
-}
-
-bool Game::totemp(Units*&unit)
-{
-	temp.enqueue(unit,0);
-	return false;
-}
-
-bool Game::checkstatus()
-{
-	Units* unit;
-	int p;
- 	while (temp.dequeue(unit, p))
-	{
-		if (unit->getCurHealth() <= 0 || unit->getUMLtime() > 10)
-		{
-			killedList.enqueue(unit);
-		}
-		else if (unit->getHealthPerc() < 20 && unit->getHealthPerc() > 0)
-		{
-			if (unit->getType() == earthSoldier)
-			{
-				unit->enterUML();
-				UML.enqueue(unit, -unit->getCurHealth());
-			}
-			else if (unit->getType() == earthTank)
-			{
-				unit->enterUML();
-				UML.enqueue(unit, -INT_MAX);
-			}
-			else
-				addUnit(unit);
-		}
-		else
-			addUnit(unit);
-	}
-	while (UML.dequeue(unit, p))
-	{
-		unit->insideUML();
-		temp.enqueue(unit, p);
-	}
-	while (temp.dequeue(unit, p))
-	{
-		UML.enqueue(unit, p);
-	}
-	return true;
 }
 
 

@@ -15,9 +15,8 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
-//////////////////////////////
+	//////////////////////////////
 	priQueue<Units*> UML;
-	priQueue<Units*> temp;
 
 
 public:
@@ -35,9 +34,11 @@ public:
 
 	void simulate();
 	bool getUML(Units*&);
-	bool totemp(Units*&);
-	bool checkstatus();
 	bool addUnit(Units*&);
+
+	bool kill(Units*&);
+	bool toUML(Units*&);
+
 	// void exportFile();
 };
 

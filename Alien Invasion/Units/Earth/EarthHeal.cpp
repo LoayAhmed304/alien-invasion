@@ -10,21 +10,29 @@ bool EarthHeal::attack()
 {
 	Units* ally;
 	bool die = false;
-	int c = getAttackCap();
 
-	for (int i = 0; i < c; i++)
+	for (int i = 0; i < getAttackCap(); i++)
 	{
 		if (game->getUML(ally))
 		{
 			if (ally->getUMLtime() < 10)
 			{
-				ally->getAttacked(-(getPower() * getHealth() / 100) / sqrt(ally->getHealth()));
-				die = true;
+				ally->getAttacked(-(getPower() * getHealth() / 100));
+				if (ally->getHealthPerc() > 20)
+				{
+					game->addUnit(ally);
+				}
+				else
+				{
+					game->toUML(ally);
+					die = true;
+				}
 			}
 			else
 			{
 				ally->getAttacked(ally->getCurHealth());
-				c++;
+				game->kill(ally);
+				i--;
 			}
 		}
 	}

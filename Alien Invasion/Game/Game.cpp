@@ -82,7 +82,7 @@ void Game::simulate()
 {
 	LinkedQueue<Units*> tempList;		// To store units temporarily
 	Units* tempUnit = nullptr;			// To point to a unit temporarily
-	for (int i = 0; i < 5; ++i)		// 50 timesteps for phase 1.2 test code
+	for (int i = 0; i < 50; ++i)		// 50 timesteps for phase 1.2 test code
 	{
 		random->addUnits();
 		int x = random->generateNum();

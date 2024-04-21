@@ -71,7 +71,7 @@ int Game::getLength(unitType s)
 	return aArmy->getLength(s);
 }
 
-bool Game::getUnit(unitType s, Units*& unit, int m = 0)
+bool Game::getUnit(unitType s, Units*& unit, int m)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
@@ -105,7 +105,7 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::peekUnit(unitType s, Units*& unit, int m = 0)
+bool Game::peekUnit(unitType s, Units*& unit, int m)
 {
 	if (s < alienSoldier)
 		return eArmy->peekUnit(s, unit);

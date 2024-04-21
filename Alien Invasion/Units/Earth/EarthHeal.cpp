@@ -1,5 +1,5 @@
 #include "EarthHeal.h"
-#include "../../Game.h"
+#include "../../Game/Game.h"
 
 EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Units(earthHeal, p, h, c, g)
 {

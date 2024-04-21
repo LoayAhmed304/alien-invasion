@@ -64,11 +64,18 @@ AlienArmy* Game::getAlienArmy()
 	return aArmy;
 }
 
-bool Game::getUnit(unitType s, Units*& unit)
+int Game::getLength(unitType s)
+{
+	if (s < alienSoldier)
+		return eArmy->getLength(s);
+	return aArmy->getLength(s);
+}
+
+bool Game::getUnit(unitType s, Units*& unit, int m = 0)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
-	return aArmy->getUnit(s, unit);
+	return aArmy->getUnit(s, unit, m);
 }
 bool Game::addUnit(Units*& unit)
 {
@@ -98,21 +105,11 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::peekUnit(unitType s, Units*& unit)
+bool Game::peekUnit(unitType s, Units*& unit, int m = 0)
 {
 	if (s < alienSoldier)
 		return eArmy->peekUnit(s, unit);
-	return aArmy->peekUnit(s, unit);
-}
-
-AlienArmy* Game::getAlien()
-{
-	return aArmy;
-}
-
-EarthArmy* Game::getEarth()
-{
-	return eArmy;
+	return aArmy->peekUnit(s, unit, m);
 }
 
 int Game::getTimestep()
@@ -124,7 +121,7 @@ void Game::simulate()
 {
 	LinkedQueue<Units*> tempList;		// To store units temporarily
 	Units* tempUnit = nullptr;			// To point to a unit temporarily
-	for (int i = 0; i < 50; ++i)			// 50 timesteps for phase 1.2 test code
+	for (int i = 0; i < 50; ++i)		// 50 timesteps for phase 1.2 test code
 	{
 		random->addUnits();
 		int x = random->generateNum();
@@ -154,7 +151,10 @@ void Game::simulate()
 			{
 				eArmy->getUnit(earthGunnery, tempUnit);
 				tempUnit->getAttacked(tempUnit->getCurHealth() / 2);
-				eArmy->addUnit(tempUnit);
+				if (tempUnit->isDead())
+					killedList.enqueue(tempUnit);
+				else
+					eArmy->addUnit(tempUnit);
 			}
 		}
 		else if (x < 40)
@@ -165,13 +165,13 @@ void Game::simulate()
 				{
 					aArmy->getUnit(alienSoldier, tempUnit);
 					tempUnit->getAttacked(tempUnit->getCurHealth() / 3);
-					tempList.enqueue(tempUnit);
+					if (tempUnit->isDead())
+						killedList.enqueue(tempUnit);
+					else
+						tempList.enqueue(tempUnit);
 				}
-				for (int i = 0; i < 5; ++i)
-				{
-					tempList.dequeue(tempUnit);
+				while(tempList.dequeue(tempUnit))
 					aArmy->addUnit(tempUnit);
-				}
 			}
 		}
 		else if (x < 50)
@@ -210,6 +210,19 @@ void Game::simulate()
 		printAll();
 		system("pause");
 		cout << endl;
+	}
+}
+
+Game::~Game()
+{
+	delete eArmy;
+	delete aArmy;
+	delete random;
+	while (!killedList.isEmpty())
+	{
+		Units* temp;
+		killedList.dequeue(temp);
+		delete temp;
 	}
 }
 

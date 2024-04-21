@@ -49,6 +49,21 @@ bool EarthArmy::getUnit(unitType type, Units*& unit)
     }
 }
 
+int EarthArmy::getLength(unitType type)
+{
+    switch (type) {
+    case earthSoldier:
+        return (ES.length());
+    case earthTank:
+        return ET.length();
+    case earthGunnery:
+        int n;
+        return EG.length();
+    case earthHeal:
+        return EH.length();
+    }
+}
+
 bool EarthArmy::isEmpty(unitType type)
 {
     switch (type) {
@@ -98,4 +113,25 @@ bool EarthArmy::fight()
     if (peekUnit(earthHeal, unit))
         unit->attack();
     return true;
+}
+
+EarthArmy::~EarthArmy()
+{
+    Units* temp;
+    int n;
+    while (ES.dequeue(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (EG.dequeue(temp, n))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (ET.pop(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
 }

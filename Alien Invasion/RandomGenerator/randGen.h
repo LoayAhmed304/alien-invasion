@@ -1,14 +1,14 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
-#include "Units/Units.h"
-#include "Units/Aliens/AlienMonster.h"
-#include "Units/Aliens/AlienDrone.h"
-#include "Units/Aliens/AlienSoldier.h"
-#include "Units/Earth/EarthSoldier.h"
-#include "Units/Earth/EarthGunnery.h"
-#include "Units/Earth/EarthTank.h"
-#include "Units/Earth/EarthHeal.h"
+#include "../Units/Units.h"
+#include "../Units/Aliens/AlienMonster.h"
+#include "../Units/Aliens/AlienDrone.h"
+#include "../Units/Aliens/AlienSoldier.h"
+#include "../Units/Earth/EarthSoldier.h"
+#include "../Units/Earth/EarthGunnery.h"
+#include "../Units/Earth/EarthTank.h"
+#include "../Units/Earth/EarthHeal.h"
 
 class Game;
 
@@ -34,6 +34,5 @@ public:
 	Units* generateAlien();
 	bool addUnits();
 	int generateNum(); // for phase 1.2 simulation
-	~randGen();
 };
 #endif

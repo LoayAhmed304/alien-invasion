@@ -1,5 +1,5 @@
 #include "Units.h"
-#include "../Game.h"
+#include "../Game/Game.h"
 
 int Units::eID = 0;
 int Units::aID = 2000;
@@ -21,9 +21,12 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 }
 bool Units::getAttacked(int dmg)
 {
-	Units* u = this;
 	cur_health -= dmg;
 	return true;
+}
+bool Units::isDead()
+{
+	return (cur_health == 0);
 }
 unitType Units::getType() const
 {

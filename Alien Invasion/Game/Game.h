@@ -30,7 +30,6 @@ public:
 	bool getUnit(unitType, Units*&, int = 0);
 	bool peekUnit(unitType, Units*&, int = 0);
 	int getTimestep();
-	void simulate();
 	bool getUML(Units*&);
 	bool addUnit(Units*&);
 

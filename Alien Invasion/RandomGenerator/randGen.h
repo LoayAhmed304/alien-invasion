@@ -33,6 +33,5 @@ public:
 	Units* generateEarth();
 	Units* generateAlien();
 	bool addUnits();
-	int generateNum(); // for phase 1.2 simulation
 };
 #endif

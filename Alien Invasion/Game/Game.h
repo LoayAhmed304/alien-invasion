@@ -15,6 +15,10 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
+	//////////////////////////////
+	priQueue<Units*> UML;
+
+
 public:
 	Game();
 	void setRandom();	// Reads the input file and initializes randGen object
@@ -22,10 +26,16 @@ public:
 	void fight();
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
-	bool getUnit(unitType, Units*&);
-	bool peekUnit(unitType, Units*&);
+	int getLength(unitType);
+	bool getUnit(unitType, Units*&, int = 0);
+	bool peekUnit(unitType, Units*&, int = 0);
 	int getTimestep();
-	void simulate();
+	bool getUML(Units*&);
+	bool addUnit(Units*&);
+
+	bool kill(Units*&);
+	bool toUML(Units*&);
+
 	// void exportFile();
 	~Game();
 };

@@ -11,8 +11,8 @@ bool AlienArmy::addUnit(Units* X)
         AM.insert(X);
         break;
     case alienDrone:
-        swapAdd = !swapAdd;
-        if (swapAdd)
+        swap = !swap;
+        if (swap)
             AD.enqueue(X);
         else
             AD.enqueueFront(X);
@@ -45,10 +45,22 @@ bool AlienArmy::getUnit(unitType type, Units*& unit, int m)
     case alienMonster:
         return AM.remove(unit, m);
     case alienDrone:
-        swapRemove = !swapRemove;
-        if (swapRemove)
-            return AD.dequeueRear(unit);
-        return AD.dequeue(unit);
+        swap = !swap;
+        if (swap)
+            return AD.dequeue(unit);
+        return AD.dequeueRear(unit);
+    }
+}
+
+int AlienArmy::getLength(unitType type)
+{
+    switch (type) {
+    case alienSoldier:
+        return (AS.length());
+    case alienMonster:
+        return AM.length();
+    case alienDrone:
+        return AD.length();
     }
 }
 
@@ -96,8 +108,13 @@ int AlienArmy::length(unitType type)
     }
 }
 
-bool AlienArmy::fight() {
-    return true;
+bool AlienArmy::fight()
+{
+    Units* unit;
+    if (peekUnit(alienSoldier, unit))
+        unit->attack();
+
+    return false;
 }
 
 AlienArmy::~AlienArmy()

@@ -13,6 +13,8 @@ bool EarthArmy::addUnit(Units* X)
     case earthGunnery:
         EG.enqueue(X, (X->getCurHealth() + X->getPower()));
         break;
+    case earthHeal:
+        EH.push(X);
     }
     return true;
 }
@@ -27,6 +29,8 @@ bool EarthArmy::peekUnit(unitType type, Units*& unit)
     case earthGunnery:
         int n;
         return EG.peek(unit, n);
+    case earthHeal:
+        return EH.peek(unit);
     }
 }
 
@@ -40,6 +44,23 @@ bool EarthArmy::getUnit(unitType type, Units*& unit)
     case earthGunnery:
         int n;
         return EG.dequeue(unit, n);
+    case earthHeal:
+        return EH.pop(unit);
+    }
+}
+
+int EarthArmy::getLength(unitType type)
+{
+    switch (type) {
+    case earthSoldier:
+        return (ES.length());
+    case earthTank:
+        return ET.length();
+    case earthGunnery:
+        int n;
+        return EG.length();
+    case earthHeal:
+        return EH.length();
     }
 }
 
@@ -52,6 +73,8 @@ bool EarthArmy::isEmpty(unitType type)
         return ET.isEmpty();
     case earthGunnery:
         return EG.isEmpty();
+    case earthHeal:
+        return EH.isEmpty();
     default:
         return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
     }
@@ -73,11 +96,23 @@ void EarthArmy::print()
     cout << EG.length() << " EG [";
     EG.printAll();
     cout << "]\n";
+
+    ///     Print all Earth Heal
+    cout << EH.length() << " EH [";
+    EH.printAll();
+    cout << "]\n";
 }
 
 bool EarthArmy::fight()
 {
-    return false;
+    Units* unit;
+    if (peekUnit(earthSoldier, unit))
+        unit->attack();
+    if (peekUnit(earthTank, unit))
+        unit->attack();
+    if (peekUnit(earthHeal, unit))
+        unit->attack();
+    return true;
 }
 
 EarthArmy::~EarthArmy()

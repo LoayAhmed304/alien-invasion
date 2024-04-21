@@ -11,13 +11,13 @@ private:
     LinkedQueue<Units*> AS;
     RandomArray<Units*> AM;
     Deque<Units*> AD;
-    bool swapAdd = true;
-    bool swapRemove = true;
+    bool swap = true;
     bool swapPeek = true;
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&, int = 0);
     bool getUnit(unitType, Units*&, int = 0);
+    int getLength(unitType);
     bool isEmpty(unitType);
     void print();
     int length(unitType);

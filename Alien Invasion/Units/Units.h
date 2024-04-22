@@ -20,7 +20,8 @@ class Units
 {
 private:
     unitType type;
-    int Tj, Ta, Td, Df, Dd, UAP, health, power, attack_cap, cur_health, TimeUML;
+    int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
+    double health;
     bool InsideUML;
 protected:
     int id;
@@ -30,14 +31,16 @@ protected:
 public:
     Units(unitType type, int power, int health, int atk_cap, Game* g);
     virtual bool attack() = 0;
-    virtual bool getAttacked(int dmg);
-    virtual bool isDead() ;
+    virtual bool getAttacked(double dmg);
+    virtual bool isDead();
     virtual unitType getType() const;
-    virtual int getHealth() const;
-    virtual int getCurHealth() const;
+    virtual double getHealth() const;
+    virtual double getCurHealth() const;
     virtual int getPower() const;
     virtual int getAttackCap() const;
-    virtual int getHealthPerc()const;
+    virtual int getHealthPerc() const;
+    virtual int getTa() const;
+    virtual void setTa(int);
 
     virtual bool checkUML() const;
     virtual int getUMLtime();

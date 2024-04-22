@@ -106,9 +106,11 @@ void EarthArmy::print()
 bool EarthArmy::fight()
 {
     Units* unit;
-    if (peekUnit(earthSoldier, unit))
-        unit->attack();
+    /*if (peekUnit(earthSoldier, unit))
+        unit->attack();*/
     if (peekUnit(earthTank, unit))
+        unit->attack();
+    if (peekUnit(earthGunnery, unit))
         unit->attack();
     if (peekUnit(earthHeal, unit))
         unit->attack();

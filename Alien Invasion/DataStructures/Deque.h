@@ -133,6 +133,8 @@ bool Deque<T>::dequeueRear(T& RearEntry)
 template<typename T>
 bool Deque<T>::peek(T& FrontEntry) const
 {
+	if (isEmpty())
+		return false;
 	FrontEntry = frontPtr->getItem();
 	return true;
 }
@@ -140,6 +142,8 @@ bool Deque<T>::peek(T& FrontEntry) const
 template<typename T>
 inline bool Deque<T>::peekRear(T& RearEntry) const
 {
+	if (isEmpty())
+		return false;
 	RearEntry = backPtr->getItem();
 	return true;
 }

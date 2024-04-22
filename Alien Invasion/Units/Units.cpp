@@ -23,7 +23,6 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 }
 bool Units::getAttacked(double dmg)
 {
-	cout << dmg / sqrt(cur_health) << " unit with id, Tj, Ta, Td, Df, Dd, Db, hp bef: " << id << " " << Tj << " " << Ta << " " << Td << " " << Df << " " << Dd << " " << Db << " " << cur_health;
 	cur_health -= dmg / sqrt(cur_health);
 	if (cur_health < 0)
 	{
@@ -32,7 +31,6 @@ bool Units::getAttacked(double dmg)
 		Dd = Td - Ta;
 		Db = Td - Tj;
 	}
-	cout << " hp " << cur_health << endl;
 	return true;
 }
 bool Units::isDead()

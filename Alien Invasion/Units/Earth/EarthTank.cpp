@@ -19,7 +19,6 @@ bool EarthTank::attack()
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				cout << "unit with id: " << id << " shot with dmg: ";
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
@@ -28,7 +27,6 @@ bool EarthTank::attack()
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				cout << "unit with id: " << id << " shot with dmg: ";
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
@@ -43,7 +41,6 @@ bool EarthTank::attack()
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				cout << "unit with id: " << id << " shot with dmg: ";
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 			}

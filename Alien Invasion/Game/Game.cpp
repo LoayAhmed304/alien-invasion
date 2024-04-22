@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <Windows.h>
 Game::Game() : timestep(1), isOver(false)
 {
 	eArmy = new EarthArmy;
@@ -31,26 +30,24 @@ void Game::setRandom()
 
 void Game::printAll()
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, 11);
-	cout << "\n============== Earth Army Alive Units =============\n";
+
+	cout << "\n\033[1;36m============== Earth Army Alive Units =============\n";
 	eArmy->print();
 	cout << endl;
-	SetConsoleTextAttribute(hConsole, 10);
-	cout << "============== Alien Army Alive Units =============\n";
+
+	cout << "\033[1;32m============== Alien Army Alive Units =============\n";
 	aArmy->print();
 	cout << endl;
-	SetConsoleTextAttribute(hConsole, 12);
-	cout << "============== Killed/Destructed Units =============\n";
+
+	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
 	cout << "]\n\n";
-	SetConsoleTextAttribute(hConsole, 14);
-	cout << "============== UML =============\n";
+
+	cout << "\033[1;33m============== UML =============\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
-	cout << "]\n\n";
-	SetConsoleTextAttribute(hConsole, 7);
+	cout << "]\n\n\033[0m";
 
 }
 
@@ -141,9 +138,9 @@ void Game::fight()
 		printAll();
 
 		eArmy->fight();
-
 		aArmy->fight(getMonsterIndex());
 
+		updateUML();
 		system("pause");
 		cout << endl;
 		i++;
@@ -155,6 +152,23 @@ bool Game::getUML(Units*& unit)
 	int p;
 	if (UML.dequeue(unit, p))
 		return true;
+	return false;
+}
+
+bool Game::updateUML()
+{
+	Units* unit;
+	int p;
+	priQueue<Units*> temp;
+	while (UML.dequeue(unit,p))
+	{
+		temp.enqueue(unit, p);
+	}
+	while (temp.dequeue(unit, p))
+	{
+		unit->insideUML();
+		UML.enqueue(unit, p);
+	}
 	return false;
 }
 

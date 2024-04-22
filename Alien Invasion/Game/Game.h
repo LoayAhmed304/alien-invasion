@@ -32,6 +32,7 @@ public:
 	bool peekUnit(unitType, Units*&, int = 0);
 	int getTimestep();
 	bool getUML(Units*&);
+	bool updateUML();
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 

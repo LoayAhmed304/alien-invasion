@@ -37,7 +37,7 @@ bool AlienDrone::attack()
 		else if (enemy->getType() == earthTank && enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
-			game->getEarthArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

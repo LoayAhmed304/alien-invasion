@@ -37,7 +37,7 @@ bool AlienMonster::attack()
 		else if (enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
-			game->getEarthArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

@@ -24,6 +24,8 @@ bool AlienSoldier::attack()
 	{
 		if (enemy->isDead())
 			game->kill(enemy);
+		else if (enemy->getHealthPerc() < 20)
+			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
 	}

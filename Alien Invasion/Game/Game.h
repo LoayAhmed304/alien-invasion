@@ -27,12 +27,14 @@ public:
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
 	int getLength(unitType);
+	bool isEmpty(unitType);
 	bool getUnit(unitType, Units*&, int = 0);
 	bool peekUnit(unitType, Units*&, int = 0);
 	int getTimestep();
 	bool getUML(Units*&);
 	bool updateUML();
 	bool addUnit(Units*&);
+	int getMonsterIndex();
 
 	bool kill(Units*&);
 	bool toUML(Units*&);

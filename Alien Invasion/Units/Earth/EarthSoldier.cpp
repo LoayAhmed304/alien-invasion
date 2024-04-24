@@ -8,7 +8,7 @@ EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p
 
 bool EarthSoldier::attack()
 {
-	Units* enemy;
+	/*Units* enemy;
 	Units* unit = nullptr;
 
 	for (int i = 0; i < getAttackCap(); i++)
@@ -29,6 +29,6 @@ bool EarthSoldier::attack()
 				game->addUnit(enemy);
 			}
 		}
-	}
+	}*/
 	return true;
 }

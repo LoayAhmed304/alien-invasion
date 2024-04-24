@@ -108,13 +108,22 @@ int AlienArmy::length(unitType type)
     }
 }
 
-bool AlienArmy::fight()
+bool AlienArmy::fight(int m)
 {
     Units* unit;
-    if (peekUnit(alienSoldier, unit))
+   /* if (peekUnit(alienSoldier, unit))
+        unit->attack();*/
+    if (peekUnit(alienMonster, unit, m))
         unit->attack();
+    if (getLength(alienDrone) > 1)
+    {
+        peekUnit(alienDrone, unit);
+        unit->attack();
+        peekUnit(alienDrone, unit);
+        unit->attack();
+    }
 
-    return false;
+    return true;
 }
 
 AlienArmy::~AlienArmy()

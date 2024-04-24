@@ -68,17 +68,30 @@ int Game::getLength(unitType s)
 	return aArmy->getLength(s);
 }
 
+bool Game::isEmpty(unitType s)
+{
+	if (s < alienSoldier)
+		return eArmy->isEmpty(s);
+	return aArmy->isEmpty(s);
+}
+
 bool Game::getUnit(unitType s, Units*& unit, int m)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
 	return aArmy->getUnit(s, unit, m);
 }
+
 bool Game::addUnit(Units*& unit)
 {
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
 	return aArmy->addUnit(unit);
+}
+
+int Game::getMonsterIndex()
+{
+	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
 bool Game::kill(Units*& unit)
@@ -125,7 +138,7 @@ void Game::fight()
 		printAll();
 
 		eArmy->fight();
-		aArmy->fight();
+		aArmy->fight(getMonsterIndex());
 
 		updateUML();
 		system("pause");

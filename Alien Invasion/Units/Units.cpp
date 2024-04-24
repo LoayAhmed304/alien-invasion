@@ -18,10 +18,19 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 	InsideUML = false;
 	TimeUML = 0;
 	Tj = game->getTimestep();
+	Ta = 0;
+	Td = 0;
 }
-bool Units::getAttacked(int dmg)
+bool Units::getAttacked(double dmg)
 {
-	cur_health -= dmg;
+	cur_health -= dmg / sqrt(cur_health);
+	if (cur_health < 0)
+	{
+		cur_health = 0;
+		Td = game->getTimestep();
+		Dd = Td - Ta;
+		Db = Td - Tj;
+	}
 	return true;
 }
 bool Units::isDead()
@@ -33,12 +42,12 @@ unitType Units::getType() const
 	return type;
 }
 
-int Units::getHealth() const
+double Units::getHealth() const
 {
 	return health;
 }
 
-int Units::getCurHealth() const
+double Units::getCurHealth() const
 {
 	return cur_health;
 }
@@ -51,6 +60,17 @@ int Units::getPower() const
 int Units::getAttackCap() const
 {
 	return attack_cap;
+}
+
+int Units::getTa() const
+{
+	return Ta;
+}
+
+void Units::setTa(int ta)
+{
+	Ta = ta;
+	Df = Ta - Tj;
 }
 
 int Units::getHealthPerc() const

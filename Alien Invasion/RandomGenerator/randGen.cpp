@@ -41,7 +41,9 @@ bool randGen::probability()
 
 int randGen::getMonsterIndex(int val)
 {
-    return (rand() % val);
+    if (val)
+        return (rand() % val);
+    return 0;
 }
 
 Units* randGen::generateEarth()

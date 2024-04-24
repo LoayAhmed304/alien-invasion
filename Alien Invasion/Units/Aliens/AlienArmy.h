@@ -21,7 +21,7 @@ public:
     bool isEmpty(unitType);
     void print();
     int length(unitType);
-    bool fight();        // Peeks each earth unit and calls its attack
+    bool fight(int m = 0);        // Peeks each earth unit and calls its attack
     ~AlienArmy();
 };
 

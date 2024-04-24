@@ -12,7 +12,7 @@ bool AlienSoldier::attack()
 	LinkedQueue<Units*> temp;
 	for (int i = 0; i < this->getAttackCap(); ++i)
 	{
-		if (game->getUnit(alienSoldier, enemy))
+		if (game->getUnit(earthSoldier, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());

@@ -21,7 +21,7 @@ bool AlienMonster::attack()
 			temp.enqueue(enemy);
 			++i;
 		}
-		if (game->getUnit(earthTank, enemy));
+		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());

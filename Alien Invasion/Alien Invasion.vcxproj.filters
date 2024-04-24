@@ -106,7 +106,9 @@
     <ClInclude Include="RandomGenerator\randGen.h">
       <Filter>RandomGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Earth\EarthHeal.h" />
+    <ClInclude Include="Units\Earth\EarthHeal.h">
+      <Filter>Armies\Earth</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Armies">

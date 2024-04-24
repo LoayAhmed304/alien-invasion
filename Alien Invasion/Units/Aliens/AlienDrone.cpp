@@ -13,7 +13,7 @@ bool AlienDrone::attack()
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthTank) || !game->isEmpty(earthGunnery)))
 	{
-		if (game->getUnit(earthTank, enemy));
+		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());

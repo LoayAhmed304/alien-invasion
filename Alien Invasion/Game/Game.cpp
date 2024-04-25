@@ -31,13 +31,16 @@ void Game::setRandom()
 void Game::printAll()
 {
 
-	cout << "\n\033[1;36m============== Earth Army Alive Units =============\n";
+	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
 
-	cout << "\033[1;32m============== Alien Army Alive Units =============\n";
+	cout << "\033[1;32m============== Alien Army Alive Units ==============\n";
 	aArmy->print();
 	cout << endl;
+
+	cout << "\033[1;35m============== Units fighting at current step ======\n";
+	aArmy->printFighting();
 
 	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
 	cout << killedList.length() << " units [";

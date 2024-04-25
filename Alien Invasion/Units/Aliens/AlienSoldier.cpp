@@ -20,6 +20,8 @@ bool AlienSoldier::attack()
 			temp.enqueue(enemy);
 		}
 	}
+	game->getAlienArmy()->printFighting(this, temp);
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())

@@ -17,6 +17,7 @@ private:
 	int count;
 public:
 	LinkedQueue();
+	LinkedQueue(const LinkedQueue& q2);
 	bool isEmpty() const;
 	int length() const;
 	bool enqueue(const T& newEntry);
@@ -39,6 +40,21 @@ LinkedQueue<T>::LinkedQueue()
 	backPtr = nullptr;
 	frontPtr = nullptr;
 	count = 0;
+}
+template<typename T>
+inline LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& q2)
+{
+	backPtr = nullptr;
+	frontPtr = nullptr;
+	count = 0;
+	if (q2.frontPtr) {
+		Node<T>* current = q2.frontPtr;
+		while (current) {
+			enqueue(current->getItem());
+			current = current->getNext();
+			++count;
+		}
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 

@@ -94,6 +94,18 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
+void Game::updateFile(Units* unit)
+{
+	int Td, ID, Tj, Df, Dd, Db;
+	Td = unit->getTd();
+	ID = unit->getID();
+	Tj = unit->getTj();
+	Df = unit->getDf();
+	Dd = unit->getDd();
+	Db = unit->getDb();
+	cout << endl << endl << Td << " " << ID << " " << Tj << " " << Df << " " << Dd << " " << Db << "\n";
+}
+
 bool Game::kill(Units*& unit)
 {
 	return killedList.enqueue(unit);;

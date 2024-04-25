@@ -35,6 +35,7 @@ public:
 	bool updateUML();
 	bool addUnit(Units*&);
 	int getMonsterIndex();
+	void updateFile(Units*);
 
 	bool kill(Units*&);
 	bool toUML(Units*&);

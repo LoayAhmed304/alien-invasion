@@ -78,6 +78,36 @@ int Units::getHealthPerc() const
 	return ((cur_health * 100) / health);
 }
 
+int Units::getTd() const
+{
+	return Td;
+}
+
+int Units::getID() const
+{
+	return id;
+}
+
+int Units::getTj() const
+{
+	return Tj;
+}
+
+int Units::getDf() const
+{
+	return Df;
+}
+
+int Units::getDd() const
+{
+	return Dd;
+}
+
+int Units::getDb() const
+{
+	return Db;
+}
+
 bool Units::checkUML() const
 {
 	return InsideUML;

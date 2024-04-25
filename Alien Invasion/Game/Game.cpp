@@ -11,6 +11,9 @@ void Game::clearOutput()
 {
 	outputFile.open("output.txt", ios::out | ios::trunc);
 	outputFile.close();
+	outputFile.open("output.txt", ios::out);
+	outputFile << "Td \t\tID \t\tTj \t\tDf \t\tDd \t\tDb\n\n";
+	outputFile.close();
 }
 
 void Game::setRandom()
@@ -32,6 +35,29 @@ void Game::setRandom()
 	else
 	{
 		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
+	}
+}
+
+void Game::updateFile(Units* unit)
+{
+	string fileName = "output.txt";
+	outputFile.open("output.txt", ios::app);
+	if (outputFile.is_open())
+	{
+		int Td, ID, Tj, Df, Dd, Db;
+		Td = unit->getTd();
+		ID = unit->getID();
+		Tj = unit->getTj();
+		Df = unit->getDf();
+		Dd = unit->getDd();
+		Db = unit->getDb();
+
+		outputFile << Td << "\t\t" << ID << "\t\t" << Tj << "\t\t" << Df << "\t\t" << Dd << "\t\t" << Db << "\n";
+		outputFile.close();
+	}
+	else
+	{
+		throw std::ios_base::failure("Failed to create file");
 	}
 }
 
@@ -101,28 +127,6 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
-void Game::updateFile(Units* unit)
-{
-	string fileName = "output.txt";
-	outputFile.open("output.txt", ios::app);
-	if (outputFile.is_open())
-	{
-		int Td, ID, Tj, Df, Dd, Db;
-		Td = unit->getTd();
-		ID = unit->getID();
-		Tj = unit->getTj();
-		Df = unit->getDf();
-		Dd = unit->getDd();
-		Db = unit->getDb();
-
-		outputFile << Td << " " << ID << " " << Tj << " " << Df << " " << Dd << " " << Db << "\n";
-		outputFile.close();
-	}
-	else
-	{
-		throw std::ios_base::failure("Failed to create file");
-	}
-}
 
 bool Game::kill(Units*& unit)
 {

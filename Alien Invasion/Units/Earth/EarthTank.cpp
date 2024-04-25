@@ -18,7 +18,10 @@ bool EarthTank::attack()
 			if (game->getUnit(alienSoldier, enemy))
 			{
 				if (!enemy->getTa())
+				{
 					enemy->setTa(game->getTimestep());
+					enemy->setDf(enemy->getTa() - enemy->getTj());
+				}
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
@@ -26,7 +29,10 @@ bool EarthTank::attack()
 			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
 			{
 				if (!enemy->getTa())
+				{
 					enemy->setTa(game->getTimestep());
+					enemy->setDf(enemy->getTa() - enemy->getTj());
+				}
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
@@ -40,7 +46,10 @@ bool EarthTank::attack()
 			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
 			{
 				if (!enemy->getTa())
+				{
 					enemy->setTa(game->getTimestep());
+					enemy->setDf(enemy->getTa() - enemy->getTj());
+				}
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 			}
@@ -51,7 +60,12 @@ bool EarthTank::attack()
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
+		{
+			enemy->setTd(game->getTimestep());
+			enemy->setDd(enemy->getTd() - enemy->getTa());
+			enemy->setDb(enemy->getDf() + enemy->getDd());
 			game->kill(enemy);
+		}
 		else
 			game->addUnit(enemy);
 	}

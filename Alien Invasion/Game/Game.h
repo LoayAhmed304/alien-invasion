@@ -17,6 +17,7 @@ private:
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
+	fstream outputFile;
 
 
 public:
@@ -35,12 +36,13 @@ public:
 	bool updateUML();
 	bool addUnit(Units*&);
 	int getMonsterIndex();
+
 	void updateFile(Units*);
+	void clearOutput();
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
 
-	// void exportFile();
 	~Game();
 };
 

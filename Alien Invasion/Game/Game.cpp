@@ -4,6 +4,13 @@ Game::Game() : timestep(1), isOver(false)
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
+	clearOutput();
+}
+
+void Game::clearOutput()
+{
+	outputFile.open("output.txt", ios::out | ios::trunc);
+	outputFile.close();
 }
 
 void Game::setRandom()
@@ -96,7 +103,25 @@ int Game::getMonsterIndex()
 
 void Game::updateFile(Units* unit)
 {
+	string fileName = "output.txt";
+	outputFile.open("output.txt", ios::app);
+	if (outputFile.is_open())
+	{
+		int Td, ID, Tj, Df, Dd, Db;
+		Td = unit->getTd();
+		ID = unit->getID();
+		Tj = unit->getTj();
+		Df = unit->getDf();
+		Dd = unit->getDd();
+		Db = unit->getDb();
 
+		outputFile << Td << " " << ID << " " << Tj << " " << Df << " " << Dd << " " << Db << "\n";
+		outputFile.close();
+	}
+	else
+	{
+		throw std::ios_base::failure("Failed to create file");
+	}
 }
 
 bool Game::kill(Units*& unit)

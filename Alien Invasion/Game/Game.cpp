@@ -133,7 +133,7 @@ int Game::getTimestep()
 void Game::fight()
 {
 	int i = 0;
-	while (i !isOver)
+	while (!isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 

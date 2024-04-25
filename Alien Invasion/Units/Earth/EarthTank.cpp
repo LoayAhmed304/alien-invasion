@@ -64,6 +64,7 @@ bool EarthTank::attack()
 			enemy->setTd(game->getTimestep());
 			enemy->setDd(enemy->getTd() - enemy->getTa());
 			enemy->setDb(enemy->getDf() + enemy->getDd());
+			game->updateFile(enemy);
 			game->kill(enemy);
 		}
 		else

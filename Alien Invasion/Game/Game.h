@@ -11,13 +11,14 @@ class Game {
 private:
 	int timestep;
 	bool isOver;
+	bool shots;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
-
+	string result;
 
 public:
 	Game();

@@ -75,7 +75,7 @@ bool EarthArmy::isEmpty(unitType type)
         return EG.isEmpty();
     case earthHeal:
         return EH.isEmpty();
-    default:
+    case earthArmy:
         return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
     }
 }

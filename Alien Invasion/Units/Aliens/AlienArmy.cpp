@@ -73,7 +73,7 @@ bool AlienArmy::isEmpty(unitType type)
         return AM.isEmpty();
     case alienDrone:
         return AD.isEmpty();
-    default:
+    case alienArmy:
         return (AS.isEmpty() && AM.isEmpty() && AD.isEmpty());
     }
 }
@@ -94,18 +94,6 @@ void AlienArmy::print()
     cout << AD.length() << " AD [";
     AD.printAll();
     cout << "]\n";
-}
-
-int AlienArmy::length(unitType type)
-{
-    switch (type) {
-    case alienSoldier:
-        return AS.length();
-    case alienMonster:
-        return AM.length();
-    case alienDrone:
-        return AD.length();
-    }
 }
 
 bool AlienArmy::fight(int m)

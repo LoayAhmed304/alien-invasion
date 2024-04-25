@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), isOver(false)
+Game::Game() : timestep(1), isOver(false), shots(true)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -65,7 +65,8 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	return aArmy->getLength(s);
+	if(s<alienArmy)
+		return aArmy->getLength(s);
 }
 
 bool Game::isEmpty(unitType s)
@@ -130,7 +131,7 @@ int Game::getTimestep()
 void Game::fight()
 {
 	int i = 0;
-	while (i < 1000)
+	while (!isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
@@ -141,9 +142,31 @@ void Game::fight()
 		aArmy->fight(getMonsterIndex());
 
 		updateUML();
+
+		if (i > 40)				// Start checking for result
+		{
+			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
+			{
+				result = "Tie";
+				isOver = true;
+			}
+			else
+			{
+				if (eArmy->isEmpty(earthArmy))
+				{
+					result = "Aliens";
+					isOver = true;
+				}
+				if (aArmy->isEmpty(alienArmy))
+				{
+					result = "Earth";
+					isOver = true;
+				}
+			}
+		}
 		system("pause");
 		cout << endl;
-		i++;
+		++i;
 	}
 }
 

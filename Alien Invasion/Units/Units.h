@@ -13,7 +13,9 @@ enum unitType
     earthHeal,
     alienSoldier,
     alienMonster,
-    alienDrone
+    alienDrone,
+    alienArmy,
+    earthArmy
 };
 
 class Units

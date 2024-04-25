@@ -47,6 +47,12 @@ public:
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
+
+    virtual void setTd(int);
+    virtual void setTj(int);
+    virtual void setDf(int);
+    virtual void setDd(int);
+    virtual void setDb(int);
     virtual void setTa(int);
 
     virtual bool checkUML() const;

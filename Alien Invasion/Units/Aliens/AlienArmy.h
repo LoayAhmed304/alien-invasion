@@ -20,7 +20,6 @@ public:
     int getLength(unitType);
     bool isEmpty(unitType);
     void print();
-    int length(unitType);
     bool fight(int m = 0);        // Peeks each earth unit and calls its attack
     ~AlienArmy();
 };

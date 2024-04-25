@@ -67,8 +67,6 @@ int Game::getLength(unitType s)
 		return eArmy->getLength(s);
 	if(s<alienArmy)
 		return aArmy->getLength(s);
-	if (s == alienArmy) return aArmy->getLength(alienSoldier) + aArmy->getLength(alienDrone) + aArmy->getLength(alienMonster);
-	return eArmy->getLength(earthTank) + eArmy->getLength(earthSoldier) + eArmy->getLength(earthGunnery);
 }
 
 bool Game::isEmpty(unitType s)
@@ -147,19 +145,19 @@ void Game::fight()
 
 		if (i > 40)				// Start checking for result
 		{
-			if ((getLength(earthArmy) == 0 && getLength(alienArmy) == 0) || !shots)
+			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
 			{
 				result = "Tie";
 				isOver = true;
 			}
 			else
 			{
-				if (getLength(earthArmy) == 0)
+				if (eArmy->isEmpty(earthArmy))
 				{
 					result = "Aliens";
 					isOver = true;
 				}
-				if (getLength(alienArmy) == 0)
+				if (aArmy->isEmpty(alienArmy))
 				{
 					result = "Earth";
 					isOver = true;

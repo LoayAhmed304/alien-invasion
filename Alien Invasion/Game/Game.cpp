@@ -65,7 +65,10 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	return aArmy->getLength(s);
+	if(s<alienArmy)
+		return aArmy->getLength(s);
+	if (s == alienArmy) return aArmy->getLength(alienSoldier) + aArmy->getLength(alienDrone) + aArmy->getLength(alienMonster);
+	return eArmy->getLength(earthTank) + eArmy->getLength(earthSoldier) + eArmy->getLength(earthGunnery);
 }
 
 bool Game::isEmpty(unitType s)
@@ -130,7 +133,7 @@ int Game::getTimestep()
 void Game::fight()
 {
 	int i = 0;
-	while (i < 1000)
+	while (i !isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
@@ -141,9 +144,31 @@ void Game::fight()
 		aArmy->fight(getMonsterIndex());
 
 		updateUML();
+
+		if (i > 40)				// Start checking for result
+		{
+			if (getLength(earthArmy) == 0 && getLength(alienArmy) == 0)
+			{
+				result = "Tie";
+				isOver = true;
+			}
+			else
+			{
+				if (getLength(earthArmy) == 0)
+				{
+					result = "Aliens";
+					isOver = true;
+				}
+				if (getLength(alienArmy) == 0)
+				{
+					result = "Earth";
+					isOver = true;
+				}
+			}
+		}
 		system("pause");
 		cout << endl;
-		i++;
+		++i;
 	}
 }
 

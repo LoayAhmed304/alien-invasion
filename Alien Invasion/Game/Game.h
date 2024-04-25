@@ -17,7 +17,7 @@ private:
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
-
+	string result;
 
 public:
 	Game();

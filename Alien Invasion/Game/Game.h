@@ -11,6 +11,7 @@ class Game {
 private:
 	int timestep;
 	bool isOver;
+	bool shots;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;

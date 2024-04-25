@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), isOver(false)
+Game::Game() : timestep(1), isOver(false), shots(true)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -147,7 +147,7 @@ void Game::fight()
 
 		if (i > 40)				// Start checking for result
 		{
-			if (getLength(earthArmy) == 0 && getLength(alienArmy) == 0)
+			if ((getLength(earthArmy) == 0 && getLength(alienArmy) == 0) || !shots)
 			{
 				result = "Tie";
 				isOver = true;

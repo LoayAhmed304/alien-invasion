@@ -11,6 +11,7 @@ class Game {
 private:
 	int timestep;
 	bool isOver;
+	bool shots;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
@@ -18,6 +19,7 @@ private:
 	//////////////////////////////
 	priQueue<Units*> UML;
 
+	LinkedQueue<Units*> temp;
 
 public:
 	Game();
@@ -36,6 +38,8 @@ public:
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 
+	bool totemp(Units*);
+	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

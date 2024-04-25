@@ -126,37 +126,6 @@ bool AlienArmy::fight(int m)
     return true;
 }
 
-void AlienArmy::setFight(Units* unit, LinkedQueue<Units*> enemies)
-{
-        Units* enemy = nullptr;
-        LinkedQueue<Units*> enemiestemp = enemies;
-
-
-        shooterID = unit->getID();
-        switch (unit->getType())
-        {
-        case alienSoldier:
-            shooterType = "AS";
-            break;
-        case alienDrone:
-            shooterType = "AD";
-            break;
-        case alienMonster:
-            shooterType = "AM";
-            break;
-        }
-        enemiesIDs = " ";
-        while (enemiestemp.dequeue(enemy))
-            enemiesIDs += std::to_string(enemy->getID()) + ", "; //  cout << "[" << enemiesIDS << "]
-
-
-}
-
-void AlienArmy::printFighting()
-{
-    cout << shooterType << " " << shooterID << " shots [" << enemiesIDs << "]\n\n";
-}
-
 AlienArmy::~AlienArmy()
 {
     Units* temp;

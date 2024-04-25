@@ -12,13 +12,13 @@ private:
 	int timestep;
 	bool isOver;
 	bool shots;
+  string result;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
-
 	LinkedQueue<Units*> temp;
 
 public:

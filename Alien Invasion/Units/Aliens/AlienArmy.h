@@ -14,6 +14,7 @@ private:
     Deque<Units*> AD;
     bool swap = true;
     bool swapPeek = true;
+
     int shooterID;
     string enemiesIDs;
     string shooterType;
@@ -26,7 +27,7 @@ public:
     void print();
     int length(unitType);
     bool fight(int m = 0);        // Peeks each earth unit and calls its attack
-    void printFighting(Units*, LinkedQueue<Units*>);
+    void setFight(Units*, LinkedQueue<Units*>);
     void printFighting();
     ~AlienArmy();
 };

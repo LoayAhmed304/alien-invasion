@@ -126,7 +126,7 @@ bool AlienArmy::fight(int m)
     return true;
 }
 
-void AlienArmy::printFighting(Units* unit, LinkedQueue<Units*> enemies)
+void AlienArmy::setFight(Units* unit, LinkedQueue<Units*> enemies)
 {
         Units* enemy = nullptr;
         LinkedQueue<Units*> enemiestemp = enemies;
@@ -147,7 +147,8 @@ void AlienArmy::printFighting(Units* unit, LinkedQueue<Units*> enemies)
         }
         enemiesIDs = " ";
         while (enemiestemp.dequeue(enemy))
-            enemiesIDs += std::to_string(enemy->getID()) + ", ";
+            enemiesIDs += std::to_string(enemy->getID()) + ", "; //  cout << "[" << enemiesIDS << "]
+
 
 }
 

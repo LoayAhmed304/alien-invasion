@@ -5,6 +5,7 @@
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/Deque.h"
 #include "../../DataStructures/RandomArray.h"
+#include <string>
 
 class AlienArmy{
 private:
@@ -13,6 +14,7 @@ private:
     Deque<Units*> AD;
     bool swap = true;
     bool swapPeek = true;
+
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&, int = 0);

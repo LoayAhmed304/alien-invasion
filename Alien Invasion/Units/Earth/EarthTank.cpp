@@ -10,6 +10,8 @@ bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
+	bool Attacker = true;
+
 	if (game->getLength(earthSoldier) < (game->getLength(alienSoldier) * .3))
 	{
 		int i = 0;
@@ -22,6 +24,12 @@ bool EarthTank::attack()
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
+				if (Attacker)
+				{
+					game->totemp(this);
+					Attacker = false;
+				}
+				game->totemp(enemy);
 			}
 			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
 			{
@@ -29,7 +37,14 @@ bool EarthTank::attack()
 					enemy->setTa(game->getTimestep());
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
+				game->totemp(enemy);
 				++i;
+				if (Attacker)
+				{
+					game->totemp(this);
+					Attacker = false;
+				}
+				game->totemp(enemy);
 			}
 		}
 	}
@@ -43,6 +58,12 @@ bool EarthTank::attack()
 					enemy->setTa(game->getTimestep());
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
+				if (Attacker)
+				{
+					game->totemp(this);
+					Attacker = false;
+				}
+				game->totemp(enemy);
 			}
 			else
 				break;
@@ -54,6 +75,13 @@ bool EarthTank::attack()
 			game->kill(enemy);
 		else
 			game->addUnit(enemy);
+
+		if (!Attacker)
+		{
+			game->totemp(nullptr);
+			Attacker = true;
+		}
 	}
+
 	return true;
 }

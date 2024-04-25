@@ -43,6 +43,7 @@ public:
     virtual int getHealthPerc() const;
     virtual int getTa() const;
     virtual void setTa(int);
+    virtual int getID();
 
     virtual bool checkUML() const;
     virtual int getUMLtime();

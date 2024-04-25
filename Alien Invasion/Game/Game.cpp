@@ -31,12 +31,16 @@ void Game::setRandom()
 void Game::printAll()
 {
 
-	cout << "\n\033[1;36m============== Earth Army Alive Units =============\n";
+	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
 
-	cout << "\033[1;32m============== Alien Army Alive Units =============\n";
+	cout << "\033[1;32m============== Alien Army Alive Units ==============\n";
 	aArmy->print();
+	cout << endl;
+
+	cout << "\033[1;35m============== Units fighting at current step =============\n";
+	shots = printtemp();
 	cout << endl;
 
 	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
@@ -93,6 +97,11 @@ bool Game::addUnit(Units*& unit)
 int Game::getMonsterIndex()
 {
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
+}
+
+bool Game::totemp(Units* unit)
+{
+	return temp.enqueue(unit);
 }
 
 bool Game::kill(Units*& unit)
@@ -194,7 +203,127 @@ bool Game::updateUML()
 	}
 	return false;
 }
+bool Game::printtemp()
+{
+	Units* unit;
+	if (temp.dequeue(unit))
+	{
+		if (unit != nullptr)
+			if (unit->getType() == earthSoldier)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				temp.dequeue(unit);
+				while (unit != nullptr)
+				{
+					cout << " ," << unit->getID();
+					temp.dequeue(unit);
 
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == earthTank)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == earthGunnery)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienSoldier)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienMonster)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienDrone)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienDrone)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		return true;
+	}
+	return false;
+}
 Game::~Game()
 {
 	delete eArmy;

@@ -21,7 +21,7 @@ bool AlienMonster::attack()
 			temp.enqueue(enemy);
 			++i;
 		}
-		if (game->getUnit(earthTank, enemy));
+		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -37,7 +37,7 @@ bool AlienMonster::attack()
 		else if (enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
-			game->getEarthArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

@@ -53,7 +53,7 @@ bool EarthTank::attack()
 		if (enemy->isDead())
 			game->kill(enemy);
 		else
-			game->getAlienArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

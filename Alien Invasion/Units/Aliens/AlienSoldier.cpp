@@ -8,27 +8,26 @@ AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p
 
 bool AlienSoldier::attack()
 {
-	/*Units* enemy;
-	Units* unit = nullptr;
-
-	for (int i = 0; i < getAttackCap(); i++)
+	Units* enemy = nullptr;
+	LinkedQueue<Units*> temp;
+	for (int i = 0; i < this->getAttackCap(); ++i)
 	{
 		if (game->getUnit(earthSoldier, enemy))
 		{
-			enemy->getAttacked(getPower());
-			if (enemy->getCurHealth() <= 0)
-			{
-				game->kill(enemy);
-			}
-			else if (enemy->getHealthPerc() < 20 && enemy->getHealthPerc() > 0)
-			{
-				game->toUML(enemy);
-			}
-			else
-			{
-				game->addUnit(enemy);
-			}
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
 		}
-	}*/
+	}
+	while (temp.dequeue(enemy))
+	{
+		if (enemy->isDead())
+			game->kill(enemy);
+		else if (enemy->getHealthPerc() < 20)
+			game->toUML(enemy);
+		else
+			game->addUnit(enemy);
+	}
 	return true;
 }

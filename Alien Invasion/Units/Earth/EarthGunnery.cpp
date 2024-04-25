@@ -21,7 +21,7 @@ bool EarthGunnery::attack()
 			temp.enqueue(enemy);
 			++i;
 		}
-		if (game->getUnit(alienDrone, enemy));
+		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -29,7 +29,7 @@ bool EarthGunnery::attack()
 			temp.enqueue(enemy);
 			++i;
 		}
-		if (game->getUnit(alienDrone, enemy));
+		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -43,7 +43,7 @@ bool EarthGunnery::attack()
 		if (enemy->isDead())
 			game->kill(enemy);
 		else
-			game->getAlienArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

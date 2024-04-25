@@ -111,8 +111,8 @@ int AlienArmy::length(unitType type)
 bool AlienArmy::fight(int m)
 {
     Units* unit;
-   /* if (peekUnit(alienSoldier, unit))
-        unit->attack();*/
+   if (peekUnit(alienSoldier, unit))
+        unit->attack();
     if (peekUnit(alienMonster, unit, m))
         unit->attack();
     if (getLength(alienDrone) > 1)

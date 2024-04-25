@@ -13,7 +13,7 @@ bool AlienDrone::attack()
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthTank) || !game->isEmpty(earthGunnery)))
 	{
-		if (game->getUnit(earthTank, enemy));
+		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -37,7 +37,7 @@ bool AlienDrone::attack()
 		else if (enemy->getType() == earthTank && enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
-			game->getEarthArmy()->addUnit(enemy);
+			game->addUnit(enemy);
 	}
 	return true;
 }

@@ -67,31 +67,6 @@ int Units::getTa() const
 	return Ta;
 }
 
-void Units::setTd(int td)
-{
-	Td = td;
-}
-
-void Units::setTj(int tj)
-{
-	Tj = tj;
-}
-
-void Units::setDf(int df)
-{
-	Df = df;
-}
-
-void Units::setDd(int dd)
-{
-	Dd = dd;
-}
-
-void Units::setDb(int db)
-{
-	Db = db;
-}
-
 void Units::setTa(int ta)
 {
 	Ta = ta;

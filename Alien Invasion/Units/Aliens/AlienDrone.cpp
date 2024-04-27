@@ -10,41 +10,50 @@ bool AlienDrone::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
+	bool attacked = false;
 	int i = 0;
+	if (game->getUnit(earthTank, enemy))
+	{
+		attacked = true;
+		cout << "AD " << getID() << " shots [";
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
+	else if (game->getUnit(earthGunnery, enemy))
+	{
+		attacked = true;
+		cout << "AD " << getID() << " shots [";
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
 	while (i < getAttackCap() && (!game->isEmpty(earthTank) || !game->isEmpty(earthGunnery)))
 	{
-		if (game->getUnit(earthTank, enemy))
-		{
-			if (!enemy->getTa())
-				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			temp.enqueue(enemy);
-			++i;
-			if (Attacker)
-			{
-				game->totemp(this);
-				Attacker = false;
-			}
-			game->totemp(enemy);
-
-		}
 		if (game->getUnit(earthGunnery, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
+			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
-			if (Attacker)
-			{
-				game->totemp(this);
-				Attacker = false;
-			}
-			game->totemp(enemy);
-
+		}
+		if (game->getUnit(earthTank, enemy))
+		{
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			cout << ", ";
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
+			++i;
 		}
 	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -53,12 +62,12 @@ bool AlienDrone::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-		if (!Attacker)
-		{
-			game->totemp(nullptr);
-			Attacker = true;
-		}
 	}
 
-	return true;
+	if (attacked)
+	{
+		cout << "]\n";
+		return true;
+	}
+	return false;
 }

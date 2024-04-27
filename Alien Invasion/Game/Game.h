@@ -24,7 +24,8 @@ private:
 public:
 	Game();
 	void setRandom();	// Reads the input file and initializes randGen object
-	void printAll();	// Prints all the lists
+	void printFirst();	// Prints alive units
+	void printSecond();	// Prints dead\injured units
 	void fight();
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
@@ -34,12 +35,9 @@ public:
 	bool peekUnit(unitType, Units*&, int = 0);
 	int getTimestep();
 	bool getUML(Units*&);
-	bool updateUML();
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 
-	bool totemp(Units*);
-	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

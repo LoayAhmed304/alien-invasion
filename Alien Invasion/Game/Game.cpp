@@ -28,9 +28,8 @@ void Game::setRandom()
 	}
 }
 
-void Game::printAll()
+void Game::printFirst()
 {
-
 	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
@@ -38,11 +37,10 @@ void Game::printAll()
 	cout << "\033[1;32m============== Alien Army Alive Units ==============\n";
 	aArmy->print();
 	cout << endl;
+}
 
-	cout << "\033[1;35m============== Units fighting at current step =============\n";
-	shots = printtemp();
-	cout << endl;
-
+void Game::printSecond()
+{
 	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
@@ -52,7 +50,6 @@ void Game::printAll()
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n\033[0m";
-
 }
 
 EarthArmy* Game::getEarthArmy()
@@ -69,8 +66,7 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	if(s<alienArmy)
-		return aArmy->getLength(s);
+	return aArmy->getLength(s);
 }
 
 bool Game::isEmpty(unitType s)
@@ -97,11 +93,6 @@ bool Game::addUnit(Units*& unit)
 int Game::getMonsterIndex()
 {
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
-}
-
-bool Game::totemp(Units* unit)
-{
-	return temp.enqueue(unit);
 }
 
 bool Game::kill(Units*& unit)
@@ -139,43 +130,43 @@ int Game::getTimestep()
 
 void Game::fight()
 {
-	int i = 0;
 	while (!isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
 		random->addUnits();
-		printAll();
 
-		eArmy->fight();
-		aArmy->fight(getMonsterIndex());
+		bool e = false;
+		bool a = false;
+		printFirst();
 
-		updateUML();
+		cout << "\033[1;35m============== Units fighting at current step =============\n";
+		e = eArmy->fight();
+		a = aArmy->fight(getMonsterIndex());
+		cout << endl;
 
-		if (i > 40)				// Start checking for result
+		printSecond();
+		shots = (a || e);
+		if (timestep > 40)				// Start checking for result
 		{
 			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
 			{
 				result = "Tie";
 				isOver = true;
 			}
-			else
+			else if (eArmy->isEmpty(earthArmy))
 			{
-				if (eArmy->isEmpty(earthArmy))
-				{
-					result = "Aliens";
-					isOver = true;
-				}
-				if (aArmy->isEmpty(alienArmy))
-				{
-					result = "Earth";
-					isOver = true;
-				}
+				result = "Loss";
+				isOver = true;
+			}
+			else if (aArmy->isEmpty(alienArmy))
+			{
+				result = "Win";
+				isOver = true;
 			}
 		}
 		system("pause");
 		cout << endl;
-		++i;
 	}
 }
 
@@ -187,143 +178,6 @@ bool Game::getUML(Units*& unit)
 	return false;
 }
 
-bool Game::updateUML()
-{
-	Units* unit;
-	int p;
-	priQueue<Units*> temp;
-	while (UML.dequeue(unit,p))
-	{
-		temp.enqueue(unit, p);
-	}
-	while (temp.dequeue(unit, p))
-	{
-		unit->insideUML();
-		UML.enqueue(unit, p);
-	}
-	return false;
-}
-bool Game::printtemp()
-{
-	Units* unit;
-	if (temp.dequeue(unit))
-	{
-		if (unit != nullptr)
-			if (unit->getType() == earthSoldier)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				temp.dequeue(unit);
-				while (unit != nullptr)
-				{
-					cout << " ," << unit->getID();
-					temp.dequeue(unit);
-
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == earthTank)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == earthGunnery)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == alienSoldier)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == alienMonster)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == alienDrone)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		if (unit != nullptr)
-			if (unit->getType() == alienDrone)
-			{
-				cout << unit->getID() << " shots [";
-				temp.dequeue(unit);
-				cout << unit->getID();
-				while (unit != nullptr)
-				{
-
-					temp.dequeue(unit);
-					if (unit != nullptr)
-						cout << " ," << unit->getID();
-				}
-				cout << "]\n";
-				temp.dequeue(unit);
-			}
-		return true;
-	}
-	return false;
-}
 Game::~Game()
 {
 	delete eArmy;

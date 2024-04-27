@@ -15,7 +15,6 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 	cur_health = h;
 	attack_cap = c;
 	game = g;
-	InsideUML = false;
 	TimeUML = 0;
 	Tj = game->getTimestep();
 	Ta = 0;
@@ -23,6 +22,7 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 }
 bool Units::getAttacked(double dmg)
 {
+	cout << id;
 	cur_health -= dmg / sqrt(cur_health);
 	if (cur_health < 0)
 	{
@@ -83,31 +83,19 @@ int Units::getHealthPerc() const
 	return ((cur_health * 100) / health);
 }
 
-bool Units::checkUML() const
-{
-	return InsideUML;
-}
-
 int Units::getUMLtime()
 {
 	return TimeUML;
 }
 
-bool Units::insideUML()
-{
-	TimeUML++;
-	return true;
-}
-
 bool Units::exitUML()
 {
 	TimeUML = 0;
-	InsideUML = false;
 	return true;
 }
 bool Units::enterUML()
 {
-	InsideUML = true;
+	TimeUML = game->getTimestep();
 	return true;
 }
 std::ostream& operator<<(std::ostream& os, const Units* obj)

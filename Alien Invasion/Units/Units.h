@@ -24,7 +24,6 @@ private:
     unitType type;
     int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
     double health;
-    bool InsideUML;
 protected:
     int id;
     static int eID;
@@ -45,9 +44,7 @@ public:
     virtual void setTa(int);
     virtual int getID();
 
-    virtual bool checkUML() const;
     virtual int getUMLtime();
-    virtual bool insideUML();
     virtual bool exitUML();
     virtual bool enterUML();
 

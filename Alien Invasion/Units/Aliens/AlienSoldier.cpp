@@ -10,22 +10,25 @@ bool AlienSoldier::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
-	for (int i = 0; i < this->getAttackCap(); ++i)
+	bool attacked = false;
+	if (game->getUnit(earthSoldier, enemy))
+	{
+		attacked = true;
+		cout << "AS " << getID() << " shots [";
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+	}
+	for (int i = 1; i < this->getAttackCap(); ++i)
 	{
 		if (game->getUnit(earthSoldier, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
+			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
-			if (Attacker)
-			{
-				game->totemp(this);
-				Attacker = false;
-			}
-			game->totemp(enemy);
-
 		}
 	}
 
@@ -37,13 +40,12 @@ bool AlienSoldier::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-
-		if (!Attacker)
-		{
-			game->totemp(nullptr);
-			Attacker = true;
-		}
 	}
 
-	return true;
+	if (attacked)
+	{
+		cout << "]\n";
+		return true;
+	}
+	return false;
 }

@@ -10,41 +10,50 @@ bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
+	bool attacked = false;
 	int i = 0;
+	if (game->getUnit(earthSoldier, enemy))
+	{
+		attacked = true;
+		cout << "AM " << getID() << " shots [";
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
+	else if (game->getUnit(earthTank, enemy))
+	{
+		attacked = true;
+		cout << "AM " << getID() << " shots [";
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
 	while (i < getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(earthTank)))
 	{
-		if (game->getUnit(earthSoldier, enemy))
-		{
-			if (!enemy->getTa())
-				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			temp.enqueue(enemy);
-			if (Attacker)
-			{
-				game->totemp(this);
-				Attacker = false;
-			}
-			game->totemp(enemy);
-
-			++i;
-		}
 		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
+			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
-			if (Attacker)
-			{
-				game->totemp(this);
-				Attacker = false;
-			}
-			game->totemp(enemy);
-
+			++i;
+		}
+		if (game->getUnit(earthSoldier, enemy))
+		{
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			cout << ", ";
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
 			++i;
 		}
 	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -53,13 +62,12 @@ bool AlienMonster::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-
-		if (!Attacker)
-		{
-			game->totemp(nullptr);
-			Attacker = true;
-		}
 	}
 
-	return true;
+	if (attacked)
+	{
+		cout << "]\n";
+		return true;
+	}
+	return false;
 }

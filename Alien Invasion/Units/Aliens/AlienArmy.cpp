@@ -99,19 +99,20 @@ void AlienArmy::print()
 bool AlienArmy::fight(int m)
 {
     Units* unit;
+    bool a = false, b = false, c = false;
    if (peekUnit(alienSoldier, unit))
-        unit->attack();
+        a = unit->attack();
     if (peekUnit(alienMonster, unit, m))
-        unit->attack();
+        b = unit->attack();
     if (getLength(alienDrone) > 1)
     {
         peekUnit(alienDrone, unit);
-        unit->attack();
+        c = unit->attack();
         peekUnit(alienDrone, unit);
         unit->attack();
     }
 
-    return true;
+    return (a || b || c);
 }
 
 AlienArmy::~AlienArmy()

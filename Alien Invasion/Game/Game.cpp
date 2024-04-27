@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), isOver(false)
+Game::Game() : timestep(1), isOver(false), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -53,6 +53,13 @@ void Game::updateFile(Units* unit)
 		Db = unit->getDb();
 
 		outputFile << Td << "\t\t" << ID << "\t\t" << Tj << "\t\t" << Df << "\t\t" << Dd << "\t\t" << Db << "\n";
+		
+		if (isOver)
+		{
+			outputFile << "Battle Result: " << result << endl;
+			outputFile << "Earth Army: \n";
+			
+		}
 		outputFile.close();
 	}
 	else
@@ -130,6 +137,30 @@ int Game::getMonsterIndex()
 
 bool Game::kill(Units*& unit)
 {
+	switch(unit->getType())
+	{
+	case earthSoldier:
+		es++;
+		break;
+	case earthTank:
+		et++;
+		break;
+	case earthGunnery:
+		eg++;
+		break;
+	case alienSoldier:
+		as++;
+		break;
+	case alienMonster:
+		am++;
+		break;
+	case alienDrone:
+		ad++;
+		break;
+	case earthHeal:
+		eh++;
+		break;
+	}
 	return killedList.enqueue(unit);;
 }
 
@@ -147,6 +178,48 @@ bool Game::toUML(Units*& unit)
 		UML.enqueue(unit, -INT_MAX);
 	}
 	return true;
+}
+
+int Game::getDestructed(unitType t)
+{
+	switch (t)
+	{
+	case alienSoldier:
+		return as;
+	case alienMonster:
+		return am;
+	case alienDrone:
+		return ad;
+	case earthSoldier:
+		return es;
+	case earthGunnery:
+		return eg;
+	case earthTank:
+		return et;
+	case earthHeal:
+		return eh;
+	}
+}
+
+int Game::totalUnits(unitType t)
+{
+	switch (t)
+	{
+	case earthSoldier:
+		return getLength(earthSoldier) + getDestructed(earthSoldier);
+	case earthGunnery:
+		return getLength(earthGunnery) + getDestructed(earthGunnery);
+	case earthTank:
+		return getLength(earthTank) + getDestructed(earthTank);
+	case earthHeal:
+		return getLength(earthHeal) + getDestructed(earthHeal);
+	case alienSoldier:
+		return getLength(alienSoldier) + getDestructed(alienSoldier);
+	case alienDrone:
+		return getLength(alienDrone) + getDestructed(alienDrone);
+	case alienMonster:
+		return getLength(alienMonster) + getDestructed(alienMonster);
+	}
 }
 
 bool Game::peekUnit(unitType s, Units*& unit, int m)

@@ -11,6 +11,7 @@ class Game {
 private:
 	int timestep;
 	bool isOver;
+	string result;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
@@ -18,6 +19,8 @@ private:
 	//////////////////////////////
 	priQueue<Units*> UML;
 	fstream outputFile;
+
+	int es, et, eg, eh, as, am, ad;
 
 
 public:
@@ -42,6 +45,9 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
+
+	int getDestructed(unitType t);
+	int totalUnits(unitType t);
 
 	~Game();
 };

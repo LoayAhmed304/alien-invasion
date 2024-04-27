@@ -15,10 +15,7 @@ bool AlienSoldier::attack()
 		if (game->getUnit(earthSoldier, enemy))
 		{
 			if (!enemy->getTa())
-			{
 				enemy->setTa(game->getTimestep());
-				enemy->setDf(enemy->getTa() - enemy->getTj());
-			}
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 		}
@@ -27,9 +24,6 @@ bool AlienSoldier::attack()
 	{
 		if (enemy->isDead())
 		{
-			enemy->setTd(game->getTimestep());
-			enemy->setDd(enemy->getTd() - enemy->getTa());
-			enemy->setDb(enemy->getDf() + enemy->getDd());
 			game->kill(enemy);
 			game->updateFile(enemy);
 		}

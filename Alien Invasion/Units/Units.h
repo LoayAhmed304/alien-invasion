@@ -41,20 +41,14 @@ public:
     virtual int getHealthPerc() const;
     static int getTotalUnits();
 
-    virtual int getTd() const;
     virtual int getID() const;
+    virtual int getTd() const;
     virtual int getTj() const;
     virtual int getDf() const;
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
-
-    virtual void setTd(int);
-    virtual void setTj(int);
-    virtual void setDf(int);
-    virtual void setDd(int);
-    virtual void setDb(int);
-    virtual void setTa(int);
+    virtual void setTa(int ta);
 
     virtual bool checkUML() const;
     virtual int getUMLtime();

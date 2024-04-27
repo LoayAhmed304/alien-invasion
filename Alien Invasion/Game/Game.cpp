@@ -222,6 +222,27 @@ int Game::totalUnits(unitType t)
 	}
 }
 
+float Game::destructedPerc(unitType t)
+{
+	switch (t)
+	{
+	case earthSoldier: 
+		return float(getDestructed(earthSoldier)) / totalUnits(earthSoldier);
+	case earthGunnery:
+		return float(getDestructed(earthGunnery)) / totalUnits(earthGunnery);
+	case earthTank:
+		return float(getDestructed(earthTank)) / totalUnits(earthTank);
+	case earthHeal:
+		return float(getDestructed(earthHeal)) / totalUnits(earthHeal);
+	case alienSoldier:
+		return float(getDestructed(alienSoldier)) / totalUnits(alienSoldier);
+	case alienDrone:
+		return float(getDestructed(alienDrone)) / totalUnits(alienDrone);
+	case alienMonster:
+		return float(getDestructed(alienMonster)) / totalUnits(alienMonster);
+	}
+}
+
 bool Game::peekUnit(unitType s, Units*& unit, int m)
 {
 	if (s < alienSoldier)

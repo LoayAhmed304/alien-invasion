@@ -48,6 +48,7 @@ public:
 
 	int getDestructed(unitType t);
 	int totalUnits(unitType t);
+	float destructedPerc(unitType t);
 
 	~Game();
 };

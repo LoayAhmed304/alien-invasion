@@ -58,7 +58,7 @@ void Game::updateFile(Units* unit)
 		{
 			outputFile << "Battle Result: " << result << endl;
 			outputFile << "Earth Army: \n";
-			
+
 		}
 		outputFile.close();
 	}
@@ -241,6 +241,11 @@ float Game::destructedPerc(unitType t)
 	case alienMonster:
 		return float(getDestructed(alienMonster)) / totalUnits(alienMonster);
 	}
+}
+
+float Game::totalDestructedPerc()
+{
+	return float(killedList.length()) / Units::getTotalUnits();
 }
 
 bool Game::peekUnit(unitType s, Units*& unit, int m)

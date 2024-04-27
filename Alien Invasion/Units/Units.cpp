@@ -103,6 +103,11 @@ int Units::getHealthPerc() const
 	return ((cur_health * 100) / health);
 }
 
+int Units::getTotalUnits()
+{
+	return aID + eID - 2000;
+}
+
 int Units::getTd() const
 {
 	return Td;

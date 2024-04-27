@@ -39,6 +39,7 @@ public:
     virtual int getPower() const;
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
+    static int getTotalUnits();
 
     virtual int getTd() const;
     virtual int getID() const;

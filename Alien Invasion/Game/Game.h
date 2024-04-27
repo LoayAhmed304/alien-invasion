@@ -12,19 +12,21 @@ class Game {
 private:
 	int timestep;
 	bool isOver;
-	string result;
+	bool shots;
+  string result;
 	LinkedQueue<Units*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
+  
 	fstream outputFile;
-
 	int es, et, eg, eh, as, am, ad;
 	int totalEDf, totalEDd, totalEDb, EDfCount;
 	int totalADf, totalADd, totalADb, ADfCount;
 
+	LinkedQueue<Units*> temp;
 
 public:
 	Game();
@@ -46,6 +48,8 @@ public:
 	void updateFile(Units*);
 	void clearOutput();
 
+	bool totemp(Units*);
+	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

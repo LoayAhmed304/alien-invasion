@@ -130,12 +130,16 @@ void Game::updateFile(Units* unit)
 void Game::printAll()
 {
 
-	cout << "\n\033[1;36m============== Earth Army Alive Units =============\n";
+	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
 
-	cout << "\033[1;32m============== Alien Army Alive Units =============\n";
+	cout << "\033[1;32m============== Alien Army Alive Units ==============\n";
 	aArmy->print();
+	cout << endl;
+
+	cout << "\033[1;35m============== Units fighting at current step =============\n";
+	shots = printtemp();
 	cout << endl;
 
 	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
@@ -164,7 +168,8 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	return aArmy->getLength(s);
+	if(s<alienArmy)
+		return aArmy->getLength(s);
 }
 
 bool Game::isEmpty(unitType s)
@@ -193,6 +198,10 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
+bool Game::totemp(Units* unit)
+{
+	return temp.enqueue(unit);
+}
 
 bool Game::kill(Units*& unit)
 {
@@ -350,7 +359,7 @@ int Game::getTimestep()
 void Game::fight()
 {
 	int i = 0;
-	while (i < 1000)
+	while (!isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
@@ -367,9 +376,31 @@ void Game::fight()
 		aArmy->fight(getMonsterIndex());
 
 		updateUML();
+
+		if (i > 40)				// Start checking for result
+		{
+			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
+			{
+				result = "Tie";
+				isOver = true;
+			}
+			else
+			{
+				if (eArmy->isEmpty(earthArmy))
+				{
+					result = "Aliens";
+					isOver = true;
+				}
+				if (aArmy->isEmpty(alienArmy))
+				{
+					result = "Earth";
+					isOver = true;
+				}
+			}
+		}
 		system("pause");
 		cout << endl;
-		i++;
+		++i;
 	}
 }
 
@@ -394,6 +425,126 @@ bool Game::updateUML()
 	{
 		unit->insideUML();
 		UML.enqueue(unit, p);
+	}
+	return false;
+}
+bool Game::printtemp()
+{
+	Units* unit;
+	if (temp.dequeue(unit))
+	{
+		if (unit != nullptr)
+			if (unit->getType() == earthSoldier)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				temp.dequeue(unit);
+				while (unit != nullptr)
+				{
+					cout << " ," << unit->getID();
+					temp.dequeue(unit);
+
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == earthTank)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == earthGunnery)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienSoldier)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienMonster)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienDrone)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		if (unit != nullptr)
+			if (unit->getType() == alienDrone)
+			{
+				cout << unit->getID() << " shots [";
+				temp.dequeue(unit);
+				cout << unit->getID();
+				while (unit != nullptr)
+				{
+
+					temp.dequeue(unit);
+					if (unit != nullptr)
+						cout << " ," << unit->getID();
+				}
+				cout << "]\n";
+				temp.dequeue(unit);
+			}
+		return true;
 	}
 	return false;
 }

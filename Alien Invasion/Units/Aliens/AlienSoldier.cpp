@@ -10,6 +10,7 @@ bool AlienSoldier::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
+	bool Attacker = true;
 	for (int i = 0; i < this->getAttackCap(); ++i)
 	{
 		if (game->getUnit(earthSoldier, enemy))
@@ -18,8 +19,16 @@ bool AlienSoldier::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			if (Attacker)
+			{
+				game->totemp(this);
+				Attacker = false;
+			}
+			game->totemp(enemy);
+
 		}
 	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -31,6 +40,13 @@ bool AlienSoldier::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
+
+		if (!Attacker)
+		{
+			game->totemp(nullptr);
+			Attacker = true;
+		}
 	}
+
 	return true;
 }

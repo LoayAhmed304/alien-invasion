@@ -14,8 +14,8 @@ enum unitType
     alienSoldier,
     alienMonster,
     alienDrone,
-    earthArmy,
     alienArmy,
+    earthArmy
 };
 
 class Units
@@ -51,7 +51,8 @@ public:
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
-    virtual void setTa(int ta);
+    virtual void setTa(int);
+    virtual int getID();
 
     virtual bool checkUML() const;
     virtual int getUMLtime();

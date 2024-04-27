@@ -87,6 +87,11 @@ void Units::setTa(int ta)
 		game->updateADf(Df);
 }
 
+int Units::getID()
+{
+	return id;
+}
+
 int Units::getHealthPerc() const
 {
 	return ((cur_health * 100) / health);

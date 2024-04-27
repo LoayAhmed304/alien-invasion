@@ -10,6 +10,7 @@ bool AlienDrone::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
+	bool Attacker = true;
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthTank) || !game->isEmpty(earthGunnery)))
 	{
@@ -20,6 +21,13 @@ bool AlienDrone::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
+			if (Attacker)
+			{
+				game->totemp(this);
+				Attacker = false;
+			}
+			game->totemp(enemy);
+
 		}
 		if (game->getUnit(earthGunnery, enemy))
 		{
@@ -28,6 +36,13 @@ bool AlienDrone::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
+			if (Attacker)
+			{
+				game->totemp(this);
+				Attacker = false;
+			}
+			game->totemp(enemy);
+
 		}
 	}
 	while (temp.dequeue(enemy))
@@ -41,6 +56,12 @@ bool AlienDrone::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
+		if (!Attacker)
+		{
+			game->totemp(nullptr);
+			Attacker = true;
+		}
 	}
+
 	return true;
 }

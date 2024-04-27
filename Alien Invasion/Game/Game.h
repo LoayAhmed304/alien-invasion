@@ -5,6 +5,7 @@
 #include "../Units/Earth/EarthArmy.h"
 #include "../RandomGenerator/randGen.h"
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 class Game {
@@ -21,6 +22,8 @@ private:
 	fstream outputFile;
 
 	int es, et, eg, eh, as, am, ad;
+	int totalEDf, totalEDd, totalEDb, EDfCount;
+	int totalADf, totalADd, totalADb, ADfCount;
 
 
 public:
@@ -49,8 +52,22 @@ public:
 	int getDestructed(unitType t);
 	int totalUnits(unitType t);
 	float destructedPerc(unitType t);
-	float totalDestructedPerc();
+	float totalEDestructedPerc();
+	float totalADestructedPerc();
 
+	void updateEDf(int df);
+	void updateEDd(int dd);
+	void updateEDb(int db);
+
+	void updateADf(int df);
+	void updateADd(int dd);
+	void updateADb(int db);
+
+	void calcEAverage(float& df, float& dd, float& db);
+	void calcAAverage(float& df, float& dd, float& db);
+
+	void calcEPercentage(float& DfDb, float& DdDb);
+	void calcAPercentage(float& DfDb, float& DdDb);
 	~Game();
 };
 

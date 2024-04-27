@@ -13,7 +13,9 @@ enum unitType
     earthHeal,
     alienSoldier,
     alienMonster,
-    alienDrone
+    alienDrone,
+    earthArmy,
+    alienArmy,
 };
 
 class Units
@@ -39,7 +41,8 @@ public:
     virtual int getPower() const;
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
-    static int getTotalUnits();
+
+    static int getTotalUnits(unitType);
 
     virtual int getID() const;
     virtual int getTd() const;

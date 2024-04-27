@@ -130,14 +130,14 @@ int Game::getTimestep()
 
 void Game::fight()
 {
+	bool e = false;
+	bool a = false;
 	while (!isOver)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
 		random->addUnits();
 
-		bool e = false;
-		bool a = false;
 		printFirst();
 
 		cout << "\033[1;35m============== Units fighting at current step =============\n";

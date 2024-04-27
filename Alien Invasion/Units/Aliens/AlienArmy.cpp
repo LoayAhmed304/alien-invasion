@@ -96,19 +96,19 @@ void AlienArmy::print()
     cout << "]\n";
 }
 
-bool AlienArmy::fight(int m)
+bool AlienArmy::fight(string& log,int m)
 {
     Units* unit;
    if (peekUnit(alienSoldier, unit))
-        unit->attack();
+        unit->attack(log);
     if (peekUnit(alienMonster, unit, m))
-        unit->attack();
+        unit->attack(log);
     if (getLength(alienDrone) > 1)
     {
         peekUnit(alienDrone, unit);
-        unit->attack();
+        unit->attack(log);
         peekUnit(alienDrone, unit);
-        unit->attack();
+        unit->attack(log);
     }
 
     return true;

@@ -22,7 +22,7 @@ public:
     int getLength(unitType);
     bool isEmpty(unitType);
     void print();
-    bool fight();        // Peeks each earth unit and calls its attack
+    bool fight(string &log);        // Peeks each earth unit and calls its attack
     void printFighting();
     ~EarthArmy();
 };

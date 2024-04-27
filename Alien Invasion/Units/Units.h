@@ -32,7 +32,7 @@ protected:
     Game* game;
 public:
     Units(unitType type, int power, int health, int atk_cap, Game* g);
-    virtual bool attack() = 0;
+    virtual bool attack(string&) = 0;
     virtual bool getAttacked(double dmg);
     virtual bool isDead();
     virtual unitType getType() const;

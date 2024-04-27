@@ -20,6 +20,7 @@ private:
 	//////////////////////////////
 	priQueue<Units*> UML;
 	LinkedQueue<Units*> temp;
+	string log;
 
 public:
 	Game();

@@ -26,7 +26,7 @@ bool Units::getAttacked(double dmg)
 	cur_health -= dmg / sqrt(cur_health);
 	if (dmg >= 0)
 	{
-		if (cur_health < 0)
+		if (cur_health <= 0)
 		{
 			cur_health = 0;
 			Td = game->getTimestep();

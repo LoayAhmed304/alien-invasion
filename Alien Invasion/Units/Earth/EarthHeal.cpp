@@ -6,7 +6,7 @@ EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Units(earthHeal, p, h, c, g
 	id = eID;
 }
 
-bool EarthHeal::attack()
+bool EarthHeal::attack(string& log)
 {
 	Units* ally;
  	bool die = false;

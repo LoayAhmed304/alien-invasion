@@ -6,7 +6,7 @@ AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p
 	id = aID;
 }
 
-bool AlienMonster::attack()
+bool AlienMonster::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -20,12 +20,16 @@ bool AlienMonster::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 			++i;
 		}
@@ -35,12 +39,16 @@ bool AlienMonster::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 			++i;
 		}
@@ -59,8 +67,8 @@ bool AlienMonster::attack()
 
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

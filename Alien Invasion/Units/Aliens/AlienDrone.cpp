@@ -6,7 +6,7 @@ AlienDrone::AlienDrone(int p, int h, int c, Game* g) : Units(alienDrone, p, h, c
 	id = aID;
 }
 
-bool AlienDrone::attack()
+bool AlienDrone::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -21,12 +21,16 @@ bool AlienDrone::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 		}
 		if (game->getUnit(earthGunnery, enemy))
@@ -36,12 +40,16 @@ bool AlienDrone::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 		}
 	}
@@ -58,8 +66,8 @@ bool AlienDrone::attack()
 			game->addUnit(enemy);
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

@@ -6,7 +6,7 @@ EarthGunnery::EarthGunnery(int p, int h, int c, Game* g) : Units(earthGunnery, p
 	id = eID;
 }
 
-bool EarthGunnery::attack()
+bool EarthGunnery::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -20,12 +20,16 @@ bool EarthGunnery::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 			++i;
 		}
@@ -35,12 +39,16 @@ bool EarthGunnery::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 			++i;
 		}
 		if (game->getUnit(alienDrone, enemy))
@@ -49,12 +57,16 @@ bool EarthGunnery::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 			++i;
 		}
@@ -71,8 +83,8 @@ bool EarthGunnery::attack()
 
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

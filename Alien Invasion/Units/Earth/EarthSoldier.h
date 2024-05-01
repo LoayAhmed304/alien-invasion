@@ -10,6 +10,6 @@ class EarthSoldier: public Units
 {
 public:
 	EarthSoldier(int p, int h, int c, Game* g);
-	bool attack();
+	bool attack(string&);
 };
 #endif

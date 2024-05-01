@@ -6,7 +6,7 @@ EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g
 	id = eID;
 }
 
-bool EarthTank::attack()
+bool EarthTank::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -24,12 +24,16 @@ bool EarthTank::attack()
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 				++i;
+
 				if (Attacker)
 				{
-					game->totemp(this);
+					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 					Attacker = false;
 				}
-				game->totemp(enemy);
+				else
+				{
+					log = log + ", " + to_string(enemy->getID());
+				}
 			}
 			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
 			{
@@ -37,14 +41,17 @@ bool EarthTank::attack()
 					enemy->setTa(game->getTimestep());
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
-				game->totemp(enemy);
 				++i;
+
 				if (Attacker)
 				{
-					game->totemp(this);
+					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 					Attacker = false;
 				}
-				game->totemp(enemy);
+				else
+				{
+					log = log + ", " + to_string(enemy->getID());
+				}
 			}
 		}
 	}
@@ -58,12 +65,16 @@ bool EarthTank::attack()
 					enemy->setTa(game->getTimestep());
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
+
 				if (Attacker)
 				{
-					game->totemp(this);
+					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 					Attacker = false;
 				}
-				game->totemp(enemy);
+				else
+				{
+					log = log + ", " + to_string(enemy->getID());
+				}
 			}
 			else
 				break;
@@ -81,8 +92,8 @@ bool EarthTank::attack()
 
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

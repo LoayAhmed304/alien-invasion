@@ -20,13 +20,13 @@ private:
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
-  
+
 	fstream outputFile;
 	int es, et, eg, eh, as, am, ad;
 	int totalEDf, totalEDd, totalEDb, EDfCount;
 	int totalADf, totalADd, totalADb, ADfCount;
 
-	LinkedQueue<Units*> temp;
+	string log;
 
 public:
 	Game();
@@ -48,8 +48,6 @@ public:
 	void updateFile(Units*);
 	void clearOutput();
 
-	bool totemp(Units*);
-	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

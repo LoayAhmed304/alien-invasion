@@ -41,7 +41,6 @@ bool EarthTank::attack(string& log)
 					enemy->setTa(game->getTimestep());
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
-				game->totemp(enemy);
 				++i;
 
 				if (Attacker)

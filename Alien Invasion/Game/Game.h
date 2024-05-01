@@ -38,7 +38,6 @@ public:
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 
-	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

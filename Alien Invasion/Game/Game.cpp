@@ -116,7 +116,7 @@ bool Game::toUML(Units*& unit)
 	else if (unit->getType() == earthTank)
 	{
 		unit->enterUML();
-		UML.enqueue(unit, -INT_MAX);
+		UML.enqueue(unit, INT_MIN);
 	}
 	return true;
 }

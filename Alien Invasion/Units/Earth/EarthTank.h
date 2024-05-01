@@ -10,6 +10,6 @@ class EarthTank : public Units
 {
 public:
 	EarthTank(int p, int h, int c, Game* g);
-	bool attack();
+	bool attack(string&);
 };
 #endif

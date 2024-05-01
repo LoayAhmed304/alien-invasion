@@ -6,7 +6,7 @@ EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p
 	id = eID;
 }
 
-bool EarthSoldier::attack()
+bool EarthSoldier::attack(string &log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -22,10 +22,13 @@ bool EarthSoldier::attack()
 
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 		}
 	}
 	while (temp.dequeue(enemy))
@@ -37,8 +40,8 @@ bool EarthSoldier::attack()
 
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

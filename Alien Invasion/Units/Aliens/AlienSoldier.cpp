@@ -6,7 +6,7 @@ AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p
 	id = aID;
 }
 
-bool AlienSoldier::attack()
+bool AlienSoldier::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -19,12 +19,16 @@ bool AlienSoldier::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
 			if (Attacker)
 			{
-				game->totemp(this);
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
 				Attacker = false;
 			}
-			game->totemp(enemy);
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 
 		}
 	}
@@ -40,8 +44,8 @@ bool AlienSoldier::attack()
 
 		if (!Attacker)
 		{
-			game->totemp(nullptr);
 			Attacker = true;
+			log = log + "]\n";
 		}
 	}
 

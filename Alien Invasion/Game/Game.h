@@ -19,7 +19,7 @@ private:
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
-	LinkedQueue<Units*> temp;
+	string log;
 
 public:
 	Game();
@@ -38,8 +38,6 @@ public:
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 
-	bool totemp(Units*);
-	bool printtemp();
 	bool kill(Units*&);
 	bool toUML(Units*&);
 

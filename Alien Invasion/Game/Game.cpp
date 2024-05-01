@@ -100,11 +100,6 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
-bool Game::totemp(Units* unit)
-{
-	return temp.enqueue(unit);
-}
-
 bool Game::kill(Units*& unit)
 {
 	return killedList.enqueue(unit);;
@@ -204,6 +199,7 @@ bool Game::updateUML()
 	}
 	return false;
 }
+
 Game::~Game()
 {
 	delete eArmy;

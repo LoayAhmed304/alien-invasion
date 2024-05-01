@@ -225,7 +225,7 @@ bool Game::kill(Units*& unit)
 		eh++;
 		break;
 	}
-	return killedList.enqueue(unit);;
+	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
@@ -360,13 +360,9 @@ void Game::fight()
 		cout << "Current Timestep " << timestep++ << endl;
 
 		random->addUnits();
-
 		eArmy->fight(log);
 		aArmy->fight(log, getMonsterIndex());
-
-		printAll();
-
-		updateUML();
+		
 		if (i > 40)				// Start checking for result
 		{
 			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
@@ -391,10 +387,14 @@ void Game::fight()
 				break;
 			}
 		}
-	}
+		
+		printAll();
+		updateUML();
+
 		system("pause");
 		cout << endl;
 		++i;
+	}
 }
 
 bool Game::getUML(Units*& unit)

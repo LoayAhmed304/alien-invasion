@@ -24,21 +24,24 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 bool Units::getAttacked(double dmg)
 {
 	cur_health -= dmg / sqrt(cur_health);
-	if (cur_health < 0)
+	if (dmg >= 0)
 	{
-		cur_health = 0;
-		Td = game->getTimestep();
-		Dd = Td - Ta;
-		Db = Td - Tj;
-		if (this->getType() < alienSoldier)
+		if (cur_health < 0)
 		{
-			game->updateEDb(Db);
-			game->updateEDd(Dd);
-		}
-		else
-		{
-			game->updateADb(Db);
-			game->updateADd(Dd);
+			cur_health = 0;
+			Td = game->getTimestep();
+			Dd = Td - Ta;
+			Db = Td - Tj;
+			if (this->getType() < alienSoldier)
+			{
+				game->updateEDb(Db);
+				game->updateEDd(Dd);
+			}
+			else
+			{
+				game->updateADb(Db);
+				game->updateADd(Dd);
+			}
 		}
 	}
 	return true;

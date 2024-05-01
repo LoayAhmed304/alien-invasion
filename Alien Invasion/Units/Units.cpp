@@ -30,6 +30,16 @@ bool Units::getAttacked(double dmg)
 		Td = game->getTimestep();
 		Dd = Td - Ta;
 		Db = Td - Tj;
+		if (this->getType() < alienSoldier)
+		{
+			game->updateEDb(Db);
+			game->updateEDd(Dd);
+		}
+		else
+		{
+			game->updateADb(Db);
+			game->updateADd(Dd);
+		}
 	}
 	return true;
 }
@@ -71,6 +81,10 @@ void Units::setTa(int ta)
 {
 	Ta = ta;
 	Df = Ta - Tj;
+	if (this->getType() < alienSoldier)
+		game->updateEDf(Df);
+	else
+		game->updateADf(Df);
 }
 
 int Units::getID()
@@ -81,6 +95,47 @@ int Units::getID()
 int Units::getHealthPerc() const
 {
 	return ((cur_health * 100) / health);
+}
+
+int Units::getTotalUnits(unitType t)
+{
+	switch (t)
+	{
+	case earthArmy:
+		return eID;
+	case alienArmy:
+		return aID - 2000;
+	}
+}
+
+int Units::getTd() const
+{
+	return Td;
+}
+
+int Units::getID() const
+{
+	return id;
+}
+
+int Units::getTj() const
+{
+	return Tj;
+}
+
+int Units::getDf() const
+{
+	return Df;
+}
+
+int Units::getDd() const
+{
+	return Dd;
+}
+
+int Units::getDb() const
+{
+	return Db;
 }
 
 bool Units::checkUML() const

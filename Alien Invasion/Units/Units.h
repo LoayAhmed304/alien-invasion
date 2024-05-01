@@ -41,6 +41,15 @@ public:
     virtual int getPower() const;
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
+
+    static int getTotalUnits(unitType);
+
+    virtual int getID() const;
+    virtual int getTd() const;
+    virtual int getTj() const;
+    virtual int getDf() const;
+    virtual int getDd() const;
+    virtual int getDb() const;
     virtual int getTa() const;
     virtual void setTa(int);
     virtual int getID();

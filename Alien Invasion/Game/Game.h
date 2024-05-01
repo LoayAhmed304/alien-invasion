@@ -5,6 +5,7 @@
 #include "../Units/Earth/EarthArmy.h"
 #include "../RandomGenerator/randGen.h"
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 class Game {
@@ -19,6 +20,12 @@ private:
 	AlienArmy* aArmy;
 	//////////////////////////////
 	priQueue<Units*> UML;
+
+	fstream outputFile;
+	int es, et, eg, eh, as, am, ad;
+	int totalEDf, totalEDd, totalEDb, EDfCount;
+	int totalADf, totalADd, totalADb, ADfCount;
+
 	string log;
 
 public:
@@ -38,10 +45,31 @@ public:
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 
+	void updateFile(Units*);
+	void clearOutput();
+
 	bool kill(Units*&);
 	bool toUML(Units*&);
 
-	// void exportFile();
+	int getDestructed(unitType t);
+	int totalUnits(unitType t);
+	float destructedPerc(unitType t);
+	float totalEDestructedPerc();
+	float totalADestructedPerc();
+
+	void updateEDf(int df);
+	void updateEDd(int dd);
+	void updateEDb(int db);
+
+	void updateADf(int df);
+	void updateADd(int dd);
+	void updateADb(int db);
+
+	void calcEAverage(float& df, float& dd, float& db);
+	void calcAAverage(float& df, float& dd, float& db);
+
+	void calcEPercentage(float& DfDb, float& DdDb);
+	void calcAPercentage(float& DfDb, float& DdDb);
 	~Game();
 };
 

@@ -360,46 +360,41 @@ void Game::fight()
 		cout << "Current Timestep " << timestep++ << endl;
 
 		random->addUnits();
-		printAll();
-    
-		/////////	To test the output file		//////////////////
-		if (i == 2)
-		{
-			updateFile(nullptr);
-			break;
-		}
-		//////////////////////////////////////////////////////////
 
 		eArmy->fight(log);
 		aArmy->fight(log, getMonsterIndex());
 
-		updateUML();
+		printAll();
 
+		updateUML();
 		if (i > 40)				// Start checking for result
 		{
-			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
+			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
 			{
 				result = "Tie";
 				isOver = true;
+				updateFile(nullptr);
+				break;
 			}
-			else
+			else if (eArmy->isEmpty(earthArmy))
 			{
-				if (eArmy->isEmpty(earthArmy))
-				{
-					result = "Aliens";
-					isOver = true;
-				}
-				if (aArmy->isEmpty(alienArmy))
-				{
-					result = "Earth";
-					isOver = true;
-				}
+				result = "Loss";
+				isOver = true;
+				updateFile(nullptr);
+				break;
+			}
+			else if (aArmy->isEmpty(alienArmy))
+			{
+				result = "Win";
+				isOver = true;
+				updateFile(nullptr);
+				break;
 			}
 		}
+	}
 		system("pause");
 		cout << endl;
 		++i;
-	}
 }
 
 bool Game::getUML(Units*& unit)

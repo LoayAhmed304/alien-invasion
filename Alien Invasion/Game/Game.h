@@ -46,7 +46,7 @@ public:
 	bool addUnit(Units*&);
 	int getMonsterIndex();
 	
-	void updateFile(Units*);
+	void updateFile(Units* = nullptr);
 	void clearOutput();
 
 	bool kill(Units*&);

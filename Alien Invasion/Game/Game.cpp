@@ -206,19 +206,19 @@ bool Game::isOver(int i)
 		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
 		{
 			result = "Tie";
-			updateFile(nullptr);
+			updateFile();
 			return true;
 		}
 		else if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
-			updateFile(nullptr);
+			updateFile();
 			return true;
 		}
 		else if (aArmy->isEmpty(alienArmy))
 		{
 			result = "Win";
-			updateFile(nullptr);
+			updateFile();
 			return true;
 		}
 	}

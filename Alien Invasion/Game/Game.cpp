@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), isOver(false), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
 				totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
 {
 	eArmy = new EarthArmy;
@@ -199,6 +199,32 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
+bool Game::isOver(int i)
+{
+	if (i > 40)
+	{
+		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		{
+			result = "Tie";
+			updateFile(nullptr);
+			return true;
+		}
+		else if (eArmy->isEmpty(earthArmy))
+		{
+			result = "Loss";
+			updateFile(nullptr);
+			return true;
+		}
+		else if (aArmy->isEmpty(alienArmy))
+		{
+			result = "Win";
+			updateFile(nullptr);
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Game::kill(Units*& unit)
 {
 	switch(unit->getType())
@@ -354,41 +380,20 @@ int Game::getTimestep()
 
 void Game::fight()
 {
+	bool over = false;
 	int i = 0;
-	while (!isOver)
+	while (!over)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
-		random->addUnits();
-		eArmy->fight(log);
+		random->addUnits();						// Adding units to both armies
+
+		eArmy->fight(log);						// Calling both armies to fight one another
 		aArmy->fight(log, getMonsterIndex());
-		
-		if (i > 40)				// Start checking for result
-		{
-			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
-			{
-				result = "Tie";
-				isOver = true;
-				updateFile(nullptr);
-				break;
-			}
-			else if (eArmy->isEmpty(earthArmy))
-			{
-				result = "Loss";
-				isOver = true;
-				updateFile(nullptr);
-				break;
-			}
-			else if (aArmy->isEmpty(alienArmy))
-			{
-				result = "Win";
-				isOver = true;
-				updateFile(nullptr);
-				break;
-			}
-		}
-		
-		printAll();
+
+		over = isOver(timestep);				// Checking if it's over
+
+		printAll();								// Printing the output screen
 		updateUML();
 
 		system("pause");

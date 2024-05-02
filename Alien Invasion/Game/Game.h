@@ -11,7 +11,6 @@ using namespace std;
 class Game {
 private:
 	int timestep;
-	bool isOver;
 	bool shots;
   string result;
 	LinkedQueue<Units*> killedList;
@@ -33,6 +32,8 @@ public:
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the lists
 	void fight();
+	bool isOver(int i);
+
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
 	int getLength(unitType);
@@ -44,7 +45,7 @@ public:
 	bool updateUML();
 	bool addUnit(Units*&);
 	int getMonsterIndex();
-
+	
 	void updateFile(Units*);
 	void clearOutput();
 

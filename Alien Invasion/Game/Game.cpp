@@ -5,10 +5,10 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), tot
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
-	clearOutput();
+	prepareOutputFile();
 }
 
-void Game::clearOutput()
+void Game::prepareOutputFile()
 {
 	outputFile.open("output.txt", ios::out | ios::trunc);
 	outputFile.close();
@@ -79,7 +79,7 @@ void Game::updateFile(Units* unit)
 
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << totalEDestructedPerc() * 100 << "%\n";
+			outputFile << std::setprecision(4) << destructedPerc(earthArmy) * 100 << "%\n";
 
 
 			calcEAverage(adf, add, adb);
@@ -107,7 +107,7 @@ void Game::updateFile(Units* unit)
 
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << totalADestructedPerc() * 100 << "%\n";
+			outputFile << std::setprecision(4) << destructedPerc(alienArmy) * 100 << "%\n";
 
 
 			calcAAverage(adf, add, adb);
@@ -345,25 +345,17 @@ float Game::destructedPerc(unitType t)
 		n = (getDestructed(alienMonster));
 		d= totalUnits(alienMonster);
 		break;
+	case earthArmy:
+		n = float(es + et + eg);
+		d = Units::getTotalUnits(earthArmy);
+		break;
+	case alienArmy:
+		n = float(as + ad + am);
+		d = Units::getTotalUnits(alienArmy);
+		break;
 	}
 	if (d == 0) return 0;
 	return n / d;
-}
-
-float Game::totalEDestructedPerc()
-{
-	float d = es + eh + eg + et;
-	float n = Units::getTotalUnits(earthArmy);
-	if (n == 0) return 0;
-	return d/n;
-}
-
-float Game::totalADestructedPerc()
-{
-	float d = float(as + am + ad);
-	float n = Units::getTotalUnits(alienArmy);
-	if (n == 0) return 0;
-	return d / n;
 }
 
 bool Game::peekUnit(unitType s, Units*& unit, int m)

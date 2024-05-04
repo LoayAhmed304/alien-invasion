@@ -143,7 +143,9 @@ void Game::updateFile(Units* unit)
 
 void Game::printAll()
 {
+
 	cout << "Current Timestep " << timestep << endl;
+
 	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
@@ -166,6 +168,7 @@ void Game::printAll()
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n\033[0m";
+
 	system("pause");
 	cout << endl;
 }

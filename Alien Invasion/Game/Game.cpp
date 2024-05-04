@@ -1,6 +1,6 @@
 #include "Game.h"
 Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
-totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
+				totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -220,6 +220,32 @@ bool Game::isOver(int i)
 	return false;
 }
 
+bool Game::isOver(int i)
+{
+	if (i > 40)
+	{
+		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		{
+			result = "Tie";
+			updateFile();
+			return true;
+		}
+		else if (eArmy->isEmpty(earthArmy))
+		{
+			result = "Loss";
+			updateFile();
+			return true;
+		}
+		else if (aArmy->isEmpty(alienArmy))
+		{
+			result = "Win";
+			updateFile();
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Game::kill(Units*& unit)
 {
 	switch (unit->getType())
@@ -339,6 +365,14 @@ float Game::destructedPerc(unitType t)
 	case alienMonster:
 		n = (getDestructed(alienMonster));
 		d = totalUnits(alienMonster);
+		break;
+	case earthArmy:
+		n = float(es + et + eg);
+		d = Units::getTotalUnits(earthArmy);
+		break;
+	case alienArmy:
+		n = float(as + ad + am);
+		d = Units::getTotalUnits(alienArmy);
 		break;
 	case earthArmy:
 		n = float(es + et + eg);

@@ -1,14 +1,14 @@
 #include "Game.h"
-Game::Game() : timestep(1), isOver(false), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
 				totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
 	setRandom();
-	clearOutput();
+	prepareOutputFile();
 }
 
-void Game::clearOutput()
+void Game::prepareOutputFile()
 {
 	outputFile.open("output.txt", ios::out | ios::trunc);
 	outputFile.close();
@@ -79,7 +79,7 @@ void Game::updateFile(Units* unit)
 
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << totalEDestructedPerc() * 100 << "%\n";
+			outputFile << std::setprecision(4) << destructedPerc(earthArmy) * 100 << "%\n";
 
 
 			calcEAverage(adf, add, adb);
@@ -107,7 +107,7 @@ void Game::updateFile(Units* unit)
 
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << totalADestructedPerc() * 100 << "%\n";
+			outputFile << std::setprecision(4) << destructedPerc(alienArmy) * 100 << "%\n";
 
 
 			calcAAverage(adf, add, adb);
@@ -199,6 +199,32 @@ int Game::getMonsterIndex()
 	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
+bool Game::isOver(int i)
+{
+	if (i > 40)
+	{
+		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		{
+			result = "Tie";
+			updateFile();
+			return true;
+		}
+		else if (eArmy->isEmpty(earthArmy))
+		{
+			result = "Loss";
+			updateFile();
+			return true;
+		}
+		else if (aArmy->isEmpty(alienArmy))
+		{
+			result = "Win";
+			updateFile();
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Game::kill(Units*& unit)
 {
 	switch(unit->getType())
@@ -225,7 +251,7 @@ bool Game::kill(Units*& unit)
 		eh++;
 		break;
 	}
-	return killedList.enqueue(unit);;
+	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
@@ -319,25 +345,17 @@ float Game::destructedPerc(unitType t)
 		n = (getDestructed(alienMonster));
 		d= totalUnits(alienMonster);
 		break;
+	case earthArmy:
+		n = float(es + et + eg);
+		d = Units::getTotalUnits(earthArmy);
+		break;
+	case alienArmy:
+		n = float(as + ad + am);
+		d = Units::getTotalUnits(alienArmy);
+		break;
 	}
 	if (d == 0) return 0;
 	return n / d;
-}
-
-float Game::totalEDestructedPerc()
-{
-	float d = es + eh + eg + et;
-	float n = Units::getTotalUnits(earthArmy);
-	if (n == 0) return 0;
-	return d/n;
-}
-
-float Game::totalADestructedPerc()
-{
-	float d = float(as + am + ad);
-	float n = Units::getTotalUnits(alienArmy);
-	if (n == 0) return 0;
-	return d / n;
 }
 
 bool Game::peekUnit(unitType s, Units*& unit, int m)
@@ -354,48 +372,22 @@ int Game::getTimestep()
 
 void Game::fight()
 {
+	bool over = false;
 	int i = 0;
-	while (!isOver)
+	while (!over)
 	{
 		cout << "Current Timestep " << timestep++ << endl;
 
-		random->addUnits();
-		printAll();
-    
-		/////////	To test the output file		//////////////////
-		if (i == 2)
-		{
-			updateFile(nullptr);
-			break;
-		}
-		//////////////////////////////////////////////////////////
+		random->addUnits();						// Adding units to both armies
 
-		eArmy->fight(log);
+		eArmy->fight(log);						// Calling both armies to fight one another
 		aArmy->fight(log, getMonsterIndex());
 
+		over = isOver(timestep);				// Checking if it's over
+
+		printAll();								// Printing the output screen
 		updateUML();
 
-		if (i > 40)				// Start checking for result
-		{
-			if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !shots)
-			{
-				result = "Tie";
-				isOver = true;
-			}
-			else
-			{
-				if (eArmy->isEmpty(earthArmy))
-				{
-					result = "Aliens";
-					isOver = true;
-				}
-				if (aArmy->isEmpty(alienArmy))
-				{
-					result = "Earth";
-					isOver = true;
-				}
-			}
-		}
 		system("pause");
 		cout << endl;
 		++i;

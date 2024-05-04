@@ -30,8 +30,9 @@ bool EarthHeal::attack(string& log)
 			}
 			else
 			{
-				ally->getAttacked(ally->getCurHealth());
+				ally->getAttacked(pow(ally->getCurHealth(), 1.5));
 				game->kill(ally);
+				game->updateFile(ally);
 				i--;
 			}
 		}
@@ -40,7 +41,7 @@ bool EarthHeal::attack(string& log)
 	{
 		Units* heal;
 		game->getUnit(earthHeal, heal);
-		heal->getAttacked(getCurHealth());
+		heal->getAttacked(pow(heal->getCurHealth(), 1.5));
 		game->kill(heal);
 	}
 	return true;

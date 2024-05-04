@@ -14,7 +14,7 @@ bool EarthGunnery::attack(string& log)
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienDrone)))
 	{
-		if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
+		if (game->getUnit(alienMonster, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());

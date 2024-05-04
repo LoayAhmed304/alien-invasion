@@ -21,14 +21,14 @@ bool AlienArmy::addUnit(Units* X)
     return true;
 }
 
-bool AlienArmy::peekUnit(unitType type, Units*& unit, int m)
+bool AlienArmy::peekUnit(unitType type, Units*& unit)
 {
     int n;
     switch (type) {
     case alienSoldier:
         return (AS.peek(unit));
     case alienMonster:
-        return AM.peek(unit, m);
+        return AM.peek(unit);
     case alienDrone:
         swapPeek = !swapPeek;
         if (swapPeek)
@@ -37,13 +37,13 @@ bool AlienArmy::peekUnit(unitType type, Units*& unit, int m)
     }
 }
 
-bool AlienArmy::getUnit(unitType type, Units*& unit, int m)
+bool AlienArmy::getUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case alienSoldier:
         return (AS.dequeue(unit));
     case alienMonster:
-        return AM.remove(unit, m);
+        return AM.remove(unit);
     case alienDrone:
         swap = !swap;
         if (swap)
@@ -96,12 +96,12 @@ void AlienArmy::print()
     cout << "]\n";
 }
 
-bool AlienArmy::fight(string& log,int m)
+bool AlienArmy::fight(string& log)
 {
     Units* unit;
    if (peekUnit(alienSoldier, unit))
         unit->attack(log);
-    if (peekUnit(alienMonster, unit, m))
+    if (peekUnit(alienMonster, unit))
         unit->attack(log);
     if (getLength(alienDrone) > 1)
     {
@@ -119,7 +119,7 @@ AlienArmy::~AlienArmy()
     Units* temp;
     for (int i = 0; !AM.isEmpty(); ++i)
     {
-        AM.remove(temp, i);
+        AM.remove(temp);
         delete temp;
         temp = nullptr;
     }

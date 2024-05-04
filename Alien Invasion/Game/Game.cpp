@@ -220,32 +220,6 @@ bool Game::isOver(int i)
 	return false;
 }
 
-bool Game::isOver(int i)
-{
-	if (i > 40)
-	{
-		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
-		{
-			result = "Tie";
-			updateFile();
-			return true;
-		}
-		else if (eArmy->isEmpty(earthArmy))
-		{
-			result = "Loss";
-			updateFile();
-			return true;
-		}
-		else if (aArmy->isEmpty(alienArmy))
-		{
-			result = "Win";
-			updateFile();
-			return true;
-		}
-	}
-	return false;
-}
-
 bool Game::kill(Units*& unit)
 {
 	switch (unit->getType())
@@ -365,14 +339,6 @@ float Game::destructedPerc(unitType t)
 	case alienMonster:
 		n = (getDestructed(alienMonster));
 		d = totalUnits(alienMonster);
-		break;
-	case earthArmy:
-		n = float(es + et + eg);
-		d = Units::getTotalUnits(earthArmy);
-		break;
-	case alienArmy:
-		n = float(as + ad + am);
-		d = Units::getTotalUnits(alienArmy);
 		break;
 	case earthArmy:
 		n = float(es + et + eg);

@@ -195,13 +195,8 @@ bool Game::isOver(int i)
 {
 	if (i > 40)
 	{
-		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
-		{
-			result = "Tie";
-			updateFile();
-			return true;
-		}
-		else if (eArmy->isEmpty(earthArmy))
+		
+		if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
 			updateFile();
@@ -210,6 +205,12 @@ bool Game::isOver(int i)
 		else if (aArmy->isEmpty(alienArmy))
 		{
 			result = "Win";
+			updateFile();
+			return true;
+		}
+		else if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		{
+			result = "Tie";
 			updateFile();
 			return true;
 		}

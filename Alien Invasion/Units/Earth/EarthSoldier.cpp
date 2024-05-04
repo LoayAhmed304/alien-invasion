@@ -17,7 +17,6 @@ bool EarthSoldier::attack(string &log)
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 

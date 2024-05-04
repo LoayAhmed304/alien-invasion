@@ -14,7 +14,6 @@ bool AlienDrone::attack(string& log)
 	int i = 0;
 	if (game->getUnit(earthTank, enemy))
 	{
-		cout << "AD " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
@@ -23,7 +22,6 @@ bool AlienDrone::attack(string& log)
 	}
 	else if (game->getUnit(earthGunnery, enemy))
 	{
-		cout << "AD " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
@@ -36,7 +34,6 @@ bool AlienDrone::attack(string& log)
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;
@@ -56,7 +53,6 @@ bool AlienDrone::attack(string& log)
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 			++i;

@@ -108,13 +108,13 @@ bool EarthArmy::fight(string &log)
     bool a = false, b = false, c = false;
     Units* unit;
     if (peekUnit(earthSoldier, unit))
-        a = unit->attack();
+        a = unit->attack(log);
     if (peekUnit(earthTank, unit))
-        b = unit->attack();
+        b = unit->attack(log);
     if (peekUnit(earthGunnery, unit))
-        c = unit->attack();
+        c = unit->attack(log);
     if (peekUnit(earthHeal, unit))
-        unit->attack();
+        unit->attack(log);
     return (a || b || c);
 }
 

@@ -22,7 +22,6 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 }
 bool Units::getAttacked(double dmg)
 {
-	cout << id;
 	cur_health -= dmg / sqrt(cur_health);
 	if (dmg >= 0)
 	{
@@ -88,11 +87,6 @@ void Units::setTa(int ta)
 		game->updateEDf(Df);
 	else
 		game->updateADf(Df);
-}
-
-int Units::getID()
-{
-	return id;
 }
 
 int Units::getID()

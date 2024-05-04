@@ -13,9 +13,8 @@ bool EarthGunnery::attack(string& log)
 	bool Attacker = true;
 	int i = 0;
 
-	if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
+	if (game->getUnit(alienMonster, enemy))
 	{
-		cout << "EG " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
@@ -24,7 +23,6 @@ bool EarthGunnery::attack(string& log)
 	}
 	else if (game->getUnit(alienDrone, enemy))
 	{
-		cout << "EG " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
@@ -38,7 +36,6 @@ bool EarthGunnery::attack(string& log)
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
@@ -58,7 +55,6 @@ bool EarthGunnery::attack(string& log)
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
@@ -73,11 +69,10 @@ bool EarthGunnery::attack(string& log)
 			}
 			++i;
 		}
-		if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
+		if (game->getUnit(alienMonster, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 

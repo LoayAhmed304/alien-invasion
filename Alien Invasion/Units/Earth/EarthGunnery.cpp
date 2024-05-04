@@ -12,6 +12,24 @@ bool EarthGunnery::attack(string& log)
 	LinkedQueue<Units*> temp;
 	bool Attacker = true;
 	int i = 0;
+
+	if (game->getUnit(alienMonster, enemy))
+	{
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
+	else if (game->getUnit(alienDrone, enemy))
+	{
+		if (!enemy->getTa())
+			enemy->setTa(game->getTimestep());
+		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		temp.enqueue(enemy);
+		++i;
+	}
+
 	while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienDrone)))
 	{
 		if (game->getUnit(alienMonster, enemy))
@@ -51,7 +69,7 @@ bool EarthGunnery::attack(string& log)
 			}
 			++i;
 		}
-		if (game->getUnit(alienDrone, enemy))
+		if (game->getUnit(alienMonster, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -71,6 +89,7 @@ bool EarthGunnery::attack(string& log)
 			++i;
 		}
 	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -87,6 +106,5 @@ bool EarthGunnery::attack(string& log)
 			log = log + "]\n";
 		}
 	}
-
 	return true;
 }

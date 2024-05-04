@@ -99,6 +99,7 @@ void AlienArmy::print()
 bool AlienArmy::fight(string& log)
 {
     Units* unit;
+    bool a = false, b = false, c = false;
    if (peekUnit(alienSoldier, unit))
         unit->attack(log);
     if (peekUnit(alienMonster, unit))
@@ -111,7 +112,7 @@ bool AlienArmy::fight(string& log)
         unit->attack(log);
     }
 
-    return true;
+    return (a || b || c);
 }
 
 AlienArmy::~AlienArmy()

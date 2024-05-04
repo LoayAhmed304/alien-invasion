@@ -129,7 +129,6 @@ void Game::updateFile(Units* unit)
 
 void Game::printAll()
 {
-
 	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
@@ -152,7 +151,6 @@ void Game::printAll()
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n\033[0m";
-
 }
 
 EarthArmy* Game::getEarthArmy()
@@ -169,8 +167,7 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	if (s < alienArmy)
-		return aArmy->getLength(s);
+	return aArmy->getLength(s);
 }
 
 bool Game::isEmpty(unitType s)
@@ -198,13 +195,8 @@ bool Game::isOver(int i)
 {
 	if (i > 40)
 	{
-		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
-		{
-			result = "Tie";
-			updateFile();
-			return true;
-		}
-		else if (eArmy->isEmpty(earthArmy))
+		
+		if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
 			updateFile();
@@ -213,6 +205,12 @@ bool Game::isOver(int i)
 		else if (aArmy->isEmpty(alienArmy))
 		{
 			result = "Win";
+			updateFile();
+			return true;
+		}
+		else if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		{
+			result = "Tie";
 			updateFile();
 			return true;
 		}
@@ -381,11 +379,9 @@ void Game::fight()
 		over = isOver(timestep);				// Checking if it's over
 
 		printAll();								// Printing the output screen
-		updateUML();
 
 		system("pause");
 		cout << endl;
-		++i;
 	}
 }
 
@@ -394,23 +390,6 @@ bool Game::getUML(Units*& unit)
 	int p;
 	if (UML.dequeue(unit, p))
 		return true;
-	return false;
-}
-
-bool Game::updateUML()
-{
-	Units* unit;
-	int p;
-	priQueue<Units*> temp;
-	while (UML.dequeue(unit, p))
-	{
-		temp.enqueue(unit, p);
-	}
-	while (temp.dequeue(unit, p))
-	{
-		unit->insideUML();
-		UML.enqueue(unit, p);
-	}
 	return false;
 }
 

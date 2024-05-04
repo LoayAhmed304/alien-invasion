@@ -8,7 +8,5 @@ class EarthHeal : public Units
 public:
 	EarthHeal(int p, int h, int c, Game* g);
 	bool attack(string&);
-	bool getAttacked();
-	bool isDead();
 };
 #endif

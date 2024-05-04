@@ -42,7 +42,6 @@ public:
 	bool peekUnit(unitType, Units*&);
 	int getTimestep();
 	bool getUML(Units*&);
-	bool updateUML();	// Increments the UML timestep
 	bool addUnit(Units*&);
 	void updateFile(Units* = nullptr);	// Updates the output file
 	void prepareOutputFile();		// Clears and sets the output file

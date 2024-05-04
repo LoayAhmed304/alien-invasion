@@ -31,6 +31,7 @@ bool EarthSoldier::attack(string &log)
 			}
 		}
 	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -47,7 +48,5 @@ bool EarthSoldier::attack(string &log)
 			log = log + "]\n";
 		}
 	}
-
-
 	return true;
 }

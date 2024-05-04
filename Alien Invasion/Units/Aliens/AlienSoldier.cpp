@@ -51,6 +51,5 @@ bool AlienSoldier::attack(string& log)
 			log = log + "]\n";
 		}
 	}
-
 	return true;
 }

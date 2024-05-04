@@ -8,6 +8,20 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), tot
 	prepareOutputFile();
 }
 
+void Game::start()
+{
+	int choice;
+	do {
+		cout << "==================Pick Mode==================\n1)Silent Mode\n2)Interactive Mode\n";
+		cin >> choice;
+	} while (choice != 1 && choice != 2);
+	if (choice == 1)
+		cout << "Silent Mode\nSimulation Starts...\n";
+	fight(choice);
+	if (choice == 1)
+		cout << "Simulation ends, Output file is created\n";
+}
+
 void Game::prepareOutputFile()
 {
 	outputFile.open("output.txt", ios::out | ios::trunc);
@@ -129,6 +143,7 @@ void Game::updateFile(Units* unit)
 
 void Game::printAll()
 {
+	cout << "Current Timestep " << timestep << endl;
 	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
@@ -151,6 +166,8 @@ void Game::printAll()
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n\033[0m";
+	system("pause");
+	cout << endl;
 }
 
 EarthArmy* Game::getEarthArmy()
@@ -363,14 +380,12 @@ int Game::getTimestep()
 	return timestep;
 }
 
-void Game::fight()
+void Game::fight(int c)
 {
 	bool over = false;
 	int i = 0;
 	while (!over)
 	{
-		cout << "Current Timestep " << timestep++ << endl;
-
 		random->addUnits();						// Adding units to both armies
 
 		eArmy->fight(log);						// Calling both armies to fight one another
@@ -378,10 +393,9 @@ void Game::fight()
 
 		over = isOver(timestep);				// Checking if it's over
 
-		printAll();								// Printing the output screen
-
-		system("pause");
-		cout << endl;
+		if(c==2)
+			printAll();			// Printing the output screen
+		++timestep;
 	}
 }
 

@@ -6,16 +6,15 @@ EarthGunnery::EarthGunnery(int p, int h, int c, Game* g) : Units(earthGunnery, p
 	id = eID;
 }
 
-bool EarthGunnery::attack()
+bool EarthGunnery::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool attacked = false;
+	bool Attacker = true;
 	int i = 0;
 
 	if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
 	{
-		attacked = true;
 		cout << "EG " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
@@ -25,7 +24,6 @@ bool EarthGunnery::attack()
 	}
 	else if (game->getUnit(alienDrone, enemy))
 	{
-		attacked = true;
 		cout << "EG " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
@@ -36,13 +34,24 @@ bool EarthGunnery::attack()
 
 	while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienDrone)))
 	{
-		if (game->getUnit(alienDrone, enemy))
+		if (game->getUnit(alienMonster, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
+			if (Attacker)
+			{
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				Attacker = false;
+			}
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
+
 			++i;
 		}
 		if (game->getUnit(alienDrone, enemy))
@@ -52,6 +61,16 @@ bool EarthGunnery::attack()
 			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
+			if (Attacker)
+			{
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				Attacker = false;
+			}
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
 			++i;
 		}
 		if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
@@ -61,6 +80,17 @@ bool EarthGunnery::attack()
 			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
+			if (Attacker)
+			{
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				Attacker = false;
+			}
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
+
 			++i;
 		}
 	}
@@ -68,15 +98,18 @@ bool EarthGunnery::attack()
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
+		{
 			game->kill(enemy);
+			game->updateFile(enemy);
+		}
 		else
 			game->addUnit(enemy);
-	}
 
-	if (attacked)
-	{
-		cout << "]\n";
-		return true;
+		if (!Attacker)
+		{
+			Attacker = true;
+			log = log + "]\n";
+		}
 	}
-	return false;
+	return true;
 }

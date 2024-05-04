@@ -17,12 +17,12 @@ private:
 
 public:
     bool addUnit(Units*);
-    bool peekUnit(unitType, Units*&, int = 0);
-    bool getUnit(unitType, Units*&, int = 0);
+    bool peekUnit(unitType, Units*&);
+    bool getUnit(unitType, Units*&);
     int getLength(unitType);
     bool isEmpty(unitType);
     void print();
-    bool fight(int m = 0);        // Peeks each earth unit and calls its attack
+    bool fight(string& log);        // Peeks each earth unit and calls its attack
     ~AlienArmy();
 };
 

@@ -1,9 +1,9 @@
 #ifndef RANDOM_ARRAY_H
 #define RANDOM_ARRAY_H
 
-#include "ArrayADT.h"
+#include "RandomArrayADT.h"
 template <typename T>
-class RandomArray : public ArrayADT<T> 
+class RandomArray : public RandomArrayADT<T> 
 {
 	enum { MAX_SIZE = 1000 };
 private:
@@ -14,6 +14,7 @@ public:
 	{
 		arr = new T[MAX_SIZE];
 		count = 0;
+		srand(time(0));
 	}
 	bool isEmpty()  const
 	{
@@ -30,22 +31,24 @@ public:
 		return false;
 	}
 
-	bool peek(T& item, int rand) const
+	bool peek(T& item) const
 	{
 		if (count)
 		{
-			item = arr[rand];
+			int index = rand() % count;
+			item = arr[index];
 			return true;
 		}
 		return false;
 	}
 
-	bool remove(T& item, int rand) 
+	bool remove(T& item) 
 	{
 		if (count)
 		{
-			item = arr[rand];
-			arr[rand] = arr[--count];
+			int index = rand() % count;
+			item = arr[index];
+			arr[index] = arr[--count];
 			return true;
 		}
 		return false;

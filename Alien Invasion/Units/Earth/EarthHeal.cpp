@@ -6,7 +6,7 @@ EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Units(earthHeal, p, h, c, g
 	id = eID;
 }
 
-bool EarthHeal::attack()
+bool EarthHeal::attack(string& log)
 {
 	Units* ally = nullptr;
  	bool die = false;
@@ -24,13 +24,14 @@ bool EarthHeal::attack()
 					game->addUnit(ally);
 				else
 					temp.enqueue(ally);
-				
 				die = true;
 			}
 			else
 			{
-				ally->getAttacked(ally->getCurHealth() * ally->getCurHealth());
+				ally->getAttacked(pow(ally->getCurHealth(), 1.5));
 				game->kill(ally);
+				game->updateFile(ally);
+				--i;
 			}
 		}
 	}
@@ -42,7 +43,7 @@ bool EarthHeal::attack()
 	{
 		Units* heal;
 		game->getUnit(earthHeal, heal);
-		heal->getAttacked(getCurHealth() * getCurHealth());
+		heal->getAttacked(pow(heal->getCurHealth(), 1.5));
 		game->kill(heal);
 	}
 	return true;

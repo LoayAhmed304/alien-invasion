@@ -94,7 +94,7 @@
     <ClInclude Include="Units\Earth\EarthTank.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\ArrayADT.h">
+    <ClInclude Include="DataStructures\RandomArrayADT.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\RandomArray.h">

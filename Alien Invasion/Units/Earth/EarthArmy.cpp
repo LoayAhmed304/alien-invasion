@@ -103,7 +103,7 @@ void EarthArmy::print()
     cout << "]\n";
 }
 
-bool EarthArmy::fight()
+bool EarthArmy::fight(string &log)
 {
     bool a = false, b = false, c = false;
     Units* unit;

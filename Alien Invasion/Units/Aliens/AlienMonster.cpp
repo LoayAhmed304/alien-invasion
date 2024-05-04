@@ -6,15 +6,14 @@ AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p
 	id = aID;
 }
 
-bool AlienMonster::attack()
+bool AlienMonster::attack(string& log)
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool attacked = false;
+	bool Attacker = true;
 	int i = 0;
 	if (game->getUnit(earthSoldier, enemy))
 	{
-		attacked = true;
 		cout << "AM " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
@@ -24,7 +23,6 @@ bool AlienMonster::attack()
 	}
 	else if (game->getUnit(earthTank, enemy))
 	{
-		attacked = true;
 		cout << "AM " << getID() << " shots [";
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
@@ -41,6 +39,17 @@ bool AlienMonster::attack()
 			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
+			if (Attacker)
+			{
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				Attacker = false;
+			}
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
+
 			++i;
 		}
 		if (game->getUnit(earthSoldier, enemy))
@@ -50,6 +59,17 @@ bool AlienMonster::attack()
 			cout << ", ";
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+
+			if (Attacker)
+			{
+				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				Attacker = false;
+			}
+			else
+			{
+				log = log + ", " + to_string(enemy->getID());
+			}
+
 			++i;
 		}
 	}
@@ -57,17 +77,20 @@ bool AlienMonster::attack()
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
+		{
 			game->kill(enemy);
+			game->updateFile(enemy);
+		}
 		else if (enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-	}
 
-	if (attacked)
-	{
-		cout << "]\n";
-		return true;
+		if (!Attacker)
+		{
+			Attacker = true;
+			log = log + "]\n";
+		}
 	}
-	return false;
+	return true;
 }

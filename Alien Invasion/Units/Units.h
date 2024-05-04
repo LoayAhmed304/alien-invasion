@@ -31,7 +31,7 @@ protected:
     Game* game;
 public:
     Units(unitType type, int power, int health, int atk_cap, Game* g);
-    virtual bool attack() = 0;
+    virtual bool attack(string&) = 0;
     virtual bool getAttacked(double dmg);
     virtual bool isDead();
     virtual unitType getType() const;
@@ -40,6 +40,15 @@ public:
     virtual int getPower() const;
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
+
+    static int getTotalUnits(unitType);
+
+    virtual int getID() const;
+    virtual int getTd() const;
+    virtual int getTj() const;
+    virtual int getDf() const;
+    virtual int getDd() const;
+    virtual int getDb() const;
     virtual int getTa() const;
     virtual void setTa(int);
     virtual int getID();

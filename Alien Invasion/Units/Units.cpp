@@ -24,12 +24,25 @@ bool Units::getAttacked(double dmg)
 {
 	cout << id;
 	cur_health -= dmg / sqrt(cur_health);
-	if (cur_health < 0)
+	if (dmg >= 0)
 	{
-		cur_health = 0;
-		Td = game->getTimestep();
-		Dd = Td - Ta;
-		Db = Td - Tj;
+		if (cur_health <= 0)
+		{
+			cur_health = 0;
+			Td = game->getTimestep();
+			Dd = Td - Ta;
+			Db = Td - Tj;
+			if (this->getType() < alienSoldier)
+			{
+				game->updateEDb(Db);
+				game->updateEDd(Dd);
+			}
+			else
+			{
+				game->updateADb(Db);
+				game->updateADd(Dd);
+			}
+		}
 	}
 	return true;
 }
@@ -71,11 +84,61 @@ void Units::setTa(int ta)
 {
 	Ta = ta;
 	Df = Ta - Tj;
+	if (this->getType() < alienSoldier)
+		game->updateEDf(Df);
+	else
+		game->updateADf(Df);
 }
 
 int Units::getID()
 {
 	return id;
+}
+
+int Units::getID()
+{
+	return id;
+}
+
+int Units::getTotalUnits(unitType t)
+{
+	switch (t)
+	{
+	case earthArmy:
+		return eID;
+	case alienArmy:
+		return aID - 2000;
+	}
+}
+
+int Units::getTd() const
+{
+	return Td;
+}
+
+int Units::getID() const
+{
+	return id;
+}
+
+int Units::getTj() const
+{
+	return Tj;
+}
+
+int Units::getDf() const
+{
+	return Df;
+}
+
+int Units::getDd() const
+{
+	return Dd;
+}
+
+int Units::getDb() const
+{
+	return Db;
 }
 
 int Units::getHealthPerc() const

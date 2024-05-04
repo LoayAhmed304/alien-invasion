@@ -35,7 +35,7 @@ bool EarthTank::attack(string& log)
 					log = log + ", " + to_string(enemy->getID());
 				}
 			}
-			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
+			if (game->getUnit(alienMonster, enemy))
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
@@ -59,7 +59,7 @@ bool EarthTank::attack(string& log)
 	{
 		for (int i = 0; i < getAttackCap(); ++i)
 		{
-			if (game->getUnit(alienMonster, enemy, game->getMonsterIndex()))
+			if (game->getUnit(alienMonster, enemy))
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());

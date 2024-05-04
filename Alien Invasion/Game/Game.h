@@ -38,14 +38,12 @@ public:
 
 	int getLength(unitType);
 	bool isEmpty(unitType);
-	bool getUnit(unitType, Units*&, int = 0);
-	bool peekUnit(unitType, Units*&, int = 0);
+	bool getUnit(unitType, Units*&);
+	bool peekUnit(unitType, Units*&);
 	int getTimestep();
 	bool getUML(Units*&);
 	bool updateUML();	// Increments the UML timestep
 	bool addUnit(Units*&);
-	int getMonsterIndex();		// Generates a random index
-	
 	void updateFile(Units* = nullptr);	// Updates the output file
 	void prepareOutputFile();		// Clears and sets the output file
 
@@ -57,7 +55,7 @@ public:
 	float destructedPerc(unitType t);		// Calculates the destructed/total percentage
 
 	// Increments the total earth&alien D(f,d,b) and their count
-	void updateEDf(int df);		
+	void updateEDf(int df);
 	void updateEDd(int dd);
 	void updateEDb(int db);
 

@@ -169,7 +169,7 @@ int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	if(s<alienArmy)
+	if (s < alienArmy)
 		return aArmy->getLength(s);
 }
 
@@ -180,11 +180,11 @@ bool Game::isEmpty(unitType s)
 	return aArmy->isEmpty(s);
 }
 
-bool Game::getUnit(unitType s, Units*& unit, int m)
+bool Game::getUnit(unitType s, Units*& unit)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
-	return aArmy->getUnit(s, unit, m);
+	return aArmy->getUnit(s, unit);
 }
 
 bool Game::addUnit(Units*& unit)
@@ -192,11 +192,6 @@ bool Game::addUnit(Units*& unit)
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
 	return aArmy->addUnit(unit);
-}
-
-int Game::getMonsterIndex()
-{
-	return (random->getMonsterIndex(aArmy->getLength(alienMonster)));
 }
 
 bool Game::isOver(int i)
@@ -227,7 +222,7 @@ bool Game::isOver(int i)
 
 bool Game::kill(Units*& unit)
 {
-	switch(unit->getType())
+	switch (unit->getType())
 	{
 	case earthSoldier:
 		es++;
@@ -317,33 +312,33 @@ float Game::destructedPerc(unitType t)
 	float n = 0, d = 1;
 	switch (t)
 	{
-	case earthSoldier: 
+	case earthSoldier:
 		n = float(getDestructed(earthSoldier));
 		d = totalUnits(earthSoldier);
 		break;
 	case earthGunnery:
 		n = (getDestructed(earthGunnery));
-		d= totalUnits(earthGunnery);
+		d = totalUnits(earthGunnery);
 		break;
 	case earthTank:
 		n = (getDestructed(earthTank));
-		d= totalUnits(earthTank);
+		d = totalUnits(earthTank);
 		break;
 	case earthHeal:
-		n = (getDestructed(earthHeal)); 
-		d= totalUnits(earthHeal);
+		n = (getDestructed(earthHeal));
+		d = totalUnits(earthHeal);
 		break;
 	case alienSoldier:
 		n = (getDestructed(alienSoldier));
-		d= totalUnits(alienSoldier);
+		d = totalUnits(alienSoldier);
 		break;
 	case alienDrone:
 		n = (getDestructed(alienDrone));
-		d= totalUnits(alienDrone);
+		d = totalUnits(alienDrone);
 		break;
 	case alienMonster:
 		n = (getDestructed(alienMonster));
-		d= totalUnits(alienMonster);
+		d = totalUnits(alienMonster);
 		break;
 	case earthArmy:
 		n = float(es + et + eg);
@@ -358,11 +353,11 @@ float Game::destructedPerc(unitType t)
 	return n / d;
 }
 
-bool Game::peekUnit(unitType s, Units*& unit, int m)
+bool Game::peekUnit(unitType s, Units*& unit)
 {
 	if (s < alienSoldier)
 		return eArmy->peekUnit(s, unit);
-	return aArmy->peekUnit(s, unit, m);
+	return aArmy->peekUnit(s, unit);
 }
 
 int Game::getTimestep()
@@ -381,7 +376,7 @@ void Game::fight()
 		random->addUnits();						// Adding units to both armies
 
 		eArmy->fight(log);						// Calling both armies to fight one another
-		aArmy->fight(log, getMonsterIndex());
+		aArmy->fight(log);
 
 		over = isOver(timestep);				// Checking if it's over
 
@@ -407,7 +402,7 @@ bool Game::updateUML()
 	Units* unit;
 	int p;
 	priQueue<Units*> temp;
-	while (UML.dequeue(unit,p))
+	while (UML.dequeue(unit, p))
 	{
 		temp.enqueue(unit, p);
 	}
@@ -470,7 +465,7 @@ void Game::calcEAverage(float& df, float& dd, float& db)
 void Game::calcAAverage(float& df, float& dd, float& db)	// 170 85
 {
 	float d = float(getDestructed(alienSoldier) + getDestructed(alienDrone) + getDestructed(alienMonster));
-	if (!ADfCount) 
+	if (!ADfCount)
 		df = 0;
 	else
 		df = float(totalADf) / ADfCount;

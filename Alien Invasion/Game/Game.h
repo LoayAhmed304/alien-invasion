@@ -49,7 +49,7 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
-
+	bool toLog(int = 0,int = 0);
 	int getDestructed(unitType t);	// Retruns the number of destructed units
 	int totalUnits(unitType t);		// Retruns the destructed + current units
 	float destructedPerc(unitType t);		// Calculates the destructed/total percentage

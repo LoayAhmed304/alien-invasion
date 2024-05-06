@@ -103,18 +103,18 @@ void EarthArmy::print()
     cout << "]\n";
 }
 
-bool EarthArmy::fight(string &log)
+bool EarthArmy::fight()
 {
     bool a = false, b = false, c = false;
     Units* unit;
     if (peekUnit(earthSoldier, unit))
-        a = unit->attack(log);
+        a = unit->attack();
     if (peekUnit(earthTank, unit))
-        b = unit->attack(log);
+        b = unit->attack();
     if (peekUnit(earthGunnery, unit))
-        c = unit->attack(log);
+        c = unit->attack();
     if (peekUnit(earthHeal, unit))
-        unit->attack(log);
+        unit->attack();
     return (a || b || c);
 }
 

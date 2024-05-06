@@ -283,6 +283,18 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
+bool Game::toLog(int a ,int b)
+{
+	if(a && b)
+		log = log + to_string(a) + " shots [" + to_string(b);
+	else if(a)
+		log = log + ", " + to_string(a);
+	else
+		log = log + "]\n";
+
+	return false;
+}
+
 int Game::getDestructed(unitType t)
 {
 	switch (t)
@@ -391,8 +403,8 @@ void Game::fight(int c)
 	{
 		random->addUnits();						// Adding units to both armies
 
-		eArmy->fight(log);						// Calling both armies to fight one another
-		aArmy->fight(log);
+		eArmy->fight();						// Calling both armies to fight one another
+		aArmy->fight();
 
 		over = isOver(timestep);				// Checking if it's over
 

@@ -6,7 +6,7 @@ EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g
 	id = eID;
 }
 
-bool EarthTank::attack(string& log)
+bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -27,12 +27,12 @@ bool EarthTank::attack(string& log)
 
 				if (Attacker)
 				{
-					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+					game->toLog(this->getID(), enemy->getID());
 					Attacker = false;
 				}
 				else
 				{
-					log = log + ", " + to_string(enemy->getID());
+					game->toLog(enemy->getID());
 				}
 			}
 			if (game->getUnit(alienMonster, enemy))
@@ -45,12 +45,12 @@ bool EarthTank::attack(string& log)
 
 				if (Attacker)
 				{
-					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+					game->toLog(this->getID(), enemy->getID());
 					Attacker = false;
 				}
 				else
 				{
-					log = log + ", " + to_string(enemy->getID());
+					game->toLog(enemy->getID());
 				}
 			}
 		}
@@ -68,17 +68,22 @@ bool EarthTank::attack(string& log)
 
 				if (Attacker)
 				{
-					log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+					game->toLog(this->getID(), enemy->getID());
 					Attacker = false;
 				}
 				else
 				{
-					log = log + ", " + to_string(enemy->getID());
+					game->toLog(enemy->getID());
 				}
 			}
 			else
 				break;
 		}
+	}
+	if (!Attacker)
+	{
+		Attacker = true;
+		game->toLog();
 	}
 	while (temp.dequeue(enemy))
 	{
@@ -89,12 +94,6 @@ bool EarthTank::attack(string& log)
 		}
 		else
 			game->addUnit(enemy);
-
-		if (!Attacker)
-		{
-			Attacker = true;
-			log = log + "]\n";
-		}
 	}
 
 	return true;

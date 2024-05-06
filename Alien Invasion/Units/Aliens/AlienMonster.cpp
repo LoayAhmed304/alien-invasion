@@ -6,7 +6,7 @@ AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p
 	id = aID;
 }
 
-bool AlienMonster::attack(string& log)
+bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -39,12 +39,12 @@ bool AlienMonster::attack(string& log)
 
 			if (Attacker)
 			{
-				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				game->toLog(this->getID(), enemy->getID());
 				Attacker = false;
 			}
 			else
 			{
-				log = log + ", " + to_string(enemy->getID());
+				game->toLog(enemy->getID());
 			}
 
 			++i;
@@ -58,18 +58,22 @@ bool AlienMonster::attack(string& log)
 
 			if (Attacker)
 			{
-				log = log + to_string(this->getID()) + " shots [" + to_string(enemy->getID());
+				game->toLog(this->getID(), enemy->getID());
 				Attacker = false;
 			}
 			else
 			{
-				log = log + ", " + to_string(enemy->getID());
+				game->toLog(enemy->getID());
 			}
 
 			++i;
 		}
 	}
-
+	if (!Attacker)
+	{
+		Attacker = true;
+		game->toLog();
+	}
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -81,12 +85,6 @@ bool AlienMonster::attack(string& log)
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-
-		if (!Attacker)
-		{
-			Attacker = true;
-			log = log + "]\n";
-		}
 	}
 	return true;
 }

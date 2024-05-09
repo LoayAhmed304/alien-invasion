@@ -20,6 +20,7 @@ private:
 	priQueue<Units*> UML;
 
 	fstream outputFile;
+	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
 	int totalEDf, totalEDd, totalEDb, EDfCount;		// Earth total D(f/d/b)
 	int totalADf, totalADd, totalADb, ADfCount;		// Alien total D(f/d/b)
@@ -51,8 +52,6 @@ public:
 	bool kill(Units*&);
 	bool toUML(Units*&);
 	bool toLog(int = 0,int = 0);
-	int getDestructed(unitType t);	// Retruns the number of destructed units
-	int totalUnits(unitType t);		// Retruns the destructed + current units
 	float destructedPerc(unitType t);		// Calculates the destructed/total percentage
 
 	// Increments the total earth&alien D(f,d,b) and their count
@@ -65,6 +64,7 @@ public:
 	void updateADb(int db);
 
 	void updateHealed();
+	void countUML(int& es, int& et);
 
 
 	// Calculates the average D(f,d,b) and their percentages for earth and aliens

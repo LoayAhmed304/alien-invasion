@@ -326,7 +326,7 @@ float Game::destructedPerc(unitType t)
 		d = getLength(alienMonster) + am;
 		break;
 	case earthArmy:
-		n = float(es + et + eg);
+		n = float(es + et + eg + eh);
 		d = Units::getTotalUnits(earthArmy);
 		break;
 	case alienArmy:

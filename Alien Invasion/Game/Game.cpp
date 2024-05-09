@@ -264,6 +264,7 @@ bool Game::kill(Units*& unit)
 		eh++;
 		break;
 	}
+	updateFile(unit);
 	return killedList.enqueue(unit);
 }
 

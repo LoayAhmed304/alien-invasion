@@ -30,7 +30,6 @@ bool EarthHeal::attack()
 			{
 				ally->getAttacked(pow(ally->getCurHealth(), 1.5));
 				game->kill(ally);
-				game->updateFile(ally);
 				--i;
 			}
 		}
@@ -43,6 +42,7 @@ bool EarthHeal::attack()
 	{
 		Units* heal;
 		game->getUnit(earthHeal, heal);
+		heal->setTa(game->getTimestep());
 		heal->getAttacked(pow(heal->getCurHealth(), 1.5));
 		game->kill(heal);
 	}

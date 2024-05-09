@@ -12,25 +12,9 @@ bool AlienMonster::attack()
 	LinkedQueue<Units*> temp;
 	bool Attacker = true;
 	int i = 0;
-	if (game->getUnit(earthSoldier, enemy))
-	{
-		if (!enemy->getTa())
-			enemy->setTa(game->getTimestep());
-		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-		temp.enqueue(enemy);
-		++i;
-	}
-	else if (game->getUnit(earthTank, enemy))
-	{
-		if (!enemy->getTa())
-			enemy->setTa(game->getTimestep());
-		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-		temp.enqueue(enemy);
-		++i;
-	}
 	while (i < getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(earthTank)))
 	{
-		if (game->getUnit(earthTank, enemy))
+		if (game->getUnit(earthSoldier, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -49,7 +33,7 @@ bool AlienMonster::attack()
 
 			++i;
 		}
-		if (game->getUnit(earthSoldier, enemy))
+		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());

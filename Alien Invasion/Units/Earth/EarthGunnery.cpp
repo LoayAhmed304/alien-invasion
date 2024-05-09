@@ -12,24 +12,6 @@ bool EarthGunnery::attack()
 	LinkedQueue<Units*> temp;
 	bool Attacker = true;
 	int i = 0;
-
-	if (game->getUnit(alienMonster, enemy))
-	{
-		if (!enemy->getTa())
-			enemy->setTa(game->getTimestep());
-		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-		temp.enqueue(enemy);
-		++i;
-	}
-	else if (game->getUnit(alienDrone, enemy))
-	{
-		if (!enemy->getTa())
-			enemy->setTa(game->getTimestep());
-		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-		temp.enqueue(enemy);
-		++i;
-	}
-
 	while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienDrone)))
 	{
 		if (game->getUnit(alienMonster, enemy))
@@ -67,25 +49,6 @@ bool EarthGunnery::attack()
 			{
 				game->toLog(enemy->getID());
 			}
-			++i;
-		}
-		if (game->getUnit(alienMonster, enemy))
-		{
-			if (!enemy->getTa())
-				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			temp.enqueue(enemy);
-
-			if (Attacker)
-			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
-			}
-			else
-			{
-				game->toLog(enemy->getID());
-			}
-
 			++i;
 		}
 	}

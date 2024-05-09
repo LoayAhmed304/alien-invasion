@@ -79,7 +79,6 @@ bool AlienDrone::attack()
 		if (enemy->isDead())
 		{
 			game->kill(enemy);
-			game->updateFile(enemy);
 		}
 		else if (enemy->getType() == earthTank && enemy->getHealthPerc() < 20)
 			game->toUML(enemy);

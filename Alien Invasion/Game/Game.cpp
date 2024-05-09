@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(0), Uet(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
 				totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
 {
 	eArmy = new EarthArmy;
@@ -61,15 +61,8 @@ void Game::updateFile(Units* unit)
 	{
 		if (unit)
 		{
-			int Td, ID, Tj, Df, Dd, Db;
-			Td = unit->getTd();
-			ID = unit->getID();
-			Tj = unit->getTj();
-			Df = unit->getDf();
-			Dd = unit->getDd();
-			Db = unit->getDb();
-
-			outputFile << Td << "\t\t" << ID << "\t\t" << Tj << "\t\t" << Df << "\t\t" << Dd << "\t\t" << Db << "\n";
+			outputFile << unit->getTd() << "\t\t" << unit << "\t\t" << unit->getTj() << "\t\t" 
+				<< unit->getDf() << "\t\t" << unit->getDd() << "\t\t" << unit->getDb() << "\n";
 		}
 		else
 		{
@@ -77,12 +70,13 @@ void Game::updateFile(Units* unit)
 			float dfdb, dddb, adf, add, adb;
 			////////////////// Earth Army Statistics //////////////////////////
 			outputFile << "Earth Army: \n";
-
+			int e=0, t=0;
+			countUML(e, t);
 			outputFile << "\tTotal number of units:\n";
-			outputFile << "\t\tES: " << totalUnits(earthSoldier);
-			outputFile << "\tET: " << totalUnits(earthTank);
-			outputFile << "\tEG: " << totalUnits(earthGunnery);
-			outputFile << "\tEH: " << totalUnits(earthHeal) << endl;
+			outputFile << "\t\tES: " << getLength(earthSoldier) + es + e;
+			outputFile << "\tET: " << getLength(earthTank) + et + t;
+			outputFile << "\tEG: " << getLength(earthGunnery) + eg;
+			outputFile << "\tEH: " << getLength(earthHeal) + eh << endl;
 
 
 			outputFile << "\tUnits Destruction %: \n";
@@ -103,15 +97,17 @@ void Game::updateFile(Units* unit)
 
 			calcEPercentage(dfdb, dddb);
 			outputFile << "\t\tDf/Db%: " << setprecision(4) << dfdb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n\n";
+			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n";
+
+			outputFile << "\tHealed Percentage: " << setprecision(4) << calcHealedPercentage() *100 << "%\n\n";
 
 			////////////////// Alien Army Statistics //////////////////////////
 			outputFile << "Alien Army: \n";
 
 			outputFile << "\tTotal number of units:\n";
-			outputFile << "\t\tAS: " << totalUnits(alienSoldier);
-			outputFile << "\tAM: " << totalUnits(alienMonster);
-			outputFile << "\tAD: " << totalUnits(alienDrone) << endl;
+			outputFile << "\t\tAS: " << getLength(alienSoldier) + as;
+			outputFile << "\tAM: " << getLength(alienMonster) + am;
+			outputFile << "\tAD: " << getLength(alienDrone) + ad << endl;
 
 
 			outputFile << "\tUnits Destruction %: \n";
@@ -264,12 +260,12 @@ bool Game::kill(Units*& unit)
 		eh++;
 		break;
 	}
+	updateFile(unit);
 	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
 {
-
 	if (unit->getType() == earthSoldier)
 	{
 		unit->enterUML();
@@ -295,47 +291,6 @@ bool Game::toLog(int a ,int b)
 	return false;
 }
 
-int Game::getDestructed(unitType t)
-{
-	switch (t)
-	{
-	case alienSoldier:
-		return as;
-	case alienMonster:
-		return am;
-	case alienDrone:
-		return ad;
-	case earthSoldier:
-		return es;
-	case earthGunnery:
-		return eg;
-	case earthTank:
-		return et;
-	case earthHeal:
-		return eh;
-	}
-}
-
-int Game::totalUnits(unitType t)
-{
-	switch (t)
-	{
-	case earthSoldier:
-		return getLength(earthSoldier) + getDestructed(earthSoldier);
-	case earthGunnery:
-		return getLength(earthGunnery) + getDestructed(earthGunnery);
-	case earthTank:
-		return getLength(earthTank) + getDestructed(earthTank);
-	case earthHeal:
-		return getLength(earthHeal) + getDestructed(earthHeal);
-	case alienSoldier:
-		return getLength(alienSoldier) + getDestructed(alienSoldier);
-	case alienDrone:
-		return getLength(alienDrone) + getDestructed(alienDrone);
-	case alienMonster:
-		return getLength(alienMonster) + getDestructed(alienMonster);
-	}
-}
 
 float Game::destructedPerc(unitType t)
 {
@@ -343,35 +298,35 @@ float Game::destructedPerc(unitType t)
 	switch (t)
 	{
 	case earthSoldier:
-		n = float(getDestructed(earthSoldier));
-		d = totalUnits(earthSoldier);
+		n = float(es);
+		d = getLength(earthSoldier) + es;
 		break;
 	case earthGunnery:
-		n = (getDestructed(earthGunnery));
-		d = totalUnits(earthGunnery);
+		n = (eg);
+		d = getLength(earthGunnery) + eg;
 		break;
 	case earthTank:
-		n = (getDestructed(earthTank));
-		d = totalUnits(earthTank);
+		n = (et);
+		d = getLength(earthTank) + et;
 		break;
 	case earthHeal:
-		n = (getDestructed(earthHeal));
-		d = totalUnits(earthHeal);
+		n = (eh);
+		d = getLength(earthHeal) + eh;
 		break;
 	case alienSoldier:
-		n = (getDestructed(alienSoldier));
-		d = totalUnits(alienSoldier);
+		n = (as);
+		d = getLength(alienSoldier) + as;
 		break;
 	case alienDrone:
-		n = (getDestructed(alienDrone));
-		d = totalUnits(alienDrone);
+		n = (ad);
+		d = getLength(alienDrone) + ad;
 		break;
 	case alienMonster:
-		n = (getDestructed(alienMonster));
-		d = totalUnits(alienMonster);
+		n = (am);
+		d = getLength(alienMonster) + am;
 		break;
 	case earthArmy:
-		n = float(es + et + eg);
+		n = float(es + et + eg + eh);
 		d = Units::getTotalUnits(earthArmy);
 		break;
 	case alienArmy:
@@ -454,9 +409,27 @@ void Game::updateADb(int db)
 	totalADb += db;
 }
 
+void Game::updateHealed()
+{
+	++healed;
+}
+
+void Game::countUML(int& es, int& et)
+{
+	Units* unit = nullptr;
+	int n;
+	while (UML.dequeue(unit, n))
+	{
+		if (unit->getType() == earthSoldier)
+			++Ues;
+		else
+			++Uet;
+	}
+}
+
 void Game::calcEAverage(float& df, float& dd, float& db)
 {
-	float d = float(getDestructed(earthSoldier) + getDestructed(earthGunnery) + getDestructed(earthTank));
+	float d = float(es + eg + et + eh);
 	if (d == 0)
 		dd = db = 0;
 	else
@@ -472,7 +445,7 @@ void Game::calcEAverage(float& df, float& dd, float& db)
 
 void Game::calcAAverage(float& df, float& dd, float& db)	// 170 85
 {
-	float d = float(getDestructed(alienSoldier) + getDestructed(alienDrone) + getDestructed(alienMonster));
+	float d = float(as + ad + am);
 	if (!ADfCount)
 		df = 0;
 	else
@@ -506,6 +479,13 @@ void Game::calcAPercentage(float& DfDb, float& DdDb)
 		DfDb = float(totalADf) / totalADb;
 		DdDb = float(totalADd) / totalADb;
 	}
+}
+
+float Game::calcHealedPercentage()
+{
+	float d = float(healed);
+	float n = Units::getTotalUnits(earthArmy);
+	return (n == 0) ? 0 : d / n;
 }
 
 Game::~Game()

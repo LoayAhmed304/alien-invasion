@@ -41,7 +41,6 @@ bool EarthSoldier::attack()
 		if (enemy->isDead())
 		{
 			game->kill(enemy);
-			game->updateFile(enemy);
 		}
 		else
 			game->addUnit(enemy);

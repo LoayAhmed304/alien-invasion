@@ -43,6 +43,14 @@ bool Units::getAttacked(double dmg)
 			}
 		}
 	}
+	else
+	{
+		if (!healed)
+		{
+			healed = true;
+			game->updateHealed();
+		}
+	}
 	return true;
 }
 bool Units::isDead()

@@ -24,6 +24,7 @@ private:
     unitType type;
     int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
     double health;
+    bool healed;
 protected:
     int id;
     static int eID;

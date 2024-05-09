@@ -103,7 +103,9 @@ void Game::updateFile(Units* unit)
 
 			calcEPercentage(dfdb, dddb);
 			outputFile << "\t\tDf/Db%: " << setprecision(4) << dfdb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n\n";
+			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n";
+
+			outputFile << "\tHealed Percentage: " << setprecision(4) << calcHealedPercentage() *100 << "%\n\n";
 
 			////////////////// Alien Army Statistics //////////////////////////
 			outputFile << "Alien Army: \n";
@@ -455,6 +457,11 @@ void Game::updateADb(int db)
 	totalADb += db;
 }
 
+void Game::updateHealed()
+{
+	++healed;
+}
+
 void Game::calcEAverage(float& df, float& dd, float& db)
 {
 	float d = float(getDestructed(earthSoldier) + getDestructed(earthGunnery) + getDestructed(earthTank));
@@ -507,6 +514,13 @@ void Game::calcAPercentage(float& DfDb, float& DdDb)
 		DfDb = float(totalADf) / totalADb;
 		DdDb = float(totalADd) / totalADb;
 	}
+}
+
+float Game::calcHealedPercentage()
+{
+	float d = float(healed);
+	float n = Units::getTotalUnits(earthArmy);
+	return (n == 0) ? 0 : d / n;
 }
 
 Game::~Game()

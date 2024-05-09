@@ -23,6 +23,7 @@ private:
 	int es, et, eg, eh, as, am, ad;		// Destructed units
 	int totalEDf, totalEDd, totalEDb, EDfCount;		// Earth total D(f/d/b)
 	int totalADf, totalADd, totalADb, ADfCount;		// Alien total D(f/d/b)
+	int healed;
 
 	string log;		// To store the current units fighting and their opponents
 
@@ -63,6 +64,8 @@ public:
 	void updateADd(int dd);
 	void updateADb(int db);
 
+	void updateHealed();
+
 
 	// Calculates the average D(f,d,b) and their percentages for earth and aliens
 	void calcEAverage(float& df, float& dd, float& db);
@@ -70,6 +73,8 @@ public:
 
 	void calcEPercentage(float& DfDb, float& DdDb);
 	void calcAPercentage(float& DfDb, float& DdDb);
+
+	float calcHealedPercentage();
 	~Game();
 };
 

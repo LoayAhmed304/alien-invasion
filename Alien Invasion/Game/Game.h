@@ -62,11 +62,10 @@ public:
 	void updateAdb(Units* unit);
 
 	void updateHealed();
-	void countUML(int& es, int& et);
+	void countUML();
 
 
 	// Calculates the average D(f,d,b) and their percentages for earth and aliens
-	void calcEAverage(float& df, float& dd, float& db);
 	void calcAAverage(float& df, float& dd, float& db);
 
 	void calcEPercentage(float& DfDb, float& DdDb);

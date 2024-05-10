@@ -66,15 +66,15 @@ void Game::updateFile(Units* unit)
 		}
 		else
 		{
+			countUML();
 			outputFile << "\nBattle Result: " << result << endl << endl;
-			float dfdb, dddb, adf, add, adb;
+			float dfdb, dddb;
 			////////////////// Earth Army Statistics //////////////////////////
 			outputFile << "Earth Army: \n";
-			int e=0, t=0;
-			countUML(e, t);
+			
 			outputFile << "\tTotal number of units:\n";
-			outputFile << "\t\tES: " << getLength(earthSoldier) + es + e;
-			outputFile << "\tET: " << getLength(earthTank) + et + t;
+			outputFile << "\t\tES: " << getLength(earthSoldier) + es + Ues;
+			outputFile << "\tET: " << getLength(earthTank) + et + Uet;
 			outputFile << "\tEG: " << getLength(earthGunnery) + eg;
 			outputFile << "\tEH: " << getLength(earthHeal) + eh << endl;
 
@@ -90,9 +90,10 @@ void Game::updateFile(Units* unit)
 			outputFile << std::setprecision(4) << destructedPerc(earthArmy) * 100 << "%\n";
 
 
-			calcEAverage(adf, add, adb);
-			outputFile << "\tAverage values of: \n";
-			outputFile << "\t\tDf: " << std::setprecision(2) << adf << "\tDd: " << add << "\tDb: " << adb << "\n";
+			outputFile << "\tAverage values of: \n\t";
+			outputFile << "\tDf: " << std::setprecision(2) << ((EDfCount != 0) ? float(totalEDf) / EDfCount : 0);
+			outputFile << "\tDd: " << std::setprecision(2) << float(totalEDd) / (es + eg + et + eh);
+			outputFile << "\tDb: " << std::setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n";
 
 
 			calcEPercentage(dfdb, dddb);
@@ -120,9 +121,10 @@ void Game::updateFile(Units* unit)
 			outputFile << std::setprecision(4) << destructedPerc(alienArmy) * 100 << "%\n";
 
 
-			calcAAverage(adf, add, adb);
-			outputFile << "\tAverage values of: \n";
-			outputFile << "\t\tDf: " << std::setprecision(2) << adf << "\tDd: " << add << "\tDb: " << adb << "\n";
+			outputFile << "\tAverage values of: \n\t";
+			outputFile << "\tDf: " << std::setprecision(2) << float(totalADf) / ADfCount;
+			outputFile << "\tDd: " << std::setprecision(2) << float(totalADd) / (as + ad + am);
+			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n";
 
 
 			calcAPercentage(dfdb, dddb);
@@ -410,7 +412,7 @@ void Game::updateHealed()
 	++healed;
 }
 
-void Game::countUML(int& es, int& et)
+void Game::countUML()
 {
 	Units* unit = nullptr;
 	int n;
@@ -421,22 +423,6 @@ void Game::countUML(int& es, int& et)
 		else
 			++Uet;
 	}
-}
-
-void Game::calcEAverage(float& df, float& dd, float& db)
-{
-	float d = float(es + eg + et + eh);
-	if (d == 0)
-		dd = db = 0;
-	else
-	{
-		dd = float(totalEDd) / d;
-		db = float(totalEDb) / d;
-	}
-	if (!EDfCount)
-		df = 0;
-	else
-		df = float(totalEDf) / EDfCount;
 }
 
 void Game::calcAAverage(float& df, float& dd, float& db)	// 170 85

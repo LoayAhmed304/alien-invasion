@@ -34,8 +34,8 @@ public:
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the output screen
 	void fight(int c);		// Calls the fight of each army
-	bool isOver(int i);	// Checks whether the war is over
 	bool canInfect();
+	bool isOver();	// Checks whether the war is over
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();

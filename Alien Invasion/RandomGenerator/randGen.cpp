@@ -39,43 +39,55 @@ bool randGen::probability()
     return ((rand() % 101) <= prob);
 }
 
-Units* randGen::generateEarth()
+bool randGen::generateEarth(Units*& newBorn)
 {
-    int p, h, c;
-    p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
-    h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
-    c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
+    if (Units::getTotalUnits(earthArmy) < 999)
+    {
+        int p, h, c;
+        p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
+        h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
+        c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
 
-    Units* newBorn;
-    int B = 1 + (rand() % 100);
-    if (B < ES)
-        newBorn = new EarthSoldier(p, h, c, game);
-    else if (B < ES + ET)
-        newBorn = new EarthTank(p, h, c, game);
-    else if (B < ES + ET + EG)
-        newBorn = new EarthGunnery(p, h, c, game);
-    else
-        newBorn = new EarthHeal(p, h, c, game);
-    return newBorn;
+        if (h > 100)
+            h = 100;
+
+        int B = 1 + (rand() % 100);
+        if (B < ES)
+            newBorn = new EarthSoldier(p, h, c, game);
+        else if (B < ES + ET)
+            newBorn = new EarthTank(p, h, c, game);
+        else if (B < ES + ET + EG)
+            newBorn = new EarthGunnery(p, h, c, game);
+        else
+            newBorn = new EarthHeal(p, h, c, game);
+        return true;
+    }
+    return false;
 }
 
-Units* randGen::generateAlien()
+bool randGen::generateAlien(Units*& newBorn)
 {
-    int p, h, c;
-    p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
-    h = alienHealthLow + (rand() % (alienHealthHigh - alienHealthLow + 1));
-    c = alienCapLow + (rand() % (alienCapHigh - alienCapLow + 1));
+    if (Units::getTotalUnits(alienArmy) < 999)
+    {
+        int p, h, c;
+        p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
+        h = alienHealthLow + (rand() % (alienHealthHigh - alienHealthLow + 1));
+        c = alienCapLow + (rand() % (alienCapHigh - alienCapLow + 1));
 
-    Units* newBorn;
-    int B = 1 + (rand() % 100);
-    if (B < AS)
-        newBorn = new AlienSoldier(p, h, c, game);
-    else if (B < AS + AM)
-        newBorn = new AlienMonster(p, h, c, game);
-    else
-        newBorn = new AlienDrone(p, h, c, game);
+        if (h > 100)
+            h = 100;
 
-    return newBorn;
+        int B = 1 + (rand() % 100);
+        if (B < AS)
+            newBorn = new AlienSoldier(p, h, c, game);
+        else if (B < AS + AM)
+            newBorn = new AlienMonster(p, h, c, game);
+        else
+            newBorn = new AlienDrone(p, h, c, game);
+
+        return true;
+    }
+    return false;
 }
 bool randGen::canInfect()
 {
@@ -87,14 +99,18 @@ bool randGen::addUnits()
     if (probability())
         for (int i = 0; i < N; i++)
         {
-            newBorn = generateEarth();
-            game->getEarthArmy()->addUnit(newBorn);
+            if (generateEarth(newBorn))
+                game->getEarthArmy()->addUnit(newBorn);
+            else
+                break;
         }
     if (probability())
         for (int i = 0; i < N; i++)
         {
-            newBorn = generateAlien();
-            game->getAlienArmy()->addUnit(newBorn);
+            if(generateAlien(newBorn))
+                game->getAlienArmy()->addUnit(newBorn);
+            else
+                break;
         }
     return true;
 }

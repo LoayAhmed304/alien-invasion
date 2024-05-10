@@ -142,6 +142,11 @@ void Game::printAll()
 
 	cout << "Current Timestep " << timestep << endl;
 
+	if (Units::getTotalUnits(earthArmy) >= 999)
+		cout << "Earth units limit exceeded\n";
+	if (Units::getTotalUnits(alienArmy) >= 999)
+		cout << "Alien units limit exceeded\n";
+
 	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
@@ -207,9 +212,9 @@ bool Game::addUnit(Units*& unit)
 	return aArmy->addUnit(unit);
 }
 
-bool Game::isOver(int i)
+bool Game::isOver()
 {
-	if (i > 40)
+	if (timestep >= 40)
 	{
 		
 		if (eArmy->isEmpty(earthArmy))
@@ -358,7 +363,6 @@ int Game::getTimestep()
 void Game::fight(int c)
 {
 	bool over = false;
-	int i = 0;
 	while (!over)
 	{
 		random->addUnits();						// Adding units to both armies
@@ -366,7 +370,7 @@ void Game::fight(int c)
 		eArmy->fight();						// Calling both armies to fight one another
 		aArmy->fight();
 
-		over = isOver(timestep);				// Checking if it's over
+		over = isOver();				// Checking if it's over
 
 		if(c==2)
 			printAll();			// Printing the output screen

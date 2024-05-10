@@ -68,40 +68,37 @@ void Game::updateFile(Units* unit)
 		{
 			countUML();
 			outputFile << "\nBattle Result: " << result << endl << endl;
-			float dfdb, dddb;
-			////////////////// Earth Army Statistics //////////////////////////
+
+			// Earth Army Statistics
 			outputFile << "Earth Army: \n";
 			
-			outputFile << "\tTotal number of units:\n";
-			outputFile << "\t\tES: " << getLength(earthSoldier) + es + Ues;
+			outputFile << "\tTotal number of units:\n\t";
+			outputFile << "\tES: " << getLength(earthSoldier) + es + Ues;
 			outputFile << "\tET: " << getLength(earthTank) + et + Uet;
 			outputFile << "\tEG: " << getLength(earthGunnery) + eg;
 			outputFile << "\tEH: " << getLength(earthHeal) + eh << endl;
 
-
-			outputFile << "\tUnits Destruction %: \n";
-			outputFile << "\t\tES: " << std::setprecision(3) << ((getLength(earthSoldier) + es + Ues != 0) ? float(es) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%";
-			outputFile << "\tET: " << std::setprecision(3) << ((getLength(earthTank) + et + Uet != 0) ? float(et) / (getLength(earthTank) + et + Uet) * 100 : 0) << "%";
+			outputFile << "\tUnits Destruction %: \n\t";
+			outputFile << "\tES: " << std::setprecision(3) <<  (float(es + Ues)) / (getLength(earthSoldier) + es + Ues) * 100.0 << "%";
+			outputFile << "\tET: " << std::setprecision(3) << (float(et + Uet)) / (getLength(earthTank) + et + Uet) * 100.0 << "%";
 			outputFile << "\tEG: " << std::setprecision(3) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0)  << "%";
 			outputFile << "\tEH: " << std::setprecision(3) << ((getLength(earthHeal) + eh != 0) ? float(eh) / (getLength(earthHeal) + eh) * 100 : 0) << "%\n";
 
-
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << float(es + et + eg + eh) / Units::getTotalUnits(earthArmy) * 100 << "%\n";
-
+			outputFile << std::setprecision(4) << float(es + et + eg + eh + Ues + Uet) / Units::getTotalUnits(earthArmy) * 100.0 << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << std::setprecision(2) << ((EDfCount != 0) ? float(totalEDf) / EDfCount : 0);
 			outputFile << "\tDd: " << std::setprecision(2) << float(totalEDd) / (es + eg + et + eh);
 			outputFile << "\tDb: " << std::setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n\t";
 
-
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalEDf) / totalEDb * 100 << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n";
 
 			outputFile << "\tHealed Percentage: " << setprecision(4) << ((Units::getTotalUnits(earthArmy) !=0) ? float(healed) / Units::getTotalUnits(earthArmy) * 100 : 0) << "%\n\n";
 
-			////////////////// Alien Army Statistics //////////////////////////
+
+			// Alien Army Statistics
 			outputFile << "Alien Army: \n";
 
 			outputFile << "\tTotal number of units:\n";
@@ -109,22 +106,18 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAM: " << getLength(alienMonster) + am;
 			outputFile << "\tAD: " << getLength(alienDrone) + ad << endl;
 
-
 			outputFile << "\tUnits Destruction %: \n";
 			outputFile << "\t\tAS: " << std::setprecision(3) << ((getLength(alienSoldier) + as != 0) ? float(as) / (getLength(alienSoldier) + as) * 100 : 0) << "%";
 			outputFile << "\tAM: " << std::setprecision(3) << ((getLength(alienMonster) + am != 0) ? float(am) / (getLength(alienMonster) + am) * 100 : 0) << "%";
 			outputFile << "\tAD: " << std::setprecision(3) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
 
-
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
 			outputFile << std::setprecision(4) << float(as + am + ad) / Units::getTotalUnits(alienArmy) * 100 << "%\n";
-
 
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << std::setprecision(2) << float(totalADf) / ADfCount;
 			outputFile << "\tDd: " << std::setprecision(2) << float(totalADd) / (as + ad + am);
 			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n\t";
-
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalADf) / totalADb * 100 << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n\n";

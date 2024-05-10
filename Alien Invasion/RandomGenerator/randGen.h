@@ -9,6 +9,7 @@
 #include "../Units/Earth/EarthGunnery.h"
 #include "../Units/Earth/EarthTank.h"
 #include "../Units/Earth/EarthHeal.h"
+#include "../Units/Earth/EarthSaver.h"
 
 class Game;
 
@@ -21,13 +22,15 @@ private:
 		earthCapLow, earthCapHigh,
 		alienPowerLow, alienPowerHigh,
 		alienHealthLow, alienHealthHigh,
-		alienCapLow, alienCapHigh;
+		alienCapLow, alienCapHigh,
+		saverPower, saverHealth, saverCap,
+		infPerc;
 	Game* game;
 public:
 	randGen(int n, int es, int et, int eg, int eh,
 		int as, int am, int ad, int probability,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
-		int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g);
+		int apl, int aph, int ahl, int ahh, int acl, int ach, int sp, int sh, int sc, int inf, Game* g);
 	bool probability();
 	Units* generateEarth();
 	Units* generateAlien();

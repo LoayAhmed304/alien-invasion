@@ -75,6 +75,11 @@ public:
 	void calcAPercentage(float& DfDb, float& DdDb);
 
 	float calcHealedPercentage();
+	/////////////
+	bool isInfected();
+
+
+
 	~Game();
 };
 

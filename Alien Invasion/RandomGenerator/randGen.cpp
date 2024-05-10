@@ -6,7 +6,7 @@
 randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     int am, int ad, int probability, int epl,
     int eph, int ehl, int ehh, int ecl, int ech,
-    int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
+    int apl, int aph, int ahl, int ahh, int acl, int ach, int sp, int sh, int sc, int inf, Game* g)
 {
     srand(time(0));
 
@@ -31,6 +31,10 @@ randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     alienHealthHigh = ahh;
     alienCapLow = acl;
     alienCapHigh = ach;
+    saverPower = sp;
+    saverHealth = sh;
+    saverCap = sc;
+    infPerc = inf;
     game = g;
 }
 
@@ -45,9 +49,14 @@ Units* randGen::generateEarth()
     p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
     h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
     c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
-
+    
     Units* newBorn;
     int B = 1 + (rand() % 100);
+    if (game->getEarthArmy()->percInfected() >= infPerc)
+    {
+        newBorn = new EarthSaver(saverPower, saverHealth, saverCap, game);
+    }
+    else
     if (B < ES)
         newBorn = new EarthSoldier(p, h, c, game);
     else if (B < ES + ET)

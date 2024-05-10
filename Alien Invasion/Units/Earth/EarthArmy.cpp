@@ -15,6 +15,10 @@ bool EarthArmy::addUnit(Units* X)
         break;
     case earthHeal:
         EH.push(X);
+        break;
+    case earthSaver:
+        SU.enqueue(X);
+        break;
     }
     return true;
 }
@@ -31,6 +35,8 @@ bool EarthArmy::peekUnit(unitType type, Units*& unit)
         return EG.peek(unit, n);
     case earthHeal:
         return EH.peek(unit);
+    case earthSaver:
+        return SU.peek(unit);
     }
 }
 
@@ -46,6 +52,8 @@ bool EarthArmy::getUnit(unitType type, Units*& unit)
         return EG.dequeue(unit, n);
     case earthHeal:
         return EH.pop(unit);
+    case earthSaver:
+        return (SU.dequeue(unit));
     }
 }
 
@@ -61,6 +69,8 @@ int EarthArmy::getLength(unitType type)
         return EG.length();
     case earthHeal:
         return EH.length();
+    case earthSaver:
+        return (SU.length());
     }
 }
 
@@ -75,6 +85,8 @@ bool EarthArmy::isEmpty(unitType type)
         return EG.isEmpty();
     case earthHeal:
         return EH.isEmpty();
+    case earthSaver:
+        return SU.isEmpty();
     case earthArmy:
         return (ES.isEmpty() && EG.isEmpty() && ET.isEmpty());
     }
@@ -101,6 +113,14 @@ void EarthArmy::print()
     cout << EH.length() << " EH [";
     EH.printAll();
     cout << "]\n";
+
+    if (!SU.isEmpty())
+    {
+        ///     Print all Earth Heal
+        cout << SU.length() << " SU [";
+        SU.printAll();
+        cout << "]\n";
+    }
 }
 
 bool EarthArmy::fight()
@@ -115,7 +135,28 @@ bool EarthArmy::fight()
         c = unit->attack();
     if (peekUnit(earthHeal, unit))
         unit->attack();
+    if (peekUnit(earthSaver, unit))
+        unit->attack();
     return (a || b || c);
+}
+
+bool EarthArmy::countInfected()
+{
+    countinf++;
+    return true;
+}
+
+int EarthArmy::percInfected()
+{
+    if (SU.isEmpty() && Units::getTotalUnits(earthArmy))
+        return (countinf * 100 / Units::getTotalUnits(earthArmy));
+    else
+        return 0;
+}
+
+int EarthArmy::getInfectedCount()
+{
+    return countinf;
 }
 
 EarthArmy::~EarthArmy()
@@ -133,6 +174,16 @@ EarthArmy::~EarthArmy()
         temp = nullptr;
     }
     while (ET.pop(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (EH.pop(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
+    while (SU.dequeue(temp))
     {
         delete temp;
         temp = nullptr;

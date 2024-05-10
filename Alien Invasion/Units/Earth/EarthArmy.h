@@ -14,7 +14,11 @@ private:
     priQueue <Units*> EG;
     ///////////
     ArrayStack <Units*> EH;
+    ///////////////////////////////////////////////////////////////////
+    LinkedQueue <Units*> SU;
 
+    bool inDanger = false;
+    int countinf = 0;
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
@@ -23,7 +27,9 @@ public:
     bool isEmpty(unitType);
     void print();
     bool fight();        // Peeks each earth unit and calls its attack
-    void printFighting();
+    bool countInfected();
+    int percInfected();
+    int getInfectedCount();
     ~EarthArmy();
 };
 #endif

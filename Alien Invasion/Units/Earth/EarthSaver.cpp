@@ -1,12 +1,12 @@
-#include "EarthSoldier.h"
+#include "EarthSaver.h"
 #include "../../Game/Game.h"
 
-EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p, h, c, g)
+EarthSaver::EarthSaver(int p, int h, int c, Game* g) : Units(earthSaver, p, h, c, g)
 {
 	id = eID;
 }
 
-bool EarthSoldier::attack()
+bool EarthSaver::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
@@ -45,6 +45,14 @@ bool EarthSoldier::attack()
 		else
 			game->addUnit(enemy);
 	}
-
+	if (!game->getEarthArmy()->getInfectedCount())
+	{
+		if (game->getUnit(earthSaver, enemy));
+		{
+			enemy->getAttacked(pow(enemy->getCurHealth(), 1.5));
+			enemy->setTa(game->getTimestep());
+			game->kill(enemy);
+		}
+	}
 	return true;
 }

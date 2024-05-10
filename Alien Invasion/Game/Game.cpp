@@ -34,7 +34,7 @@ void Game::prepareOutputFile()
 void Game::setRandom()
 {
 	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
+		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac, sp, sh, sc ,inf;		// Variables to store values from the input file
 
 	fstream inputFile;
 	string fileName = "input.txt";
@@ -42,10 +42,10 @@ void Game::setRandom()
 	if (inputFile.is_open())
 	{
 		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability;									// Reading first 8 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
+		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac >> sp >> sh >> sc >> inf;
 
 		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac),sp,sh,sc,inf, this);						//	to handle the range dash '-'
 	}
 	else
 	{
@@ -261,6 +261,7 @@ bool Game::kill(Units*& unit)
 		break;
 	}
 	updateFile(unit);
+	unit->cureInfected(); //remove the $ from the infected when they die
 	return killedList.enqueue(unit);
 }
 

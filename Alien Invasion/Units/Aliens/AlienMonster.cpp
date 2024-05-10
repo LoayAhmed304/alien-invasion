@@ -17,8 +17,18 @@ bool AlienMonster::attack()
 		if (!enemy->getTa())
 			enemy->setTa(game->getTimestep());
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+		enemy->getInfected();	//Add Probability for infection
 		temp.enqueue(enemy);
 		++i;
+		if (Attacker)
+		{
+			game->toLog(this->getID(), enemy->getID());
+			Attacker = false;
+		}
+		else
+		{
+			game->toLog(enemy->getID());
+		}
 	}
 	else if (game->getUnit(earthTank, enemy))
 	{
@@ -27,9 +37,19 @@ bool AlienMonster::attack()
 		enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 		temp.enqueue(enemy);
 		++i;
+		if (Attacker)
+		{
+			game->toLog(this->getID(), enemy->getID());
+			Attacker = false;
+		}
+		else
+		{
+			game->toLog(enemy->getID());
+		}
 	}
 	while (i < getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(earthTank)))
 	{
+		game->getEarthArmy()->countInfected();
 		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
@@ -54,6 +74,7 @@ bool AlienMonster::attack()
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			enemy->getInfected();	//Add Probability for infection
 			temp.enqueue(enemy);
 
 			if (Attacker)
@@ -65,7 +86,6 @@ bool AlienMonster::attack()
 			{
 				game->toLog(enemy->getID());
 			}
-
 			++i;
 		}
 	}

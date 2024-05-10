@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Units\Earth\EarthSaver.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RandomGenerator\randGen.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="DataStructures\QueueADT.h" />
     <ClInclude Include="DataStructures\RandomArray.h" />
     <ClInclude Include="DataStructures\StackADT.h" />
+    <ClInclude Include="Units\Earth\EarthSaver.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Units\Aliens\AlienDrone.h" />
     <ClInclude Include="Units\Aliens\AlienMonster.h" />

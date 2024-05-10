@@ -163,8 +163,20 @@ bool Units::enterUML()
 	TimeUML = game->getTimestep();
 	return true;
 }
+bool Units::getInfected()
+{
+	infected = true;
+	return true;
+}
+bool Units::cureInfected()
+{
+	infected = false;
+	return true;
+}
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
+	if (obj->infected)
+		os << "$";
 	os << obj->id;
 	return os;
 }

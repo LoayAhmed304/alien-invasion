@@ -99,7 +99,7 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalEDf) / totalEDb * 100 << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n";
 
-			outputFile << "\tHealed Percentage: " << setprecision(4) << calcHealedPercentage() *100 << "%\n\n";
+			outputFile << "\tHealed Percentage: " << setprecision(4) << ((Units::getTotalUnits(earthArmy) !=0) ? float(healed) / Units::getTotalUnits(earthArmy) * 100 : 0) << "%\n\n";
 
 			////////////////// Alien Army Statistics //////////////////////////
 			outputFile << "Alien Army: \n";
@@ -374,13 +374,6 @@ void Game::countUML()
 		else
 			++Uet;
 	}
-}
-
-float Game::calcHealedPercentage()
-{
-	float d = float(healed);
-	float n = Units::getTotalUnits(earthArmy);
-	return (n == 0) ? 0 : d / n;
 }
 
 Game::~Game()

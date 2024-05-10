@@ -63,7 +63,6 @@ public:
 	void updateHealed();
 	void countUML();
 
-	float calcHealedPercentage();
 	~Game();
 };
 

@@ -41,7 +41,7 @@ bool randGen::probability()
 
 bool randGen::generateEarth(Units*& newBorn)
 {
-    if (Units::getTotalUnits(earthArmy) < 1000)
+    if (Units::getTotalUnits(earthArmy) < 999)
     {
         int p, h, c;
         p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
@@ -67,7 +67,7 @@ bool randGen::generateEarth(Units*& newBorn)
 
 bool randGen::generateAlien(Units*& newBorn)
 {
-    if (Units::getTotalUnits(alienArmy) < 1000)
+    if (Units::getTotalUnits(alienArmy) < 999)
     {
         int p, h, c;
         p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
@@ -99,10 +99,13 @@ bool randGen::addUnits()
                 game->getEarthArmy()->addUnit(newBorn);
             else
             {
-                cout << "Earth units limit exceeded";
+                cout << "No earth units generated, limit exceeded\n";
                 break;
             }
         }
+    else if (Units::getTotalUnits(earthArmy) >= 999)
+        cout << "No earth units generated, limit exceeded\n";
+
     if (probability())
         for (int i = 0; i < N; i++)
         {
@@ -110,9 +113,11 @@ bool randGen::addUnits()
                 game->getAlienArmy()->addUnit(newBorn);
             else
             {
-                cout << "Alien units limit exceeded";
+                cout << "No alien units generated, limit exceeded\n";
                 break;
             }
         }
+    else if (Units::getTotalUnits(alienArmy) >= 999)
+            cout << "No alien units generated, limit exceeded\n";
     return true;
 }

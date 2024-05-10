@@ -170,7 +170,7 @@ bool Units::getInfected()
 	return true;
 }
 
-bool Units::isInfected()
+bool Units::isInfected() const
 {
 	return infected;
 }
@@ -185,7 +185,7 @@ bool Units::isCured()
 	return cured;
 }
 
-std::ostream& operator<<(std::ostream& os, const Units* obj)
+std::ostream& operator<<(std::ostream& os,const Units* obj)
 {
 	os << obj->id;
 	return os;

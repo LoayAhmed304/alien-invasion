@@ -43,7 +43,7 @@ public:
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
     virtual bool getInfected();
-    virtual bool isInfected();
+    virtual bool isInfected() const;
     virtual void cureInfection();
     virtual bool isCured();
 

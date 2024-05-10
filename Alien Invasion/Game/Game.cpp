@@ -35,16 +35,17 @@ void Game::setRandom()
 {
 	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
 		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
+	int inf;
 
 	fstream inputFile;
 	string fileName = "input.txt";
 	inputFile.open(fileName, ios::in);
 	if (inputFile.is_open())
 	{
-		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability;									// Reading first 8 digits
+		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf;			// Reading first 10 digits
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
 
-		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
+		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, inf, epl, abs(eph),							// Take absolute to any high-value 
 			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
 	}
 	else

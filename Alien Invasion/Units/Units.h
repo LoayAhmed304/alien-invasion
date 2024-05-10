@@ -25,6 +25,7 @@ private:
     int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
     double health;
     bool healed;
+    bool infected, cured;
 protected:
     int id;
     static int eID;
@@ -41,6 +42,10 @@ public:
     virtual int getPower() const;
     virtual int getAttackCap() const;
     virtual int getHealthPerc() const;
+    virtual bool getInfected();
+    virtual bool isInfected();
+    virtual void cureInfection();
+    virtual bool isCured();
 
     static int getTotalUnits(unitType);
 

@@ -22,6 +22,7 @@ private:
 		alienPowerLow, alienPowerHigh,
 		alienHealthLow, alienHealthHigh,
 		alienCapLow, alienCapHigh;
+	int inf;
 	Game* game;
 public:
 	randGen(int n, int es, int et, int eg, int eh,
@@ -31,6 +32,7 @@ public:
 	bool probability();
 	Units* generateEarth();
 	Units* generateAlien();
+	bool canInfect();
 	bool addUnits();
 };
 #endif

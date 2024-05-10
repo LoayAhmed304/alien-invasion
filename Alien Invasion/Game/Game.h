@@ -35,6 +35,7 @@ public:
 	void printAll();	// Prints all the output screen
 	void fight(int c);		// Calls the fight of each army
 	bool isOver(int i);	// Checks whether the war is over
+	bool canInfect();
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();

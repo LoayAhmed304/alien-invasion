@@ -234,6 +234,11 @@ bool Game::isOver(int i)
 	return false;
 }
 
+bool Game::canInfect()
+{
+	return random->canInfect();
+}
+
 bool Game::kill(Units*& unit)
 {
 	switch (unit->getType())

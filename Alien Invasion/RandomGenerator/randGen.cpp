@@ -77,6 +77,10 @@ Units* randGen::generateAlien()
 
     return newBorn;
 }
+bool randGen::canInfect()
+{
+    return (rand() % 101)==inf;
+}
 bool randGen::addUnits()
 {
     Units* newBorn = nullptr;

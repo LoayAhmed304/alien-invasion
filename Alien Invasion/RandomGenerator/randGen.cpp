@@ -98,26 +98,15 @@ bool randGen::addUnits()
             if (generateEarth(newBorn))
                 game->getEarthArmy()->addUnit(newBorn);
             else
-            {
-                cout << "No earth units generated, limit exceeded\n";
                 break;
-            }
         }
-    else if (Units::getTotalUnits(earthArmy) >= 999)
-        cout << "No earth units generated, limit exceeded\n";
-
     if (probability())
         for (int i = 0; i < N; i++)
         {
             if(generateAlien(newBorn))
                 game->getAlienArmy()->addUnit(newBorn);
             else
-            {
-                cout << "No alien units generated, limit exceeded\n";
                 break;
-            }
         }
-    else if (Units::getTotalUnits(alienArmy) >= 999)
-            cout << "No alien units generated, limit exceeded\n";
     return true;
 }

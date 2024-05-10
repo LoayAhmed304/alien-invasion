@@ -93,12 +93,11 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << std::setprecision(2) << ((EDfCount != 0) ? float(totalEDf) / EDfCount : 0);
 			outputFile << "\tDd: " << std::setprecision(2) << float(totalEDd) / (es + eg + et + eh);
-			outputFile << "\tDb: " << std::setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n";
+			outputFile << "\tDb: " << std::setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n\t";
 
 
-			calcEPercentage(dfdb, dddb);
-			outputFile << "\t\tDf/Db%: " << setprecision(4) << dfdb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n";
+			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalEDf) / totalEDb * 100 << "%";
+			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n";
 
 			outputFile << "\tHealed Percentage: " << setprecision(4) << calcHealedPercentage() *100 << "%\n\n";
 
@@ -124,12 +123,11 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << std::setprecision(2) << float(totalADf) / ADfCount;
 			outputFile << "\tDd: " << std::setprecision(2) << float(totalADd) / (as + ad + am);
-			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n";
+			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n\t";
 
 
-			calcAPercentage(dfdb, dddb);
-			outputFile << "\t\tDf/Db%: " << setprecision(4) << dfdb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << dddb * 100 << "%\n\n";
+			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalADf) / totalADb * 100 << "%";
+			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n\n";
 		}
 		outputFile.close();
 	}
@@ -438,28 +436,6 @@ void Game::calcAAverage(float& df, float& dd, float& db)	// 170 85
 	{
 		dd = float(totalADd) / d;
 		db = float(totalADb) / d;
-	}
-}
-
-void Game::calcEPercentage(float& DfDb, float& DdDb)
-{
-	if (!totalEDb)
-		DfDb = DdDb = 0;
-	else
-	{
-		DfDb = float(totalEDf) / totalEDb;
-		DdDb = float(totalEDd) / totalEDb;
-	}
-}
-
-void Game::calcAPercentage(float& DfDb, float& DdDb)
-{
-	if (!totalADb)
-		DfDb = DdDb = 0;
-	else
-	{
-		DfDb = float(totalADf) / totalADb;
-		DdDb = float(totalADd) / totalADb;
 	}
 }
 

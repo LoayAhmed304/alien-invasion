@@ -68,9 +68,6 @@ public:
 	// Calculates the average D(f,d,b) and their percentages for earth and aliens
 	void calcAAverage(float& df, float& dd, float& db);
 
-	void calcEPercentage(float& DfDb, float& DdDb);
-	void calcAPercentage(float& DfDb, float& DdDb);
-
 	float calcHealedPercentage();
 	~Game();
 };

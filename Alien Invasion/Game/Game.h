@@ -52,7 +52,6 @@ public:
 	bool kill(Units*&);
 	bool toUML(Units*&);
 	bool toLog(int = 0,int = 0);
-	float destructedPerc(unitType t);		// Calculates the destructed/total percentage
 
 	// Increments the total earth&alien D(f,d,b) and their count
 	void updateEDf(int df);
@@ -63,10 +62,6 @@ public:
 
 	void updateHealed();
 	void countUML();
-
-
-	// Calculates the average D(f,d,b) and their percentages for earth and aliens
-	void calcAAverage(float& df, float& dd, float& db);
 
 	float calcHealedPercentage();
 	~Game();

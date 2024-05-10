@@ -387,14 +387,10 @@ void Game::updateEDf(int df)
 	++EDfCount;
 }
 
-void Game::updateEDd(int dd)
+void Game::updateEdb(Units* unit)
 {
-	totalEDd += dd;
-}
-
-void Game::updateEDb(int db)
-{
-	totalEDb += db;
+	totalEDd += unit->getDd();
+	totalEDb += unit->getDb();
 }
 
 void Game::updateADf(int df)
@@ -403,14 +399,10 @@ void Game::updateADf(int df)
 	++ADfCount;
 }
 
-void Game::updateADd(int dd)
+void Game::updateAdb(Units* unit)
 {
-	totalADd += dd;
-}
-
-void Game::updateADb(int db)
-{
-	totalADb += db;
+	totalADd += unit->getDd();
+	totalADb += unit->getDb();
 }
 
 void Game::updateHealed()

@@ -56,12 +56,10 @@ public:
 
 	// Increments the total earth&alien D(f,d,b) and their count
 	void updateEDf(int df);
-	void updateEDd(int dd);
-	void updateEDb(int db);
+	void updateEdb(Units* unit);
 
 	void updateADf(int df);
-	void updateADd(int dd);
-	void updateADb(int db);
+	void updateAdb(Units* unit);
 
 	void updateHealed();
 	void countUML(int& es, int& et);

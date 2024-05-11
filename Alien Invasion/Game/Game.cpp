@@ -120,7 +120,7 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n\t";
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalADf) / totalADb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n\n";
+			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalADd) / totalADb * 100 << "%\n\n";
 		}
 		outputFile.close();
 	}

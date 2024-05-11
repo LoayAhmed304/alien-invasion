@@ -115,7 +115,7 @@ void Game::updateFile(Units* unit)
 
 			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n\n";
 
-
+      
 			// Alien Army Statistics
 			outputFile << "Alien Army: \n";
 

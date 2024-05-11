@@ -53,7 +53,7 @@ public:
 	bool toUML(Units*&);
 	bool toLog(int = 0,int = 0);
 
-	// Increments the total earth&alien D(f,d,b) and their count
+	// Increments the total earth&alien D(f,d,b)
 	void updateED(Units* unit);
 	void updateAD(Units* unit);
 

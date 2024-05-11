@@ -33,13 +33,11 @@ bool Units::getAttacked(double dmg)
 			Db = Td - Tj;
 			if (this->getType() < alienSoldier)
 			{
-				game->updateEDb(Db);
-				game->updateEDd(Dd);
+				game->updateED(this);
 			}
 			else
 			{
-				game->updateADb(Db);
-				game->updateADd(Dd);
+				game->updateAD(this);
 			}
 		}
 	}
@@ -91,10 +89,6 @@ void Units::setTa(int ta)
 {
 	Ta = ta;
 	Df = Ta - Tj;
-	if (this->getType() < alienSoldier)
-		game->updateEDf(Df);
-	else
-		game->updateADf(Df);
 }
 
 int Units::getID()

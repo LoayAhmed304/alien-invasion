@@ -54,6 +54,9 @@ public:
     virtual void setTa(int);
     virtual int getID();
 
+    virtual bool isHealed();
+    virtual void heal();
+
     virtual int getUMLtime();
     virtual bool exitUML();
     virtual bool enterUML();

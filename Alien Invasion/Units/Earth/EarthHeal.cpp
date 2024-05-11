@@ -9,7 +9,7 @@ EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Units(earthHeal, p, h, c, g
 bool EarthHeal::attack()
 {
 	Units* ally = nullptr;
- 	bool die = false;
+ 	bool healed = false;
 	LinkedQueue<Units*> temp;
 
 	for (int i = 0; i < getAttackCap(); i++)
@@ -20,31 +20,41 @@ bool EarthHeal::attack()
 			{
 				ally->getAttacked(-(getPower() * getHealth() / 100));
 
+				if (!ally->isHealed())
+					ally->heal();
+
 				if (ally->getHealthPerc() > 20)
 					game->addUnit(ally);
 				else
 					temp.enqueue(ally);
-				die = true;
+				if (!healed)
+				{
+					game->toLog(this->getID(), ally->getID(), "EH");
+					healed = true;
+				}
+				else
+					game->toLog(ally->getID());
 			}
 			else
 			{
-				ally->getAttacked(pow(ally->getCurHealth(), 1.5));
+				ally->getAttacked(pow(ally->getCurHealth(), 2));
 				game->kill(ally);
 				--i;
 			}
 		}
-	}
+	}	
 
 	while (temp.dequeue(ally))
 		game->toUML(ally);
 
-	if (die)
+	if (healed)
 	{
 		Units* heal;
+		game->toLog();
 		game->getUnit(earthHeal, heal);
 		heal->setTa(game->getTimestep());
-		heal->getAttacked(pow(heal->getCurHealth(), 1.5));
+		heal->getAttacked(pow(heal->getCurHealth(), 2));
 		game->kill(heal);
 	}
-	return true;
+	return healed;
 }

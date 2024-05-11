@@ -10,7 +10,7 @@ bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
+	bool attacked = false;
 
 	if (game->getLength(earthSoldier) < (game->getLength(alienSoldier) * .3))
 	{
@@ -25,15 +25,13 @@ bool EarthTank::attack()
 				temp.enqueue(enemy);
 				++i;
 
-				if (Attacker)
+				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID());
-					Attacker = false;
+					game->toLog(this->getID(), enemy->getID(), "ET");
+					attacked = true;
 				}
 				else
-				{
 					game->toLog(enemy->getID());
-				}
 			}
 			if (game->getUnit(alienMonster, enemy))
 			{
@@ -43,15 +41,13 @@ bool EarthTank::attack()
 				temp.enqueue(enemy);
 				++i;
 
-				if (Attacker)
+				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID());
-					Attacker = false;
+					game->toLog(this->getID(), enemy->getID(), "ET");
+					attacked = true;
 				}
 				else
-				{
 					game->toLog(enemy->getID());
-				}
 			}
 		}
 	}
@@ -66,34 +62,27 @@ bool EarthTank::attack()
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 				temp.enqueue(enemy);
 
-				if (Attacker)
+				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID());
-					Attacker = false;
+					game->toLog(this->getID(), enemy->getID(), "ET");
+					attacked = true;
 				}
 				else
-				{
 					game->toLog(enemy->getID());
-				}
 			}
 			else
 				break;
 		}
 	}
-	if (!Attacker)
-	{
-		Attacker = true;
+
+	if (attacked)
 		game->toLog();
-	}
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
-		{
 			game->kill(enemy);
-		}
 		else
 			game->addUnit(enemy);
 	}
-
-	return true;
+	return attacked;
 }

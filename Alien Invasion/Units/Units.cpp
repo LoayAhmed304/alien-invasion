@@ -23,32 +23,23 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 bool Units::getAttacked(double dmg)
 {
 	cur_health -= dmg / sqrt(cur_health);
-	if (dmg >= 0)
+
+	if (cur_health <= 0)
 	{
-		if (cur_health <= 0)
+		cur_health = 0;
+		Td = game->getTimestep();
+		Dd = Td - Ta;
+		Db = Td - Tj;
+		if (this->getType() < alienSoldier)
 		{
-			cur_health = 0;
-			Td = game->getTimestep();
-			Dd = Td - Ta;
-			Db = Td - Tj;
-			if (this->getType() < alienSoldier)
-			{
-				game->updateED(this);
-			}
-			else
-			{
-				game->updateAD(this);
-			}
+			game->updateED(this);
+		}
+		else
+		{
+			game->updateAD(this);
 		}
 	}
-	else
-	{
-		if (!healed)
-		{
-			healed = true;
-			game->updateHealed();
-		}
-	}
+
 	return true;
 }
 bool Units::isDead()
@@ -142,6 +133,17 @@ int Units::getHealthPerc() const
 	return ((cur_health * 100) / health);
 }
 
+bool Units::isHealed()
+{
+	return healed;
+}
+
+void Units::heal()
+{
+	healed = true;
+	game->updateHealed();
+}
+
 int Units::getUMLtime()
 {
 	return TimeUML;
@@ -159,6 +161,11 @@ bool Units::enterUML()
 }
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
-	os << obj->id;
+	string color = "";
+	if (obj->getType() < alienSoldier)
+		color = "\033[1;36m";
+	else
+		color = "\033[1;32m";
+	os << color << obj->id << "\033[0m";
 	return os;
 }

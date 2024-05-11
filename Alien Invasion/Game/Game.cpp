@@ -1,6 +1,6 @@
 #include "Game.h"
-Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(0), Uet(0), totalEDf(0), totalEDd(0), totalEDb(0), EDfCount(0),
-				totalADf(0), totalADd(0), totalADb(0), ADfCount(0)
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(0), Uet(0), totalEDf(0), totalEDd(0), totalEDb(0),
+				totalADf(0), totalADd(0), totalADb(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -79,18 +79,18 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tEH: " << getLength(earthHeal) + eh << endl;
 
 			outputFile << "\tUnits Destruction %: \n\t";
-			outputFile << "\tES: " << std::setprecision(3) <<  (float(es + Ues)) / (getLength(earthSoldier) + es + Ues) * 100.0 << "%";
-			outputFile << "\tET: " << std::setprecision(3) << (float(et + Uet)) / (getLength(earthTank) + et + Uet) * 100.0 << "%";
-			outputFile << "\tEG: " << std::setprecision(3) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0)  << "%";
-			outputFile << "\tEH: " << std::setprecision(3) << ((getLength(earthHeal) + eh != 0) ? float(eh) / (getLength(earthHeal) + eh) * 100 : 0) << "%\n";
+			outputFile << "\tES: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues != 0) ? float(es + Ues) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%";
+			outputFile << "\tET: " << setprecision(4) << ((getLength(earthTank) + et+ Uet !=0 ) ? (float(et + Uet)) / (getLength(earthTank) + et + Uet) * 100  : 0)<< "%";
+			outputFile << "\tEG: " << setprecision(4) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0)  << "%";
+			outputFile << "\tEH: " << setprecision(4) << ((getLength(earthHeal) + eh != 0) ? float(eh) / (getLength(earthHeal) + eh) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << float(es + et + eg + eh + Ues + Uet) / Units::getTotalUnits(earthArmy) * 100.0 << "%\n";
+			outputFile << setprecision(4) << float(es + et + eg + eh + Ues + Uet) / Units::getTotalUnits(earthArmy) * 100.0 << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
-			outputFile << "\tDf: " << std::setprecision(2) << ((EDfCount != 0) ? float(totalEDf) / EDfCount : 0);
-			outputFile << "\tDd: " << std::setprecision(2) << float(totalEDd) / (es + eg + et + eh);
-			outputFile << "\tDb: " << std::setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n\t";
+			outputFile << "\tDf: " << setprecision(2) << ((es+et+eh+eg != 0) ? float(totalEDf) / es+eg+et+eh : 0);
+			outputFile << "\tDd: " << setprecision(2) << float(totalEDd) / (es + eg + et + eh);
+			outputFile << "\tDb: " << setprecision(2) << float(totalEDb) / (es + eg + et + eh) << "\n\t";
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalEDf) / totalEDb * 100 << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n";
@@ -107,17 +107,17 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAD: " << getLength(alienDrone) + ad << endl;
 
 			outputFile << "\tUnits Destruction %: \n";
-			outputFile << "\t\tAS: " << std::setprecision(3) << ((getLength(alienSoldier) + as != 0) ? float(as) / (getLength(alienSoldier) + as) * 100 : 0) << "%";
-			outputFile << "\tAM: " << std::setprecision(3) << ((getLength(alienMonster) + am != 0) ? float(am) / (getLength(alienMonster) + am) * 100 : 0) << "%";
-			outputFile << "\tAD: " << std::setprecision(3) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
+			outputFile << "\t\tAS: " << setprecision(3) << ((getLength(alienSoldier) + as != 0) ? float(as) / (getLength(alienSoldier) + as) * 100 : 0) << "%";
+			outputFile << "\tAM: " << setprecision(3) << ((getLength(alienMonster) + am != 0) ? float(am) / (getLength(alienMonster) + am) * 100 : 0) << "%";
+			outputFile << "\tAD: " << setprecision(3) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << std::setprecision(4) << float(as + am + ad) / Units::getTotalUnits(alienArmy) * 100 << "%\n";
+			outputFile << setprecision(4) << float(as + am + ad) / Units::getTotalUnits(alienArmy) * 100 << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
-			outputFile << "\tDf: " << std::setprecision(2) << float(totalADf) / ADfCount;
-			outputFile << "\tDd: " << std::setprecision(2) << float(totalADd) / (as + ad + am);
-			outputFile << "\tDb: " << std::setprecision(2) << float(totalADb) / (as + ad + am) << "\n\t";
+			outputFile << "\tDf: " << setprecision(2) << float(totalADf) / (as+ad+am);
+			outputFile << "\tDd: " << setprecision(2) << float(totalADd) / (as + ad + am);
+			outputFile << "\tDb: " << setprecision(2) << float(totalADb) / (as + ad + am) << "\n\t";
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalADf) / totalADb * 100 << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalADd) / totalADb * 100 << "%\n\n";
@@ -327,28 +327,18 @@ bool Game::getUML(Units*& unit)
 	return false;
 }
 
-void Game::updateEDf(int df)
-{
-	totalEDf += df;
-	++EDfCount;
-}
-
-void Game::updateEdb(Units* unit)
+void Game::updateED(Units* unit)
 {
 	totalEDd += unit->getDd();
 	totalEDb += unit->getDb();
+	totalEDf += unit->getDf();
 }
 
-void Game::updateADf(int df)
-{
-	totalADf += df;
-	++ADfCount;
-}
-
-void Game::updateAdb(Units* unit)
+void Game::updateAD(Units* unit)
 {
 	totalADd += unit->getDd();
 	totalADb += unit->getDb();
+	totalADf += unit->getDf();
 }
 
 void Game::updateHealed()

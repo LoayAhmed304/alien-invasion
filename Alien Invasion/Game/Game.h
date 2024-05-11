@@ -22,8 +22,8 @@ private:
 	fstream outputFile;
 	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
-	int totalEDf, totalEDd, totalEDb, EDfCount;		// Earth total D(f/d/b)
-	int totalADf, totalADd, totalADb, ADfCount;		// Alien total D(f/d/b)
+	int totalEDf, totalEDd, totalEDb;		// Earth total D(f/d/b)
+	int totalADf, totalADd, totalADb;		// Alien total D(f/d/b)
 	int healed;
 
 	string log;		// To store the current units fighting and their opponents
@@ -54,11 +54,8 @@ public:
 	bool toLog(int = 0,int = 0);
 
 	// Increments the total earth&alien D(f,d,b) and their count
-	void updateEDf(int df);
-	void updateEdb(Units* unit);
-
-	void updateADf(int df);
-	void updateAdb(Units* unit);
+	void updateED(Units* unit);
+	void updateAD(Units* unit);
 
 	void updateHealed();
 	void countUML();

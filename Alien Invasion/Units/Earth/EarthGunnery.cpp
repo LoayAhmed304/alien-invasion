@@ -10,7 +10,7 @@ bool EarthGunnery::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
+	bool attacked = false;
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienDrone)))
 	{
@@ -21,15 +21,13 @@ bool EarthGunnery::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			if (Attacker)
+			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
+				game->toLog(this->getID(), enemy->getID(), "EG");
+				attacked = true;
 			}
 			else
-			{
 				game->toLog(enemy->getID());
-			}
 
 			++i;
 		}
@@ -40,15 +38,13 @@ bool EarthGunnery::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			if (Attacker)
+			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
+				game->toLog(this->getID(), enemy->getID(), "EG");
+				attacked = true;
 			}
 			else
-			{
 				game->toLog(enemy->getID());
-			}
 			++i;
 		}
 		if (game->getUnit(alienDrone, enemy))
@@ -58,31 +54,26 @@ bool EarthGunnery::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			if (Attacker)
-			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
-			}
-			else
-			{
-				game->toLog(enemy->getID());
-			}
+			game->toLog(enemy->getID());
+			++i;
+		}
+		if (game->getUnit(alienDrone, enemy))
+		{
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
 			++i;
 		}
 	}
-	if (!Attacker)
-	{
-		Attacker = true;
+	if (attacked)
 		game->toLog();
-	}
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
-		{
 			game->kill(enemy);
-		}
 		else
 			game->addUnit(enemy);
 	}
-	return true;
+	return attacked;
 }

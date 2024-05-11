@@ -10,7 +10,7 @@ bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
-	bool Attacker = true;
+	bool attacked = false;
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(earthTank)))
 	{
@@ -21,16 +21,13 @@ bool AlienMonster::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			if (Attacker)
+			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
+				game->toLog(this->getID(), enemy->getID(), "AM");
+				attacked = true;
 			}
 			else
-			{
 				game->toLog(enemy->getID());
-			}
-
 			++i;
 		}
 		if (game->getUnit(earthTank, enemy))
@@ -40,34 +37,27 @@ bool AlienMonster::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			if (Attacker)
+			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID());
-				Attacker = false;
+				game->toLog(this->getID(), enemy->getID(), "AM");
+				attacked = true;
 			}
 			else
-			{
 				game->toLog(enemy->getID());
-			}
 
 			++i;
 		}
 	}
-	if (!Attacker)
-	{
-		Attacker = true;
+	if (attacked)
 		game->toLog();
-	}
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
-		{
 			game->kill(enemy);
-		}
 		else if (enemy->getHealthPerc() < 20)
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
 	}
-	return true;
+	return attacked;
 }

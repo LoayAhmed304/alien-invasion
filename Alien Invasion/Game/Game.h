@@ -18,7 +18,7 @@ private:
 	AlienArmy* aArmy;
 
 	priQueue<Units*> UML;
-
+	string inputFileName;
 	fstream outputFile;
 	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
@@ -33,8 +33,8 @@ public:
 	void start();
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the output screen
-	void fight(int c);		// Calls the fight of each army
-	bool isOver();	// Checks whether the war is over
+	void fight(int);		// Calls the fight of each army
+	bool isOver(bool, bool);	// Checks whether the war is over
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
@@ -51,11 +51,11 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
-	bool toLog(int = 0,int = 0);
+	bool toLog(int = 0, int = 0, string = "");
 
 	// Increments the total earth&alien D(f,d,b)
-	void updateED(Units* unit);
-	void updateAD(Units* unit);
+	void updateED(Units*);
+	void updateAD(Units*);
 
 	void updateHealed();
 	void countUML();

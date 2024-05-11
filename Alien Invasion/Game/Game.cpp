@@ -33,22 +33,35 @@ void Game::prepareOutputFile()
 
 void Game::setRandom()
 {
+	cout << "Enter the input file name: ";
+	cin >> inputFileName;
+	if (inputFileName.find(".txt") == string::npos)
+		inputFileName += ".txt";
 	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ac;		// Variables to store values from the input file
+		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach;		// Variables to store values from the input file
 
 	fstream inputFile;
-	string fileName = "input.txt";
-	inputFile.open(fileName, ios::in);
+	inputFile.open(inputFileName, ios::in);
+	while (!inputFile.is_open())
+	{
+		cout << "File doesn't exist.\nEnter the input file name: ";
+		cin >> inputFileName;
+		if (inputFileName.find(".txt") == string::npos)
+			inputFileName += ".txt";
+		inputFile.open(inputFileName, ios::in);
+	}
+
 	if (inputFile.is_open())
 	{
 		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability;									// Reading first 8 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ac;
+		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
 
 		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ac), this);						//	to handle the range dash '-'
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), this);						//	to handle the range dash '-'
 	}
 	else
 	{
+		cout << "File does not exist. Exiting...\n";
 		throw std::ios_base::failure("Failed to open file");												// File didn't open properly
 	}
 }
@@ -61,7 +74,7 @@ void Game::updateFile(Units* unit)
 	{
 		if (unit)
 		{
-			outputFile << unit->getTd() << "\t\t" << unit << "\t\t" << unit->getTj() << "\t\t" 
+			outputFile << unit->getTd() << "\t\t" << unit->getID() << "\t\t" << unit->getTj() << "\t\t" 
 				<< unit->getDf() << "\t\t" << unit->getDd() << "\t\t" << unit->getDb() << "\n";
 		}
 		else
@@ -85,24 +98,24 @@ void Game::updateFile(Units* unit)
 
 			outputFile << "\tUnits Destruction %: \n\t";
 			outputFile << "\tES: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues != 0) ? float(es + Ues) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%";
-			outputFile << "\tET: " << setprecision(4) << ((getLength(earthTank) + et + Uet !=0 ) ? (float(et + Uet)) / (getLength(earthTank) + et + Uet) * 100  : 0)<< "%";
+			outputFile << "\tET: " << setprecision(4) << ((getLength(earthTank) + et + Uet !=0 ) ? float(et + Uet) / (getLength(earthTank) + et + Uet) * 100  : 0)<< "%";
 			outputFile << "\tEG: " << setprecision(4) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0)  << "%";
 			outputFile << "\tEH: " << setprecision(4) << ((getLength(earthHeal) + eh != 0) ? float(eh) / (getLength(earthHeal) + eh) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << setprecision(4) << (totalDestructedEarthUnits)/ totalEarthUnits * 100.0 << "%\n";
+			outputFile << setprecision(4) << ((totalEarthUnits != 0) ? (totalDestructedEarthUnits + Uet + Ues) / totalEarthUnits * 100.0 : 0)<< "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDf) / totalDestructedEarthUnits : 0);
 			outputFile << "\tDd: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDd) / totalDestructedEarthUnits : 0);
 			outputFile << "\tDb: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDb) / totalDestructedEarthUnits : 0) << "\n\t";
 
-			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalEDf) / totalEDb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalEDd) / totalEDb * 100 << "%\n";
+			outputFile << "\tDf/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDf) / totalEDb * 100 : 0) << "%";
+			outputFile << "\tDd/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDd) / totalEDb * 100 : 0) << "%\n";
 
 			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n\n";
 
-
+      
 			// Alien Army Statistics
 			outputFile << "Alien Army: \n";
 
@@ -124,8 +137,8 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tDd: " << setprecision(2) << ((totalDestructedAlienUnits != 0) ? float(totalADd) / totalDestructedAlienUnits : 0);
 			outputFile << "\tDb: " << setprecision(2) << ((totalDestructedAlienUnits != 0) ? float(totalADb) / totalDestructedAlienUnits : 0) << "\n\t";
 
-			outputFile << "\tDf/Db%: " << setprecision(4) << float(totalADf) / totalADb * 100 << "%";
-			outputFile << "\tDd/Db%: " << setprecision(4) << float(totalADd) / totalADb * 100 << "%\n\n";
+			outputFile << "\tDf/Db%: " << setprecision(4) << ((totalADb != 0) ? float(totalADf) / totalADb * 100 : 0) << "%";
+			outputFile << "\tDd/Db%: " << setprecision(4) << ((totalADb != 0) ? float(totalADd) / totalADb * 100 : 0) << "%\n\n";
 		}
 		outputFile.close();
 	}
@@ -145,28 +158,28 @@ void Game::printAll()
 	if (Units::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
-	cout << "\n\033[1;36m============== Earth Army Alive Units ============\n";
+	cout << "\n============== Earth Army Alive Units ============\n";
 	eArmy->print();
 	cout << endl;
 
-	cout << "\033[1;32m============== Alien Army Alive Units ==============\n";
+	cout << "============== Alien Army Alive Units ==============\n";
 	aArmy->print();
 	cout << endl;
 
-	cout << "\033[1;35m============== Units fighting at current step =============\n";
+	cout << "============== Units fighting at current step =============\n";
 	cout << log;
 	log.clear();
 	cout << endl;
 
-	cout << "\033[1;31m============== Killed/Destructed Units =============\n";
+	cout << "============== Killed/Destructed Units =============\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
 	cout << "]\n\n";
 
-	cout << "\033[1;33m============== UML =============\n";
+	cout << "============== UML =============\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
-	cout << "]\n\n\033[0m";
+	cout << "]\n\n";
 
 	system("pause");
 	cout << endl;
@@ -210,11 +223,10 @@ bool Game::addUnit(Units*& unit)
 	return aArmy->addUnit(unit);
 }
 
-bool Game::isOver()
+bool Game::isOver(bool a, bool b)
 {
 	if (timestep >= 40)
 	{
-		
 		if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
@@ -227,7 +239,7 @@ bool Game::isOver()
 			updateFile();
 			return true;
 		}
-		else if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !log.size())
+		else if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b))
 		{
 			result = "Tie";
 			updateFile();
@@ -242,25 +254,25 @@ bool Game::kill(Units*& unit)
 	switch (unit->getType())
 	{
 	case earthSoldier:
-		es++;
+		++es;
 		break;
 	case earthTank:
-		et++;
+		++et;
 		break;
 	case earthGunnery:
-		eg++;
+		++eg;
 		break;
 	case alienSoldier:
-		as++;
+		++as;
 		break;
 	case alienMonster:
-		am++;
+		++am;
 		break;
 	case alienDrone:
-		ad++;
+		++ad;
 		break;
 	case earthHeal:
-		eh++;
+		++eh;
 		break;
 	}
 	updateFile(unit);
@@ -282,14 +294,23 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::toLog(int a ,int b)
+bool Game::toLog(int a, int b, string type)
 {
-	if(a && b)
-		log = log + to_string(a) + " shots [" + to_string(b);
+	if (a && b)
+	{
+		log += type + " " + to_string(a);
+		if (type == "EH")
+			log += " heals [";
+		else
+		{
+			log += " shots [";
+		}
+		log += to_string(b);
+	}
 	else if(a)
-		log = log + ", " + to_string(a);
+		log += ", " + to_string(a);
 	else
-		log = log + "]\n";
+		log += "]\n";
 
 	return false;
 }
@@ -313,13 +334,14 @@ void Game::fight(int c)
 	{
 		random->addUnits();						// Adding units to both armies
 
-		eArmy->fight();						// Calling both armies to fight one another
-		aArmy->fight();
-
-		over = isOver();				// Checking if it's over
+		bool e = eArmy->fight();						// Calling both armies to fight one another
+		bool a = aArmy->fight();
 
 		if(c==2)
 			printAll();			// Printing the output screen
+
+		over = isOver(e, a);
+
 		++timestep;
 	}
 }

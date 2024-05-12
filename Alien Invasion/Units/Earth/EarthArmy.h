@@ -14,7 +14,7 @@ private:
     priQueue <Units*> EG;
     ///////////
     ArrayStack <Units*> EH;
-
+    int infCount = 0;
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
@@ -23,6 +23,12 @@ public:
     bool isEmpty(unitType);
     void print();
     bool fight();        // Peeks each earth unit and calls its attack
+    int inDanger();
+
+    void incInfected();
+    void decInfected();
+    int getinfCount();
+
     ~EarthArmy();
 };
 #endif

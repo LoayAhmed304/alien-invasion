@@ -19,15 +19,16 @@ bool AlienMonster::attack()
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			enemy->getInfected();
 			temp.enqueue(enemy);
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "AM");
+				game->toLog("AM", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("AM", enemy->getID());
 			++i;
 		}
 		if (game->getUnit(earthTank, enemy))
@@ -39,11 +40,11 @@ bool AlienMonster::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "AM");
+				game->toLog("AM", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("AM", enemy->getID());
 
 			++i;
 		}

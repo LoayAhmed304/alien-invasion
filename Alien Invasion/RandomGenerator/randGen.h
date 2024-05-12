@@ -9,6 +9,8 @@
 #include "../Units/Earth/EarthGunnery.h"
 #include "../Units/Earth/EarthTank.h"
 #include "../Units/Earth/EarthHeal.h"
+#include "../Units/Allied/SaverUnit.h"
+
 
 class Game;
 
@@ -31,6 +33,7 @@ public:
 	bool probability();
 	bool generateEarth(Units*&);
 	bool generateAlien(Units*&);
+	bool generateSaver(Units*&);
 	bool addUnits();
 };
 #endif

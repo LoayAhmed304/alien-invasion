@@ -27,11 +27,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID(), "ET");
+					game->toLog("ET",this->getID(), enemy->getID());
 					attacked = true;
 				}
 				else
-					game->toLog(enemy->getID());
+					game->toLog("ET", enemy->getID());
 			}
 			if (game->getUnit(alienMonster, enemy))
 			{
@@ -43,11 +43,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID(), "ET");
+					game->toLog("ET", this->getID(), enemy->getID());
 					attacked = true;
 				}
 				else
-					game->toLog(enemy->getID());
+					game->toLog("ET", enemy->getID());
 			}
 		}
 	}
@@ -64,11 +64,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(this->getID(), enemy->getID(), "ET");
+					game->toLog("ET", this->getID(), enemy->getID());
 					attacked = true;
 				}
 				else
-					game->toLog(enemy->getID());
+					game->toLog("ET", enemy->getID());
 			}
 			else
 				break;

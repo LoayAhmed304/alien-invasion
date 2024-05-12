@@ -22,12 +22,12 @@ bool EarthSoldier::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "ES");
+				game->toLog("ES", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
 			{
-				game->toLog(enemy->getID());
+				game->toLog("ET", enemy->getID());
 			}
 		}
 	}

@@ -89,6 +89,25 @@ bool randGen::generateAlien(Units*& newBorn)
     }
     return false;
 }
+bool randGen::generateSaver(Units*& newBorn)
+{
+    if (Units::getTotalUnits(earthArmy) < 999)
+    {
+        int p, h, c;
+        p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
+        h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
+        c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
+
+        if (h > 100)
+            h = 100;
+
+        int B = 1 + (rand() % 100);
+
+        newBorn = new SaverUnit(p, h, c, game);
+        return true;
+    }
+    return false;
+}
 bool randGen::addUnits()
 {
     Units* newBorn = nullptr;
@@ -105,6 +124,14 @@ bool randGen::addUnits()
         {
             if(generateAlien(newBorn))
                 game->getAlienArmy()->addUnit(newBorn);
+            else
+                break;
+        }
+    if (game->getEarthArmy()->inDanger() > 10)
+        for (int i = 0; i < N; i++)
+        {
+            if (generateSaver(newBorn))
+                game->getAlliedArmy()->addUnit(newBorn);
             else
                 break;
         }

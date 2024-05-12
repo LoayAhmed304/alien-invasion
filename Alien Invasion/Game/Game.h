@@ -64,6 +64,9 @@ public:
 	void updateHealed();
 	void countUML();
 
+	// Units infection
+	bool canInfect();
+
 	~Game();
 };
 

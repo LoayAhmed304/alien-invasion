@@ -159,7 +159,7 @@ bool Units::enterUML()
 	TimeUML = game->getTimestep();
 	return true;
 }
-bool Units::isInfected()
+bool Units::isInfected() const
 {
 	return infected;
 }

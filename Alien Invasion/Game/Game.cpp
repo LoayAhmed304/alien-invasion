@@ -130,7 +130,7 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAD: " << setprecision(3) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << setprecision(4) << float(as + am + ad) / totalAlienUnits * 100 << "%\n";
+			outputFile << setprecision(4) << ((totalAlienUnits != 0) ? totalDestructedAlienUnits / totalAlienUnits * 100.0 : 0) << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << setprecision(2) << ((totalDestructedAlienUnits != 0)? float(totalADf) / totalDestructedAlienUnits : 0);
@@ -227,7 +227,13 @@ bool Game::isOver(bool a, bool b)
 {
 	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy))
+		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b))
+		{
+			result = "Tie";
+			updateFile();
+			return true;
+		}
+		else if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
 			updateFile();
@@ -236,12 +242,6 @@ bool Game::isOver(bool a, bool b)
 		else if (aArmy->isEmpty(alienArmy))
 		{
 			result = "Win";
-			updateFile();
-			return true;
-		}
-		else if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b))
-		{
-			result = "Tie";
 			updateFile();
 			return true;
 		}

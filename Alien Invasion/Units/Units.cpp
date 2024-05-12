@@ -206,8 +206,10 @@ void Units::incHT()
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
 	string color = "";
-	if (obj->getType() < alienSoldier || obj->getType() == saverUnit)
+	if (obj->getType() < alienSoldier)
 		color = "\033[1;34m";
+	else if(obj->getType() == saverUnit)
+		color = "\033[1;33m";
 	else
 		color = "\033[1;32m";
 	if (obj->infected)

@@ -125,6 +125,33 @@ int EarthArmy::inDanger()
     return 0;
 }
 
+bool EarthArmy::getRandomES(Units*& unit, int index)
+{
+    Units* dummyUnit = nullptr;
+    Units* target = nullptr;
+    LinkedQueue<Units*> temp;
+    int i = 0;
+    while (ES.dequeue(dummyUnit))
+    {
+        if (i == index)
+        {
+            if (dummyUnit->isInfected())      // if the unit in the specified random index is already infected, we'll increment the target index by 1
+                ++index;                      // what if the random index generated was the last index already? then we'll return false with the unit as nullptr
+            else                              // thus it'll be considered a failed operation and we'll not search for another
+                target = dummyUnit;
+        }
+        temp.enqueue(dummyUnit);
+        ++i;
+    }
+    while (temp.dequeue(dummyUnit))
+        ES.enqueue(dummyUnit);
+
+    unit = target;
+    if(unit)
+        return true;
+    return false;
+}
+
 void EarthArmy::incInfected()
 {
     infCount++;

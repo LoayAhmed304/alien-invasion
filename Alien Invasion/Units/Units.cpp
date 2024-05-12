@@ -167,13 +167,15 @@ bool Units::isCured()
 {
 	return cured;
 }
-void Units::getInfected()
+bool Units::getInfected()
 {
 	if (!cured)
 	{
 		infected = true;
 		game->getEarthArmy()->incInfected();
+		return true;
 	}
+	return false;
 }
 void Units::removeInfected()
 {

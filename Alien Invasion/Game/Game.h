@@ -66,6 +66,8 @@ public:
 
 	// Units infection
 	bool canInfect();
+	bool canSpread();
+	bool getRandomES(Units*&);
 
 	~Game();
 };

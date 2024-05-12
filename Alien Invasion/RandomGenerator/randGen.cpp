@@ -45,6 +45,11 @@ bool randGen::canInfect()
     return ((rand() % 101) <= inf);
 }
 
+bool randGen::canSpread()
+{
+    return ((rand() % 101) <= 2);
+}
+
 bool randGen::generateEarth(Units*& newBorn)
 {
     if (Units::getTotalUnits(earthArmy) < 999)
@@ -114,6 +119,12 @@ bool randGen::generateSaver(Units*& newBorn)
     }
     return false;
 }
+
+int randGen::generateIndex(int size)
+{
+    return (rand() % size);
+}
+
 bool randGen::addUnits()
 {
     Units* newBorn = nullptr;

@@ -310,9 +310,14 @@ bool Game::toLog(string type ,int a, int b)
 {
 	if (a && b)
 	{
-		log += type + " " + to_string(a);
+		if (type == "Infected ES")
+			log += "ES " + to_string(a);
+		else
+			log += type + " " + to_string(a);
 		if (type == "EH")
 			log += " heals [\033[1;34m";
+		else if (type == "Infected ES")
+			log += " infects [\033[1;34m";
 		else
 		{
 			if (type == "ES" || type == "ET" || type == "EG")
@@ -405,10 +410,21 @@ void Game::countUML()
 	}
 }
 
-
 bool Game::canInfect()
 {
 	return random->canInfect();
+}
+
+bool Game::canSpread()
+{
+	return random->canSpread();
+}
+
+bool Game::getRandomES(Units*& ES)
+{
+	ES = nullptr;
+	int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
+	return eArmy->getRandomES(ES, randomIndex);
 }
 
 Game::~Game()

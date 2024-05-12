@@ -32,9 +32,11 @@ public:
 		int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g);
 	bool probability();
 	bool canInfect();
+	bool canSpread();
 	bool generateEarth(Units*&);
 	bool generateAlien(Units*&);
 	bool generateSaver(Units*&);
+	int generateIndex(int);
 	bool addUnits();
 };
 #endif

@@ -236,9 +236,9 @@ bool Game::addUnit(Units*& unit)
 
 bool Game::isOver(bool a, bool b , bool c)
 {
-	if (timestep >= 100)
+	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b || c))
+		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b))
 		{
 			result = "Tie";
 			updateFile();
@@ -434,7 +434,7 @@ void Game::fight(int c)
 		random->addUnits();						// Adding units to both armies
 
 		bool e = eArmy->fight();						// Calling both armies to fight one another
-		bool s = sArmy->fight();
+		bool s = sArmy->fight();						//Useless bool
 		bool a = aArmy->fight();
 
 		if(c==2)

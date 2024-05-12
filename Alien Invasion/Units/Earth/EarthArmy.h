@@ -24,6 +24,7 @@ public:
     void print();
     bool fight();        // Peeks each earth unit and calls its attack
     int inDanger();
+    bool getRandomES(Units*&, int);
 
     void incInfected();
     void decInfected();

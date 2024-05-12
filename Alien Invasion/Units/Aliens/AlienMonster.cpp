@@ -18,8 +18,10 @@ bool AlienMonster::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			enemy->getInfected();
+			if (!game->canInfect() || enemy->isInfected() || enemy->isCured())
+				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			else
+				enemy->getInfected();
 			temp.enqueue(enemy);
 
 			if (!attacked)

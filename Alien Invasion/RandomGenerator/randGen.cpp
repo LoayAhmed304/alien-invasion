@@ -4,7 +4,7 @@
 #include <time.h>
 
 randGen::randGen(int n, int es, int et, int eg, int eh, int as,
-    int am, int ad, int probability, int epl,
+    int am, int ad, int probability, int infection, int epl,
     int eph, int ehl, int ehh, int ecl, int ech,
     int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
 {
@@ -19,6 +19,7 @@ randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     AM = am;
     AD = ad;
     prob = probability;
+    inf = infection;
     earthPowerLow = epl;
     earthPowerHigh = eph;
     earthHealthLow = ehl;
@@ -37,6 +38,16 @@ randGen::randGen(int n, int es, int et, int eg, int eh, int as,
 bool randGen::probability()
 {
     return ((rand() % 101) <= prob);
+}
+
+bool randGen::canInfect()
+{
+    return ((rand() % 101) <= inf);
+}
+
+bool randGen::canSpread()
+{
+    return ((rand() % 101) <= 2);
 }
 
 bool randGen::generateEarth(Units*& newBorn)
@@ -108,6 +119,12 @@ bool randGen::generateSaver(Units*& newBorn)
     }
     return false;
 }
+
+int randGen::generateIndex(int size)
+{
+    return (rand() % size);
+}
+
 bool randGen::addUnits()
 {
     Units* newBorn = nullptr;

@@ -33,6 +33,19 @@ bool EarthSoldier::attack()
 	}
 	if (attacked)
 		game->toLog();
+	if (game->canSpread() && this->isInfected())
+	{
+		Units* toInfect = nullptr;
+		if (game->getRandomES(toInfect) && (toInfect != this))
+		{
+			if (toInfect->getInfected())
+			{
+				game->toLog("Infected ES", this->getID(), toInfect->getID());
+				game->toLog();
+			}
+		}
+	}
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())

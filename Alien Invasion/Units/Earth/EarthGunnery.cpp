@@ -24,7 +24,7 @@ bool EarthGunnery::attack()
 			if (!attacked)
 			{
 				game->toLog("EG", this->getID(), enemy->getID());
-				attacked = true;
+				attacked = true;	//EG shots
 			}
 			else
 				game->toLog("EG", enemy->getID());

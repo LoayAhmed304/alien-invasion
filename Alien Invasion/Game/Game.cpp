@@ -39,7 +39,7 @@ void Game::setRandom()
 	if (inputFileName.find(".txt") == string::npos)
 		inputFileName += ".txt";
 	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach;		// Variables to store values from the input file
+		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, inf;		// Variables to store values from the input file
 
 	fstream inputFile;
 	inputFile.open(inputFileName, ios::in);
@@ -54,10 +54,10 @@ void Game::setRandom()
 
 	if (inputFile.is_open())
 	{
-		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability;									// Reading first 8 digits
+		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf;									// Reading first 10 digits
 		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
 
-		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, epl, abs(eph),							// Take absolute to any high-value 
+		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, inf, epl, abs(eph),							// Take absolute to any high-value 
 			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), this);						//	to handle the range dash '-'
 	}
 	else
@@ -310,9 +310,14 @@ bool Game::toLog(string type ,int a, int b)
 {
 	if (a && b)
 	{
-		log += type + " " + to_string(a);
+		if (type == "Infected ES")
+			log += "ES " + to_string(a);
+		else
+			log += type + " " + to_string(a);
 		if (type == "EH")
 			log += " heals [\033[1;34m";
+		else if (type == "Infected ES")
+			log += " infects [\033[1;34m";
 		else
 		{
 			if (type == "ES" || type == "ET" || type == "EG")
@@ -405,6 +410,22 @@ void Game::countUML()
 	}
 }
 
+bool Game::canInfect()
+{
+	return random->canInfect();
+}
+
+bool Game::canSpread()
+{
+	return random->canSpread();
+}
+
+bool Game::getRandomES(Units*& ES)
+{
+	ES = nullptr;
+	int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
+	return eArmy->getRandomES(ES, randomIndex);
+}
 
 Game::~Game()
 {

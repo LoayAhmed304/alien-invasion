@@ -65,9 +65,9 @@ public:
     virtual bool exitUML();
     virtual bool enterUML();
 
-    virtual bool isInfected();
+    virtual bool isInfected() const;
     virtual bool isCured();
-    virtual void getInfected();
+    virtual bool getInfected();
     virtual void removeInfected();
     virtual void getCured();
 

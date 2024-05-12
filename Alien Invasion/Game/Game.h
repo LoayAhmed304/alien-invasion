@@ -64,6 +64,11 @@ public:
 	void updateHealed();
 	void countUML();
 
+	// Units infection
+	bool canInfect();
+	bool canSpread();
+	bool getRandomES(Units*&);
+
 	~Game();
 };
 

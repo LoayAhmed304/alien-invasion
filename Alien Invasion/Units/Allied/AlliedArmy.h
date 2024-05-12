@@ -14,7 +14,7 @@ public:
     bool peekUnit(unitType, Units*&);
     bool getUnit(unitType, Units*&);
     int getLength(unitType);
-    bool isEmpty();
+    bool isEmpty(unitType);
     void print();
     bool fight();        // Peeks each earth unit and calls its attack
     ~AlliedArmy();

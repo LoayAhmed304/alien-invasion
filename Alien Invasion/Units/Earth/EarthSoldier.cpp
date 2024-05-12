@@ -9,6 +9,7 @@ EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p
 bool EarthSoldier::attack()
 {
 	Units* enemy = nullptr;
+	Units* unit = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	for (int i = 0; i < this->getAttackCap(); ++i)
@@ -22,12 +23,12 @@ bool EarthSoldier::attack()
 
 			if (!attacked)
 			{
-				game->toLog("ES", this->getID(), enemy->getID());
+				game->toLog(unit, enemy);
 				attacked = true;
 			}
 			else
 			{
-				game->toLog("ET", enemy->getID());
+				game->toLog(enemy);
 			}
 		}
 	}
@@ -40,7 +41,7 @@ bool EarthSoldier::attack()
 		{
 			if (toInfect->getInfected())
 			{
-				game->toLog("Infected ES", this->getID(), toInfect->getID());
+				game->toLog(unit, toInfect);
 				game->toLog();
 			}
 		}

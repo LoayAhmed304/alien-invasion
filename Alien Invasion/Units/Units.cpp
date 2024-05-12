@@ -3,13 +3,16 @@
 
 int Units::eID = 0;
 int Units::aID = 2000;
+int Units::sID = 4000;
 
 Units::Units(unitType t, int p, int h, int c, Game* g) {
 	type = t;
-	if (type < alienSoldier || type == saverUnit)
+	if (type < alienSoldier)
 		++eID;
-	else
+	else if (type < alienArmy)
 		++aID;
+	else
+		++sID;
 	power = p;
 	health = h;
 	cur_health = h;
@@ -157,6 +160,8 @@ bool Units::exitUML()
 bool Units::enterUML()
 {
 	TimeUML = game->getTimestep();
+	if (!infected)
+		HT = 0;
 	return true;
 }
 bool Units::isInfected() const
@@ -186,6 +191,18 @@ void Units::getCured()
 	cured = true;
 	game->getEarthArmy()->decInfected();
 }
+int Units::getHT()
+{
+	return HT;
+}
+void Units::setHT(int a)
+{
+	HT = a;
+}
+void Units::incHT()
+{
+	HT++;
+}
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
 	string color = "";
@@ -194,7 +211,7 @@ std::ostream& operator<<(std::ostream& os, const Units* obj)
 	else
 		color = "\033[1;32m";
 	if (obj->infected)
-		os << "$";
+		os << "\033[1;32m$\033[1;34m";
 	os << color << obj->id << "\033[0m";
 	return os;
 }

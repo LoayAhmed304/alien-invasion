@@ -17,19 +17,22 @@ class Game;
 class randGen
 {
 private:
-	int N, ES, ET, EG, EH, AS, AM, AD, prob, inf,
+	int N, NS, ES, ET, EG, EH, AS, AM, AD, prob, inf, infThreshold,
 		earthPowerLow, earthPowerHigh,
 		earthHealthLow, earthHealthHigh,
 		earthCapLow, earthCapHigh,
 		alienPowerLow, alienPowerHigh,
 		alienHealthLow, alienHealthHigh,
-		alienCapLow, alienCapHigh;
+		alienCapLow, alienCapHigh,
+		saverPowerLow, saverPowerHigh,
+		saverHealthLow, saverHealthHigh,
+		saverCapLow, saverCapHigh;
 	Game* game;
 public:
-	randGen(int n, int es, int et, int eg, int eh,
-		int as, int am, int ad, int probability, int infection,
+	randGen(int n, int ns, int es, int et, int eg, int eh,
+		int as, int am, int ad, int probability, int infection, int infthreshold,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
-		int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g);
+		int apl, int aph, int ahl, int ahh, int acl, int ach, int spl, int sph, int shl, int shh, int scl, int sch, Game* g);
 	bool probability();
 	bool canInfect();
 	bool canSpread();

@@ -9,6 +9,7 @@ EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g
 bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
+	Units* unit = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 
@@ -27,11 +28,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog("ET",this->getID(), enemy->getID());
+					game->toLog(unit, enemy);
 					attacked = true;
 				}
 				else
-					game->toLog("ET", enemy->getID());
+					game->toLog(enemy);
 			}
 			if (game->getUnit(alienMonster, enemy))
 			{
@@ -43,11 +44,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog("ET", this->getID(), enemy->getID());
+					game->toLog(unit, enemy);
 					attacked = true;
 				}
 				else
-					game->toLog("ET", enemy->getID());
+					game->toLog(enemy);
 			}
 		}
 	}
@@ -64,11 +65,11 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog("ET", this->getID(), enemy->getID());
+					game->toLog(unit, enemy);
 					attacked = true;
 				}
 				else
-					game->toLog("ET", enemy->getID());
+					game->toLog(enemy);
 			}
 			else
 				break;

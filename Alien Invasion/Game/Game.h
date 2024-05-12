@@ -55,7 +55,7 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
-	bool toLog(string = "", int = 0, int = 0);
+	bool toLog(Units* = nullptr, Units* = nullptr);
 
 	// Increments the total earth&alien D(f,d,b)
 	void updateED(Units*);

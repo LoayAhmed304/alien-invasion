@@ -118,10 +118,10 @@ bool EarthArmy::fight()
     return (a || b || c);
 }
 
-int EarthArmy::inDanger()
+bool EarthArmy::inDanger(int p)
 {
     if(Units::getTotalUnits(earthArmy))
-    return (infCount * 100 / Units::getTotalUnits(earthArmy));
+    return (infCount * 100 / Units::getTotalUnits(earthArmy)) > p;
     return 0;
 }
 
@@ -164,6 +164,7 @@ void EarthArmy::decInfected()
 }
 int EarthArmy::getinfCount()
 {
+
     return infCount;
 }
 

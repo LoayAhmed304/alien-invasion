@@ -35,14 +35,19 @@ int AlliedArmy::getLength(unitType type)
     }
 }
 
-bool AlliedArmy::isEmpty()
+bool AlliedArmy::isEmpty(unitType type)
 {
+    switch (type) {
+    case saverUnit:
         return SU.isEmpty();
+    case alliedArmy:
+        return SU.isEmpty();
+    }
 }
 
 void AlliedArmy::print()
 {
-    ///     Print all Earth Soldiers
+    ///     Print all Saver Units
     cout << SU.length() << " SU [";
     SU.printAll();
     cout << "]\n";

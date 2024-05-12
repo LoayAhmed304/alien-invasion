@@ -14,26 +14,50 @@ bool EarthHeal::attack()
 
 	for (int i = 0; i < getAttackCap(); i++)
 	{
+
 		if (game->getUML(ally))
 		{
 			if ((game->getTimestep() - ally->getUMLtime()) < 10)
 			{
-				ally->getAttacked(-(getPower() * getHealth() / 100));
-
-				if (!ally->isHealed())
-					ally->heal();
-
-				if (ally->getHealthPerc() > 20)
-					game->addUnit(ally);
-				else
-					temp.enqueue(ally);
-				if (!healed)
+				if(ally->getHealthPerc() > 20)
 				{
-					game->toLog(this->getID(), ally->getID(), "EH");
-					healed = true;
+					if (ally->isInfected() && !ally->isCured())
+					{
+						ally->removeInfected();
+						game->toUML(ally);
+					}
+					else if (!ally->isInfected() && !ally->isCured())
+					{
+						ally->getCured();
+						game->addUnit(ally);
+						if (!healed)
+						{
+							game->toLog("EH", this->getID(), ally->getID());
+							healed = true;
+						}
+						else
+							game->toLog("EH", ally->getID());
+					}
 				}
 				else
-					game->toLog(ally->getID());
+				{
+					ally->getAttacked(-(getPower() * getHealth() / 100));
+
+					if (!ally->isHealed())
+						ally->heal();
+
+					if (ally->getHealthPerc() > 20 && !ally->isInfected())
+						game->addUnit(ally);
+					else
+						temp.enqueue(ally);
+					if (!healed)
+					{
+						game->toLog("EH", this->getID(), ally->getID());
+						healed = true;
+					}
+					else
+						game->toLog("EH", ally->getID());
+				}
 			}
 			else
 			{

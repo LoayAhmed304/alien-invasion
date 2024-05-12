@@ -24,11 +24,11 @@ bool AlienDrone::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "AD");
+				game->toLog("AD", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("AD", enemy->getID());
 		}
 		if (game->getUnit(earthGunnery, enemy))
 		{
@@ -40,11 +40,11 @@ bool AlienDrone::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "AD");
+				game->toLog("AD", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("AD", enemy->getID());
 		}
 	}
 	if (attacked)

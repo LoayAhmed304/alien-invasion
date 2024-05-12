@@ -14,8 +14,10 @@ enum unitType
     alienSoldier,
     alienMonster,
     alienDrone,
+    saverUnit,
     alienArmy,
-    earthArmy
+    earthArmy,
+    alliedArmy
 };
 
 class Units
@@ -25,6 +27,8 @@ private:
     int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
     double health;
     bool healed;
+    bool infected = false;
+    bool cured = false;
 protected:
     int id;
     static int eID;
@@ -61,6 +65,11 @@ public:
     virtual bool exitUML();
     virtual bool enterUML();
 
+    virtual bool isInfected();
+    virtual bool isCured();
+    virtual void getInfected();
+    virtual void removeInfected();
+    virtual void getCured();
 
     friend std::ostream& operator<<(std::ostream& os, const Units* obj);
 };

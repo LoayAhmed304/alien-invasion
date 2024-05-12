@@ -1,19 +1,19 @@
-#include "AlienSoldier.h"
+#include "SaverUnit.h"
 #include "../../Game/Game.h"
 
-AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p, h, c, g)
+SaverUnit::SaverUnit(int p, int h, int c, Game* g) : Units(saverUnit, p, h, c, g)
 {
-	id = aID;
+	id = eID;
 }
 
-bool AlienSoldier::attack()
+bool SaverUnit::attack()
 {
 	Units* enemy = nullptr;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	for (int i = 0; i < this->getAttackCap(); ++i)
 	{
-		if (game->getUnit(earthSoldier, enemy))
+		if (game->getUnit(alienSoldier, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
@@ -22,12 +22,13 @@ bool AlienSoldier::attack()
 
 			if (!attacked)
 			{
-				game->toLog("AS", this->getID(), enemy->getID());
+				game->toLog("SU", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog("AS", enemy->getID());
-
+			{
+				game->toLog("SU", enemy->getID());
+			}
 		}
 	}
 	if (attacked)
@@ -35,12 +36,11 @@ bool AlienSoldier::attack()
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
+		{
 			game->kill(enemy);
-		else if (enemy->getHealthPerc() < 20)
-			game->toUML(enemy);
+		}
 		else
 			game->addUnit(enemy);
-
 	}
 	return attacked;
 }

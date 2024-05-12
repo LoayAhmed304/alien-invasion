@@ -3,6 +3,7 @@
 
 #include "../Units/Aliens/AlienArmy.h"
 #include "../Units/Earth/EarthArmy.h"
+#include "../Units/Allied/AlliedArmy.h"
 #include "../RandomGenerator/randGen.h"
 #include <fstream>
 #include <iomanip>
@@ -16,8 +17,10 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
+	AlliedArmy* sArmy;
 
 	priQueue<Units*> UML;
+
 	string inputFileName;
 	fstream outputFile;
 	int Ues, Uet;
@@ -34,10 +37,11 @@ public:
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the output screen
 	void fight(int);		// Calls the fight of each army
-	bool isOver(bool, bool);	// Checks whether the war is over
+	bool isOver(bool, bool, bool);	// Checks whether the war is over
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
+	AlliedArmy* getAlliedArmy();
 
 	int getLength(unitType);
 	bool isEmpty(unitType);
@@ -51,7 +55,7 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
-	bool toLog(int = 0, int = 0, string = "");
+	bool toLog(string = "", int = 0, int = 0);
 
 	// Increments the total earth&alien D(f,d,b)
 	void updateED(Units*);

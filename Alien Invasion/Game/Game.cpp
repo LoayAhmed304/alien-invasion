@@ -4,6 +4,7 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
+	sArmy = new AlliedArmy;
 	setRandom();
 	prepareOutputFile();
 }
@@ -158,25 +159,32 @@ void Game::printAll()
 	if (Units::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
-	cout << "\n============== Earth Army Alive Units ============\n";
+	cout << "\n\033[44m============== Earth Army Alive Units ============\033[40m\n";
 	eArmy->print();
 	cout << endl;
 
-	cout << "============== Alien Army Alive Units ==============\n";
+	if(!sArmy->isEmpty())
+	{
+		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
+		sArmy->print();
+		cout << endl;
+	}
+
+	cout << "\033[42m============== Alien Army Alive Units ==============\033[40m\n";
 	aArmy->print();
 	cout << endl;
 
-	cout << "============== Units fighting at current step =============\n";
+	cout << "\033[45m============== Units fighting at current step =============\033[40m\n";
 	cout << log;
 	log.clear();
 	cout << endl;
 
-	cout << "============== Killed/Destructed Units =============\n";
+	cout << "\033[41m============== Killed/Destructed Units =============\033[40m\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
 	cout << "]\n\n";
 
-	cout << "============== UML =============\n";
+	cout << "\033[43m============== UML =============\033[40m\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n";
@@ -194,7 +202,10 @@ AlienArmy* Game::getAlienArmy()
 {
 	return aArmy;
 }
-
+AlliedArmy* Game::getAlliedArmy()
+{
+	return sArmy;
+}
 int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
@@ -223,11 +234,11 @@ bool Game::addUnit(Units*& unit)
 	return aArmy->addUnit(unit);
 }
 
-bool Game::isOver(bool a, bool b)
+bool Game::isOver(bool a, bool b , bool c)
 {
 	if (timestep >= 40)
 	{
-		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b))
+		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b || c))
 		{
 			result = "Tie";
 			updateFile();
@@ -276,6 +287,7 @@ bool Game::kill(Units*& unit)
 		break;
 	}
 	updateFile(unit);
+	unit->removeInfected();
 	return killedList.enqueue(unit);
 }
 
@@ -294,23 +306,29 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::toLog(int a, int b, string type)
+bool Game::toLog(string type ,int a, int b)
 {
 	if (a && b)
 	{
 		log += type + " " + to_string(a);
 		if (type == "EH")
-			log += " heals [";
+			log += " heals [\033[1;34m";
 		else
 		{
-			log += " shots [";
+			if (type == "ES" || type == "ET" || type == "EG")
+				log += " shots [\033[1;32m";
+			else
+				log += " shots [\033[1;34m";
 		}
 		log += to_string(b);
 	}
 	else if(a)
-		log += ", " + to_string(a);
+		if (type == "ES" || type == "ET" || type == "EG")
+			log += "\033[1;37m, \033[1;32m" + to_string(a);
+		else
+			log += "\033[1;37m, \033[1;34m" + to_string(a);
 	else
-		log += "]\n";
+		log += "\033[1;37m]\n";
 
 	return false;
 }
@@ -335,12 +353,13 @@ void Game::fight(int c)
 		random->addUnits();						// Adding units to both armies
 
 		bool e = eArmy->fight();						// Calling both armies to fight one another
+		bool s = sArmy->fight();
 		bool a = aArmy->fight();
 
 		if(c==2)
 			printAll();			// Printing the output screen
 
-		over = isOver(e, a);
+		over = isOver(e, a, s);
 
 		++timestep;
 	}
@@ -385,6 +404,7 @@ void Game::countUML()
 			++Uet;
 	}
 }
+
 
 Game::~Game()
 {

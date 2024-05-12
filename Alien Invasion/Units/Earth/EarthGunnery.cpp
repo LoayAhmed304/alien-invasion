@@ -23,11 +23,11 @@ bool EarthGunnery::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "EG");
+				game->toLog("EG", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("EG", enemy->getID());
 
 			++i;
 		}
@@ -40,11 +40,11 @@ bool EarthGunnery::attack()
 
 			if (!attacked)
 			{
-				game->toLog(this->getID(), enemy->getID(), "EG");
+				game->toLog("EG", this->getID(), enemy->getID());
 				attacked = true;
 			}
 			else
-				game->toLog(enemy->getID());
+				game->toLog("EG", enemy->getID());
 			++i;
 		}
 		if (game->getUnit(alienDrone, enemy))
@@ -54,7 +54,7 @@ bool EarthGunnery::attack()
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
 
-			game->toLog(enemy->getID());
+			game->toLog("EG", enemy->getID());
 			++i;
 		}
 		if (game->getUnit(alienDrone, enemy))

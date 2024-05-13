@@ -50,9 +50,7 @@ bool EarthSoldier::attack()
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
-		{
 			game->kill(enemy);
-		}
 		else
 			game->addUnit(enemy);
 	}

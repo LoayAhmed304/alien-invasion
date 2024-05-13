@@ -507,6 +507,7 @@ Game::~Game()
 {
 	delete eArmy;
 	delete aArmy;
+	delete sArmy;
 	delete random;
 	while (!killedList.isEmpty())
 	{

@@ -165,6 +165,7 @@ void EarthArmy::decInfected()
 }
 int EarthArmy::getinfCount()
 {
+
     return infCount;
 }
 

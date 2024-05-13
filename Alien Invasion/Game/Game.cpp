@@ -234,7 +234,9 @@ bool Game::addUnit(Units*& unit)
 {
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
-	return aArmy->addUnit(unit);
+	else if (unit->getType() < alienArmy)
+		return aArmy->addUnit(unit);
+	return sArmy->addUnit(unit);
 }
 
 bool Game::isOver(bool a, bool b , bool c)

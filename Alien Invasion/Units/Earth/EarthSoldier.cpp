@@ -9,12 +9,11 @@ EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p
 bool EarthSoldier::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	if (this->isInfected())
 	{
-		Units* self;
 		game->getUnit(earthSoldier, self);
 
 		for (int i = 0; i < this->getAttackCap(); ++i)
@@ -28,7 +27,7 @@ bool EarthSoldier::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else
@@ -50,7 +49,7 @@ bool EarthSoldier::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else
@@ -62,18 +61,6 @@ bool EarthSoldier::attack()
 	}
 	if (attacked)
 		game->toLog();
-	if (game->canSpread() && this->isInfected())
-	{
-		Units* toInfect = nullptr;
-		if (game->getRandomES(toInfect) && (toInfect != this))
-		{
-			if (toInfect->getInfected())
-			{
-				game->toLog(unit, toInfect);
-				game->toLog();
-			}
-		}
-	}
 
 	while (temp.dequeue(enemy))
 	{

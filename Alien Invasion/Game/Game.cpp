@@ -315,18 +315,7 @@ bool Game::toLog(Units* a, Units* b)
 		switch (a->getType())
 		{
 		case earthSoldier:
-			log += "ES ";
-			if(b->isInfected()) 
-			{
-				log += "\033[1;32m$\033[1;34m";
-				log +=  to_string(a->getID()) + "\033[1;37m infected [";
-			}
-			else
-			{
-				log += "\033[1;34m" + to_string(a->getID());
-				log += "\033[1;37m shots [";
-			}
-
+			log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1; 37m shots[";
 			break;
 		case earthTank:
 			log += "ET \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
@@ -436,6 +425,7 @@ void Game::fight(int c)
 		bool e = eArmy->fight();						// Calling both armies to fight one another
 		bool s = sArmy->fight();						//Useless bool
 		bool a = aArmy->fight();
+		spreadInfection();
 
 		if(c==2)
 			printAll();			// Printing the output screen
@@ -494,6 +484,27 @@ bool Game::canInfect()
 bool Game::canSpread()
 {
 	return random->canSpread();
+}
+
+bool Game::spreadInfection()
+{
+	bool succeded = false;
+	for(int i = 0; i < eArmy->getinfCount(); ++i)
+	{
+		if (canSpread())
+		{
+			Units* toInfect = nullptr;
+			if (getRandomES(toInfect))
+			{
+				if (toInfect->getInfected())
+				{
+					log += "ES " + to_string(toInfect->getID()) + " got infected\n";
+					succeded = true;
+				}
+			}
+		}
+	}
+	return succeded;
 }
 
 bool Game::getRandomES(Units*& ES)

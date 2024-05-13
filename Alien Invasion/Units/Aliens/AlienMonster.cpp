@@ -9,6 +9,7 @@ AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p
 bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
+	Units* unit = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	int i = 0;
@@ -26,11 +27,11 @@ bool AlienMonster::attack()
 
 			if (!attacked)
 			{
-				game->toLog("AM", this->getID(), enemy->getID());
+				game->toLog(unit, enemy);
 				attacked = true;
 			}
 			else
-				game->toLog("AM", enemy->getID());
+				game->toLog(enemy);
 			++i;
 		}
 		if (game->getUnit(earthTank, enemy))
@@ -42,11 +43,11 @@ bool AlienMonster::attack()
 
 			if (!attacked)
 			{
-				game->toLog("AM", this->getID(), enemy->getID());
+				game->toLog(unit, enemy);
 				attacked = true;
 			}
 			else
-				game->toLog("AM", enemy->getID());
+				game->toLog(enemy);
 
 			++i;
 		}

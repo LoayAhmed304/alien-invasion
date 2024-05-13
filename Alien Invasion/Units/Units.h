@@ -14,9 +14,9 @@ enum unitType
     alienSoldier,
     alienMonster,
     alienDrone,
-    saverUnit,
     alienArmy,
     earthArmy,
+    saverUnit,
     alliedArmy
 };
 
@@ -29,10 +29,12 @@ private:
     bool healed;
     bool infected = false;
     bool cured = false;
+    int HT = 0;
 protected:
     int id;
     static int eID;
     static int aID;
+    static int sID;
     Game* game;
 public:
     Units(unitType type, int power, int health, int atk_cap, Game* g);
@@ -70,6 +72,10 @@ public:
     virtual bool getInfected();
     virtual void removeInfected();
     virtual void getCured();
+
+    virtual int getHT();
+    virtual void setHT(int);
+    virtual void incHT();
 
     friend std::ostream& operator<<(std::ostream& os, const Units* obj);
 };

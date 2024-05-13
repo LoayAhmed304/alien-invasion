@@ -3,14 +3,15 @@
 #include <cstdlib>
 #include <time.h>
 
-randGen::randGen(int n, int es, int et, int eg, int eh, int as,
-    int am, int ad, int probability, int infection, int epl,
-    int eph, int ehl, int ehh, int ecl, int ech,
-    int apl, int aph, int ahl, int ahh, int acl, int ach, Game* g)
+randGen::randGen(int n, int ns, int es, int et, int eg, int eh, int as,
+    int am, int ad, int probability, int infection, int infthreshold, 
+    int epl, int eph, int ehl, int ehh, int ecl, int ech,
+    int apl, int aph, int ahl, int ahh, int acl, int ach, int spl, int sph, int shl, int shh, int scl, int sch, Game* g)
 {
     srand(time(0));
 
     N = n;
+    NS = ns;
     ES = es;
     ET = et;
     EG = eg;
@@ -20,6 +21,7 @@ randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     AD = ad;
     prob = probability;
     inf = infection;
+    infThreshold = infthreshold;
     earthPowerLow = epl;
     earthPowerHigh = eph;
     earthHealthLow = ehl;
@@ -32,6 +34,12 @@ randGen::randGen(int n, int es, int et, int eg, int eh, int as,
     alienHealthHigh = ahh;
     alienCapLow = acl;
     alienCapHigh = ach;
+    saverPowerLow = spl;
+    saverPowerHigh = sph;
+    saverHealthLow = shl;
+    saverHealthHigh = shh;
+    saverCapLow = scl;
+    saverCapHigh = sch;
     game = g;
 }
 
@@ -102,22 +110,18 @@ bool randGen::generateAlien(Units*& newBorn)
 }
 bool randGen::generateSaver(Units*& newBorn)
 {
-    if (Units::getTotalUnits(earthArmy) < 999)
-    {
-        int p, h, c;
-        p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
-        h = earthHealthLow + (rand() % (earthHealthHigh - earthHealthLow + 1));
-        c = earthCapLow + (rand() % (earthCapHigh - earthCapLow + 1));
+    int p, h, c;
+    p = saverPowerLow + (rand() % (saverPowerHigh - saverPowerLow + 1));
+    h = saverHealthLow + (rand() % (saverHealthHigh - saverHealthLow + 1));
+    c = saverCapLow + (rand() % (saverCapHigh - saverCapLow + 1));
 
-        if (h > 100)
-            h = 100;
+    if (h > 100)
+        h = 100;
 
-        int B = 1 + (rand() % 100);
+    int B = 1 + (rand() % 100);
 
-        newBorn = new SaverUnit(p, h, c, game);
-        return true;
-    }
-    return false;
+    newBorn = new SaverUnit(p, h, c, game);
+    return true;
 }
 
 int randGen::generateIndex(int size)
@@ -128,6 +132,12 @@ int randGen::generateIndex(int size)
 bool randGen::addUnits()
 {
     Units* newBorn = nullptr;
+    if (game->getEarthArmy()->inDanger(infThreshold))
+        for (int i = 0; i < NS; i++)
+        {
+            generateSaver(newBorn);
+            game->getAlliedArmy()->addUnit(newBorn);
+        }
     if (probability())
         for (int i = 0; i < N; i++)
         {
@@ -141,14 +151,6 @@ bool randGen::addUnits()
         {
             if(generateAlien(newBorn))
                 game->getAlienArmy()->addUnit(newBorn);
-            else
-                break;
-        }
-    if (game->getEarthArmy()->inDanger() > 10)
-        for (int i = 0; i < N; i++)
-        {
-            if (generateSaver(newBorn))
-                game->getAlliedArmy()->addUnit(newBorn);
             else
                 break;
         }

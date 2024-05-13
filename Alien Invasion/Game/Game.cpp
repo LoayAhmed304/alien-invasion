@@ -38,8 +38,8 @@ void Game::setRandom()
 	cin >> inputFileName;
 	if (inputFileName.find(".txt") == string::npos)
 		inputFileName += ".txt";
-	int N, es, et, eg, eh, as, am, ad, probability, epl, eph,
-		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, inf;		// Variables to store values from the input file
+	int N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, epl, eph,
+		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, spl, sph, shl, shh, scl, sch;		// Variables to store values from the input file
 
 	fstream inputFile;
 	inputFile.open(inputFileName, ios::in);
@@ -54,11 +54,11 @@ void Game::setRandom()
 
 	if (inputFile.is_open())
 	{
-		inputFile >> N >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf;									// Reading first 10 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
-
-		random = new randGen(N, es, et, eg, eh, as, am, ad, probability, inf, epl, abs(eph),							// Take absolute to any high-value 
-			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), this);						//	to handle the range dash '-'
+		inputFile >> N >> NS >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf >> inft;									// Reading first 10 digits
+		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach ;
+		inputFile >> spl >> sph >> shl >> shh >> scl >> sch;
+		random = new randGen(N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, epl, abs(eph),							// Take absolute to any high-value 
+			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), spl, abs(sph), shl, abs(shh), scl, abs(sch), this);						//	to handle the range dash '-'
 	}
 	else
 	{
@@ -163,7 +163,7 @@ void Game::printAll()
 	eArmy->print();
 	cout << endl;
 
-	if(!sArmy->isEmpty())
+	if(!sArmy->isEmpty(alliedArmy))
 	{
 		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
 		sArmy->print();
@@ -238,7 +238,7 @@ bool Game::isOver(bool a, bool b , bool c)
 {
 	if (timestep >= 40)
 	{
-		if ((eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy)) || !(a || b || c))
+		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b))
 		{
 			result = "Tie";
 			updateFile();
@@ -287,12 +287,14 @@ bool Game::kill(Units*& unit)
 		break;
 	}
 	updateFile(unit);
-	unit->removeInfected();
+	if(unit->isInfected())
+	unit->getCured();
 	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
 {
+
 	if (unit->getType() == earthSoldier)
 	{
 		unit->enterUML();
@@ -306,32 +308,106 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::toLog(string type ,int a, int b)
+bool Game::toLog(Units* a, Units* b)
 {
 	if (a && b)
 	{
-		if (type == "Infected ES")
-			log += "ES " + to_string(a);
-		else
-			log += type + " " + to_string(a);
-		if (type == "EH")
-			log += " heals [\033[1;34m";
-		else if (type == "Infected ES")
-			log += " infects [\033[1;34m";
-		else
+		switch (a->getType())
 		{
-			if (type == "ES" || type == "ET" || type == "EG")
-				log += " shots [\033[1;32m";
+		case earthSoldier:
+			log += "ES ";
+			if(b->isInfected()) 
+			{
+				log += "\033[1;32m$\033[1;34m";
+				log +=  to_string(a->getID()) + "\033[1;37m infected [";
+			}
 			else
-				log += " shots [\033[1;34m";
+			{
+				log += "\033[1;34m" + to_string(a->getID());
+				log += "\033[1;37m shots [";
+			}
+
+			break;
+		case earthTank:
+			log += "ET \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
+			break;
+		case earthGunnery:
+			log += "EG \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
+			break;
+		case alienSoldier:
+			log += "AS \033[1;32m" + to_string(a->getID()) + "\033[1;37m shots [";
+			break;
+		case alienMonster:
+			log += "AM \033[1;32m" + to_string(a->getID()) + "\033[1;37m attacks [";
+			break;
+		case alienDrone:
+			log += "AD \033[1;32m" + to_string(a->getID()) + "\033[1;37m shots [";
+			break;
+		case earthHeal:
+			log += "EH \033[1;34m" + to_string(a->getID()) + "\033[1;37m heals [";
+			break;
+		case saverUnit:
+			log += "SU \033[1;33m" + to_string(a->getID()) + "\033[1;37m shots [";
+			break;
 		}
-		log += to_string(b);
+		switch (b->getType())
+		{
+		case earthSoldier:
+			log += "\033[1;34m" + to_string(b->getID());
+			break;
+		case earthTank:
+			log += "\033[1;34m" + to_string(b->getID());
+			break;
+		case earthGunnery:
+			log += "\033[1;34m" + to_string(b->getID());
+			break;
+		case alienSoldier:
+			log += "\033[1;32m" + to_string(b->getID());
+			break;
+		case alienMonster:
+			log += "\033[1;32m" + to_string(b->getID());
+			break;
+		case alienDrone:
+			log += "\033[1;32m" + to_string(b->getID());
+			break;
+		case earthHeal:
+			log += "\033[1;34m" + to_string(b->getID());
+			break;
+		case saverUnit:
+			log += "\033[1;33m" + to_string(b->getID());
+			break;
+		}
 	}
-	else if(a)
-		if (type == "ES" || type == "ET" || type == "EG")
-			log += "\033[1;37m, \033[1;32m" + to_string(a);
-		else
-			log += "\033[1;37m, \033[1;34m" + to_string(a);
+	else if (a)
+	{
+		switch (a->getType())
+		{
+		case earthSoldier:
+			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			break;
+		case earthTank:
+			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			break;
+		case earthGunnery:
+			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			break;
+		case alienSoldier:
+			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
+			break;
+		case alienMonster:
+			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
+			break;
+		case alienDrone:
+			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
+			break;
+		case earthHeal:
+			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			break;
+		case saverUnit:
+			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			break;
+		}
+	}
 	else
 		log += "\033[1;37m]\n";
 
@@ -358,7 +434,7 @@ void Game::fight(int c)
 		random->addUnits();						// Adding units to both armies
 
 		bool e = eArmy->fight();						// Calling both armies to fight one another
-		bool s = sArmy->fight();
+		bool s = sArmy->fight();						//Useless bool
 		bool a = aArmy->fight();
 
 		if(c==2)

@@ -34,6 +34,10 @@ bool AlienMonster::attack()
 				game->toLog(enemy);
 			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
 		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())

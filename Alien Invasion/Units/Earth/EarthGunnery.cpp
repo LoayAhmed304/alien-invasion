@@ -32,6 +32,10 @@ bool EarthGunnery::attack()
 
 			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has reached its maximum attack capacity
+			break;
+
 		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())
@@ -48,6 +52,10 @@ bool EarthGunnery::attack()
 				game->toLog(enemy);
 			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has reached its maximum attack capacity
+			break;
+
 		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())

@@ -31,6 +31,10 @@ bool AlienDrone::attack()
 			else
 				game->toLog(enemy);
 		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
 		if (game->getUnit(earthGunnery, enemy))
 		{
 			if (!enemy->getTa())

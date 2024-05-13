@@ -15,6 +15,7 @@ private:
     ///////////
     ArrayStack <Units*> EH;
     int infCount = 0;
+    int totalInfected = 0;
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
@@ -29,6 +30,7 @@ public:
     void incInfected();
     void decInfected();
     int getinfCount();
+    int getTotalInfected();
 
     ~EarthArmy();
 };

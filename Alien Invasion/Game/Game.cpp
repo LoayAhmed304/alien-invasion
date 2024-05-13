@@ -114,7 +114,8 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tDf/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDf) / totalEDb * 100 : 0) << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDd) / totalEDb * 100 : 0) << "%\n";
 
-			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n\n";
+			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n";
+			outputFile << "\tInfected Percentage: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues !=0)? float(getEarthArmy()->getTotalInfected()) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%\n\n";
 
       
 			// Alien Army Statistics
@@ -236,7 +237,7 @@ bool Game::addUnit(Units*& unit)
 
 bool Game::isOver(bool a, bool b , bool c)
 {
-	if (timestep >= 100)
+	if (timestep >= 40)
 	{
 		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b || c))
 		{

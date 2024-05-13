@@ -154,7 +154,8 @@ bool EarthArmy::getRandomES(Units*& unit, int index)
 
 void EarthArmy::incInfected()
 {
-    infCount++;
+    ++infCount;
+    ++totalInfected;
 }
 void EarthArmy::decInfected()
 {
@@ -164,8 +165,12 @@ void EarthArmy::decInfected()
 }
 int EarthArmy::getinfCount()
 {
-
     return infCount;
+}
+
+int EarthArmy::getTotalInfected()
+{
+    return totalInfected;
 }
 
 EarthArmy::~EarthArmy()

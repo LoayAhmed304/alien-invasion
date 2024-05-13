@@ -107,14 +107,15 @@ void Game::updateFile(Units* unit)
 			outputFile << setprecision(4) << ((totalEarthUnits != 0) ? (totalDestructedEarthUnits + Uet + Ues) / totalEarthUnits * 100.0 : 0)<< "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
-			outputFile << "\tDf: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDf) / totalDestructedEarthUnits : 0);
-			outputFile << "\tDd: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDd) / totalDestructedEarthUnits : 0);
-			outputFile << "\tDb: " << setprecision(2) << ((totalDestructedEarthUnits != 0) ? float(totalEDb) / totalDestructedEarthUnits : 0) << "\n\t";
+			outputFile << "\tDf: " << ((totalDestructedEarthUnits != 0) ? float(totalEDf) / totalDestructedEarthUnits : 0);
+			outputFile << "\tDd: " << ((totalDestructedEarthUnits != 0) ? float(totalEDd) / totalDestructedEarthUnits : 0);
+			outputFile << "\tDb: " << ((totalDestructedEarthUnits != 0) ? float(totalEDb) / totalDestructedEarthUnits : 0) << "\n\t";
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDf) / totalEDb * 100 : 0) << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << ((totalEDb != 0) ? float(totalEDd) / totalEDb * 100 : 0) << "%\n";
 
-			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n\n";
+			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(healed) / totalEarthUnits  * 100 : 0) << "%\n";
+			outputFile << "\tInfected Percentage: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues !=0)? float(getEarthArmy()->getTotalInfected()) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%\n\n";
 
       
 			// Alien Army Statistics
@@ -125,18 +126,18 @@ void Game::updateFile(Units* unit)
 			outputFile << "\tAM: " << getLength(alienMonster) + am;
 			outputFile << "\tAD: " << getLength(alienDrone) + ad << endl;
 
-			outputFile << "\tUnits Destruction %: \n";
-			outputFile << "\t\tAS: " << setprecision(3) << ((getLength(alienSoldier) + as != 0) ? float(as) / (getLength(alienSoldier) + as) * 100 : 0) << "%";
-			outputFile << "\tAM: " << setprecision(3) << ((getLength(alienMonster) + am != 0) ? float(am) / (getLength(alienMonster) + am) * 100 : 0) << "%";
-			outputFile << "\tAD: " << setprecision(3) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
+			outputFile << "\tUnits Destruction %: \n\t";
+			outputFile << "\tAS: " << setprecision(4) << ((getLength(alienSoldier) + as != 0) ? float(as) / (getLength(alienSoldier) + as) * 100 : 0) << "%";
+			outputFile << "\tAM: " << setprecision(4) << ((getLength(alienMonster) + am != 0) ? float(am) / (getLength(alienMonster) + am) * 100 : 0) << "%";
+			outputFile << "\tAD: " << setprecision(4) << ((getLength(alienDrone) + ad != 0) ? float(ad) / (getLength(alienDrone) + ad) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
 			outputFile << setprecision(4) << ((totalAlienUnits != 0) ? totalDestructedAlienUnits / totalAlienUnits * 100.0 : 0) << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
-			outputFile << "\tDf: " << setprecision(2) << ((totalDestructedAlienUnits != 0)? float(totalADf) / totalDestructedAlienUnits : 0);
-			outputFile << "\tDd: " << setprecision(2) << ((totalDestructedAlienUnits != 0) ? float(totalADd) / totalDestructedAlienUnits : 0);
-			outputFile << "\tDb: " << setprecision(2) << ((totalDestructedAlienUnits != 0) ? float(totalADb) / totalDestructedAlienUnits : 0) << "\n\t";
+			outputFile << "\tDf: " << ((totalDestructedAlienUnits != 0)? float(totalADf) / totalDestructedAlienUnits : 0);
+			outputFile << "\tDd: " << ((totalDestructedAlienUnits != 0) ? float(totalADd) / totalDestructedAlienUnits : 0);
+			outputFile << "\tDb: " << ((totalDestructedAlienUnits != 0) ? float(totalADb) / totalDestructedAlienUnits : 0) << "\n\t";
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << ((totalADb != 0) ? float(totalADf) / totalADb * 100 : 0) << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << ((totalADb != 0) ? float(totalADd) / totalADb * 100 : 0) << "%\n\n";
@@ -286,6 +287,10 @@ bool Game::kill(Units*& unit)
 		++eh;
 		break;
 	}
+	if (unit->getType() < alienSoldier)
+		updateED(unit);
+	else
+		updateAD(unit);
 	updateFile(unit);
 	if(unit->isInfected())
 	unit->getCured();

@@ -1,9 +1,7 @@
 #include "Game//Game.h"
 
-int main()
+void main()
 {
     Game game;
     game.start();
-
-    return 0;
 }

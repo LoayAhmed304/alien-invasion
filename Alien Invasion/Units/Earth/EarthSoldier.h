@@ -1,9 +1,6 @@
 #ifndef	EARTH_SOLDIER_H
 #define EARTH_SOLDIER_H
 #include "../Units.h"
-
-#include "../Units.h"
-
 class Game;
 
 class EarthSoldier: public Units

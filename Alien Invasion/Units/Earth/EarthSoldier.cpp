@@ -15,8 +15,7 @@ bool EarthSoldier::attack()
 	if (this->isInfected())
 	{
 		game->getUnit(earthSoldier, self);
-
-		for (int i = 0; i < this->getAttackCap(); ++i)
+		for (int i = 0; i < self->getAttackCap(); ++i)
 		{
 			if (game->getUnit(earthSoldier, enemy))
 			{
@@ -67,5 +66,6 @@ bool EarthSoldier::attack()
 		else
 			game->addUnit(enemy);
 	}
+
 	return attacked;
 }

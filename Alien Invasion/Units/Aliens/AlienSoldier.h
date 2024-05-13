@@ -1,9 +1,6 @@
 #ifndef ALIEN_SOLDIER_H
 #define ALIEN_SOLDIER_H
 #include "../Units.h"
-
-#include "../Units.h"
-
 class Game;
 
 class AlienSoldier : public Units

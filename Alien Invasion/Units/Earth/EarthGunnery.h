@@ -1,10 +1,6 @@
-
 #ifndef	EARTH_GUNNERY_H
 #define EARTH_GUNNERY_H
 #include "../Units.h"
-
-#include "../Units.h"
-
 class Game;
 
 class EarthGunnery: public Units

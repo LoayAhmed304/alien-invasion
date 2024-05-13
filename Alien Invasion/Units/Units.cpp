@@ -5,7 +5,8 @@ int Units::eID = 0;
 int Units::aID = 2000;
 int Units::sID = 4000;
 
-Units::Units(unitType t, int p, int h, int c, Game* g) {
+Units::Units(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0)
+{
 	type = t;
 	if (type < alienSoldier)
 		++eID;
@@ -18,11 +19,9 @@ Units::Units(unitType t, int p, int h, int c, Game* g) {
 	cur_health = h;
 	attack_cap = c;
 	game = g;
-	TimeUML = 0;
 	Tj = game->getTimestep();
-	Ta = 0;
-	Td = 0;
 }
+
 bool Units::getAttacked(double dmg)
 {
 	cur_health -= dmg / sqrt(cur_health);
@@ -39,8 +38,9 @@ bool Units::getAttacked(double dmg)
 }
 bool Units::isDead()
 {
-	return (cur_health == 0);
+	return cur_health == 0;
 }
+
 unitType Units::getType() const
 {
 	return type;
@@ -75,11 +75,6 @@ void Units::setTa(int ta)
 {
 	Ta = ta;
 	Df = Ta - Tj;
-}
-
-int Units::getID()
-{
-	return id;
 }
 
 int Units::getTotalUnits(unitType t)
@@ -141,29 +136,33 @@ void Units::heal()
 
 int Units::getUMLtime()
 {
-	return TimeUML;
+	return timeUML;
 }
 
 bool Units::exitUML()
 {
-	TimeUML = 0;
+	timeUML = 0;
 	return true;
 }
+
 bool Units::enterUML()
 {
-	TimeUML = game->getTimestep();
+	timeUML = game->getTimestep();
 	if (!infected)
 		HT = 0;
 	return true;
 }
+
 bool Units::isInfected() const
 {
 	return infected;
 }
+
 bool Units::isCured()
 {
 	return cured;
 }
+
 bool Units::getInfected()
 {
 	if (!cured)
@@ -174,27 +173,33 @@ bool Units::getInfected()
 	}
 	return false;
 }
+
 void Units::removeInfected()
 {
 	infected = false;
 }
+
 void Units::getCured()
 {
 	cured = true;
 	game->getEarthArmy()->decInfected();
 }
+
 int Units::getHT()
 {
 	return HT;
 }
+
 void Units::setHT(int a)
 {
 	HT = a;
 }
+
 void Units::incHT()
 {
-	HT++;
+	++HT;
 }
+
 std::ostream& operator<<(std::ostream& os, const Units* obj)
 {
 	string color = "";
@@ -207,5 +212,6 @@ std::ostream& operator<<(std::ostream& os, const Units* obj)
 	if (obj->infected)
 		os << "\033[1;32m$\033[1;34m";
 	os << color << obj->id << "\033[0m";
+
 	return os;
 }

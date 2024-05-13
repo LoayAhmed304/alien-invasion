@@ -9,7 +9,7 @@ AlienDrone::AlienDrone(int p, int h, int c, Game* g) : Units(alienDrone, p, h, c
 bool AlienDrone::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	int i = 0;
@@ -25,7 +25,7 @@ bool AlienDrone::attack()
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
@@ -45,15 +45,17 @@ bool AlienDrone::attack()
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
 		}
 	}
+
 	if (attacked)
 		game->toLog();
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -63,5 +65,6 @@ bool AlienDrone::attack()
 		else
 			game->addUnit(enemy);
 	}
+
 	return attacked;
 }

@@ -1,5 +1,8 @@
 #include "AlienArmy.h"
 
+AlienArmy::AlienArmy(): swap(true), swapPeek(true)
+{}
+
 bool AlienArmy::addUnit(Units* X)
 {
     switch (X->getType())
@@ -18,22 +21,23 @@ bool AlienArmy::addUnit(Units* X)
             AD.enqueueFront(X);
         break;
     }
+
     return true;
 }
 
+
 bool AlienArmy::peekUnit(unitType type, Units*& unit)
 {
-    int n;
     switch (type) {
     case alienSoldier:
-        return (AS.peek(unit));
+        return AS.peek(unit);
     case alienMonster:
         return AM.peek(unit);
     case alienDrone:
         swapPeek = !swapPeek;
         if (swapPeek)
-            return (AD.peekRear(unit));
-        return (AD.peek(unit));
+            return AD.peekRear(unit);
+        return AD.peek(unit);
     }
 }
 
@@ -41,7 +45,7 @@ bool AlienArmy::getUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case alienSoldier:
-        return (AS.dequeue(unit));
+        return AS.dequeue(unit);
     case alienMonster:
         return AM.remove(unit);
     case alienDrone:
@@ -56,7 +60,7 @@ int AlienArmy::getLength(unitType type)
 {
     switch (type) {
     case alienSoldier:
-        return (AS.length());
+        return AS.length();
     case alienMonster:
         return AM.length();
     case alienDrone:
@@ -80,17 +84,17 @@ bool AlienArmy::isEmpty(unitType type)
 
 void AlienArmy::print()
 {
-    ///     Print all Alien Soldiers
+    /// Print all Alien Soldiers
     cout << AS.length() << " AS [";
     AS.printAll();
     cout << "]\n";
 
-    ///     Print all Alien Monsters
+    /// Print all Alien Monsters
     cout << AM.length() << " AM [";
     AM.printAll();
     cout << "]\n";
 
-    ///     Print all Alien Drones
+    /// Print all Alien Drones
     cout << AD.length() << " AD [";
     AD.printAll();
     cout << "]\n";
@@ -99,20 +103,20 @@ void AlienArmy::print()
 bool AlienArmy::fight()
 {
     Units* unit;
-    bool a = false, b = false, c = false;
+    bool a = false, b = false, c = false, d = false;
    if (peekUnit(alienSoldier, unit))
-        unit->attack();
+        a = unit->attack();
     if (peekUnit(alienMonster, unit))
-        unit->attack();
+        b = unit->attack();
     if (getLength(alienDrone) > 1)
     {
         peekUnit(alienDrone, unit);
-        unit->attack();
+        c = unit->attack();
         peekUnit(alienDrone, unit);
-        unit->attack();
+        d = unit->attack();
     }
 
-    return (a || b || c);
+    return (a || b || c || d);
 }
 
 AlienArmy::~AlienArmy()

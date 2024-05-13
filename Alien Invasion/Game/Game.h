@@ -5,6 +5,7 @@
 #include "../Units/Earth/EarthArmy.h"
 #include "../Units/Ally/AllyArmy.h"
 #include "../RandomGenerator/randGen.h"
+#include <string>
 #include <fstream>
 #include <iomanip>
 using namespace std;
@@ -73,5 +74,4 @@ public:
 
 	~Game();
 };
-
 #endif

@@ -1,5 +1,8 @@
 #include "EarthArmy.h"
 
+EarthArmy::EarthArmy(): infCount(0), totalInfected(0)
+{}
+
 bool EarthArmy::addUnit(Units* X)
 {
     switch (X->getType())
@@ -16,6 +19,7 @@ bool EarthArmy::addUnit(Units* X)
     case earthHeal:
         EH.push(X);
     }
+
     return true;
 }
 
@@ -38,7 +42,7 @@ bool EarthArmy::getUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case earthSoldier:
-        return (ES.dequeue(unit));
+        return ES.dequeue(unit);
     case earthTank:
         return ET.pop(unit);
     case earthGunnery:
@@ -53,11 +57,10 @@ int EarthArmy::getLength(unitType type)
 {
     switch (type) {
     case earthSoldier:
-        return (ES.length());
+        return ES.length();
     case earthTank:
         return ET.length();
     case earthGunnery:
-        int n;
         return EG.length();
     case earthHeal:
         return EH.length();
@@ -82,22 +85,22 @@ bool EarthArmy::isEmpty(unitType type)
 
 void EarthArmy::print()
 {
-    ///     Print all Earth Soldiers
+    /// Print all Earth Soldiers
     cout << ES.length() << " ES [";
     ES.printAll();
     cout << "]\n";
 
-    ///     Print all Earth Tanks
+    /// Print all Earth Tanks
     cout << ET.length() << " ET [";
     ET.printAll();
     cout << "]\n";
 
-    ///     Print all Earth Gunneries
+    /// Print all Earth Gunneries
     cout << EG.length() << " EG [";
     EG.printAll();
     cout << "]\n";
 
-    ///     Print all Earth Heal
+    /// Print all Earth Heal
     cout << EH.length() << " EH [";
     EH.printAll();
     cout << "]\n";
@@ -120,9 +123,11 @@ bool EarthArmy::fight()
 
 bool EarthArmy::inDanger(int p)
 {
-    if(Units::getTotalUnits(earthArmy))
-    return (infCount * 100 / Units::getTotalUnits(earthArmy)) > p;
-    return 0;
+    int totalSoldiers = Units::getTotalUnits(earthArmy);
+    if(totalSoldiers)
+        return (infCount * 100 / totalSoldiers) > p;
+
+    return false;
 }
 
 bool EarthArmy::getRandomES(Units*& unit, int index)
@@ -136,15 +141,22 @@ bool EarthArmy::getRandomES(Units*& unit, int index)
         if (i == index)
         {
             if (dummyUnit->isInfected())      // if the unit in the specified random index is already infected, we'll increment the target index by 1
-                ++index;                      // what if the random index generated was the last index already? then we'll return false with the unit as nullptr
-            else                              // thus it'll be considered a failed operation and we'll not search for another
+                ++index;                      // what if the random index generated was the last index already?
+            else                              // then we'll loop again while enqueuing the templist and take the first not-infected soldier
                 target = dummyUnit;
         }
         temp.enqueue(dummyUnit);
         ++i;
     }
     while (temp.dequeue(dummyUnit))
+    {
+        if (!target)
+        {
+            if (!dummyUnit->isInfected())
+                target = dummyUnit;
+        }
         ES.enqueue(dummyUnit);
+    }
 
     unit = target;
     if(unit)
@@ -157,15 +169,15 @@ void EarthArmy::incInfected()
     ++infCount;
     ++totalInfected;
 }
+
 void EarthArmy::decInfected()
 {
-    infCount--;
-    if (infCount <= 0)
-        infCount = 0;
+    if (infCount != 0)
+        --infCount;
 }
+
 int EarthArmy::getinfCount()
 {
-
     return infCount;
 }
 

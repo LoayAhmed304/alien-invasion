@@ -1,9 +1,6 @@
 #ifndef	EARTH_TANK_H
 #define EARTH_TANK_H
 #include "../Units.h"
-
-#include "../Units.h"
-
 class Game;
 
 class EarthTank : public Units

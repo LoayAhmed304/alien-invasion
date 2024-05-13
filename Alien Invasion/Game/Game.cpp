@@ -144,10 +144,6 @@ void Game::updateFile(Units* unit)
 		}
 		outputFile.close();
 	}
-	else
-	{
-		throw std::ios_base::failure("Failed to create file");
-	}
 }
 
 void Game::printAll()
@@ -203,10 +199,12 @@ AlienArmy* Game::getAlienArmy()
 {
 	return aArmy;
 }
+
 AllyArmy* Game::getAllyArmy()
 {
 	return sArmy;
 }
+
 int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
@@ -262,6 +260,7 @@ bool Game::isOver(bool a, bool b , bool c)
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -296,14 +295,14 @@ bool Game::kill(Units*& unit)
 	else
 		updateAD(unit);
 	updateFile(unit);
-	if(unit->isInfected())
-	unit->getCured();
+	if (unit->isInfected())
+		eArmy->decInfected();
+
 	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
 {
-
 	if (unit->getType() == earthSoldier)
 	{
 		unit->enterUML();
@@ -314,6 +313,7 @@ bool Game::toUML(Units*& unit)
 		unit->enterUML();
 		UML.enqueue(unit, INT_MIN);
 	}
+
 	return true;
 }
 
@@ -348,6 +348,7 @@ bool Game::toLog(Units* a, Units* b)
 			log += "SU \033[1;33m" + to_string(a->getID()) + "\033[1;37m shots [";
 			break;
 		}
+
 		switch (b->getType())
 		{
 		case earthSoldier:
@@ -432,7 +433,7 @@ void Game::fight(int c)
 		random->addUnits();						// Adding units to both armies
 
 		bool e = eArmy->fight();						// Calling both armies to fight one another
-		bool s = sArmy->fight();						//Useless bool
+		bool s = sArmy->fight();						// Useless bool
 		bool a = aArmy->fight();
 		spreadInfection();
 		allyArmyNotNeeded();
@@ -483,6 +484,8 @@ void Game::countUML()
 			++Ues;
 		else
 			++Uet;
+		delete unit;
+		unit = nullptr;
 	}
 }
 
@@ -514,6 +517,7 @@ bool Game::spreadInfection()
 			}
 		}
 	}
+
 	return succeded;
 }
 
@@ -538,6 +542,7 @@ bool Game::getRandomES(Units*& ES)
 		int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
 		return eArmy->getRandomES(ES, randomIndex);
 	}
+
 	return false;
 }
 
@@ -547,10 +552,10 @@ Game::~Game()
 	delete aArmy;
 	delete sArmy;
 	delete random;
-	while (!killedList.isEmpty())
+	Units* temp;
+	while (killedList.dequeue(temp))
 	{
-		Units* temp;
-		killedList.dequeue(temp);
 		delete temp;
+		temp = nullptr;
 	}
 }

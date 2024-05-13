@@ -81,6 +81,7 @@ bool randGen::generateEarth(Units*& newBorn)
             newBorn = new EarthHeal(p, h, c, game);
         return true;
     }
+
     return false;
 }
 
@@ -121,6 +122,7 @@ bool randGen::generateSaver(Units*& newBorn)
     int B = 1 + (rand() % 100);
 
     newBorn = new SaverUnit(p, h, c, game);
+
     return true;
 }
 
@@ -154,5 +156,6 @@ bool randGen::addUnits()
             else
                 break;
         }
+
     return true;
 }

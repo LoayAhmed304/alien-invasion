@@ -1,8 +1,8 @@
 #ifndef	EARTH_HEAL_H
 #define EARTH_HEAL_H
 #include "../Units.h"
-
 class Game;
+
 class EarthHeal : public Units
 {
 public:

@@ -10,7 +10,6 @@ bool AllyArmy::addUnit(Units* X)
     default:
         return false;
     }
-    return true;
 }
 
 bool AllyArmy::peekUnit(unitType type, Units*& unit)
@@ -29,7 +28,6 @@ bool AllyArmy::getUnit(unitType type, Units*& unit)
     case saverUnit:
         return SU.dequeue(unit);
     default:
-        unit = nullptr;
         return false;
     }
 }
@@ -57,7 +55,7 @@ bool AllyArmy::isEmpty(unitType type)
 
 void AllyArmy::print()
 {
-    ///     Print all Saver Units
+    /// Print all Saver Units
     cout << SU.length() << " SU [";
     SU.printAll();
     cout << "]\n";
@@ -66,10 +64,10 @@ void AllyArmy::print()
 bool AllyArmy::fight()
 {
     bool a = false;
-    
     Units* unit;
     if (peekUnit(saverUnit, unit))
         a = unit->attack();
+
     return a;
 }
 

@@ -9,7 +9,7 @@ AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p
 bool AlienSoldier::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	for (int i = 0; i < this->getAttackCap(); ++i)
@@ -23,16 +23,17 @@ bool AlienSoldier::attack()
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
-
 		}
 	}
+
 	if (attacked)
 		game->toLog();
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -41,7 +42,7 @@ bool AlienSoldier::attack()
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-
 	}
+
 	return attacked;
 }

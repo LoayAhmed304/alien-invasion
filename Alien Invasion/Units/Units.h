@@ -2,8 +2,9 @@
 #define UNITS_H
 
 #include <iostream>
-using namespace std;
 class Game;
+
+using namespace std;
 
 enum unitType
 {
@@ -24,12 +25,12 @@ class Units
 {
 private:
     unitType type;
-    int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, TimeUML;
+    int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, timeUML;
     double health;
     bool healed;
-    bool infected = false;
-    bool cured = false;
-    int HT = 0;
+    bool infected;
+    bool cured;
+    int HT;
 protected:
     int id;
     static int eID;
@@ -37,9 +38,9 @@ protected:
     static int sID;
     Game* game;
 public:
-    Units(unitType type, int power, int health, int atk_cap, Game* g);
+    Units(unitType, int, int, int, Game*);
     virtual bool attack() = 0;
-    virtual bool getAttacked(double dmg);
+    virtual bool getAttacked(double);
     virtual bool isDead();
     virtual unitType getType() const;
     virtual double getHealth() const;
@@ -58,7 +59,6 @@ public:
     virtual int getDb() const;
     virtual int getTa() const;
     virtual void setTa(int);
-    virtual int getID();
 
     virtual bool isHealed();
     virtual void heal();

@@ -4,11 +4,11 @@
 #include "../Units.h"
 #include "../../DataStructures/LinkedQueue.h"
 
-
 class AllyArmy
 {
 private:
     LinkedQueue <Units*> SU;
+
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
@@ -16,7 +16,7 @@ public:
     int getLength(unitType);
     bool isEmpty(unitType);
     void print();
-    bool fight();        // Peeks each earth unit and calls its attack
+    bool fight();        // Peeks each ally unit and calls its attack
     ~AllyArmy();
 };
 #endif

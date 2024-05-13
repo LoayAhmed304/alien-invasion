@@ -130,8 +130,8 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RandomGenerator\randGen.cpp" />
-    <ClCompile Include="Units\Allied\AlliedArmy.cpp" />
-    <ClCompile Include="Units\Allied\SaverUnit.cpp" />
+    <ClCompile Include="Units\Ally\AllyArmy.cpp" />
+    <ClCompile Include="Units\Ally\SaverUnit.cpp" />
     <ClCompile Include="Units\Aliens\AlienArmy.cpp" />
     <ClCompile Include="Units\Aliens\AlienDrone.cpp" />
     <ClCompile Include="Units\Aliens\AlienMonster.cpp" />
@@ -156,8 +156,8 @@
     <ClInclude Include="DataStructures\RandomArray.h" />
     <ClInclude Include="DataStructures\StackADT.h" />
     <ClInclude Include="Game\Game.h" />
-    <ClInclude Include="Units\Allied\AlliedArmy.h" />
-    <ClInclude Include="Units\Allied\SaverUnit.h" />
+    <ClInclude Include="Units\Ally\AllyArmy.h" />
+    <ClInclude Include="Units\Ally\SaverUnit.h" />
     <ClInclude Include="Units\Aliens\AlienDrone.h" />
     <ClInclude Include="Units\Aliens\AlienMonster.h" />
     <ClInclude Include="Units\Aliens\AlienSoldier.h" />
@@ -171,7 +171,7 @@
     <ClInclude Include="RandomGenerator\randGen.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="Inputs\input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

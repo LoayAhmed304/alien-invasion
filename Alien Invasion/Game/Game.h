@@ -3,7 +3,7 @@
 
 #include "../Units/Aliens/AlienArmy.h"
 #include "../Units/Earth/EarthArmy.h"
-#include "../Units/Allied/AlliedArmy.h"
+#include "../Units/Ally/AllyArmy.h"
 #include "../RandomGenerator/randGen.h"
 #include <fstream>
 #include <iomanip>
@@ -17,7 +17,7 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
-	AlliedArmy* sArmy;
+	AllyArmy* sArmy;
 
 	priQueue<Units*> UML;
 
@@ -41,7 +41,7 @@ public:
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
-	AlliedArmy* getAlliedArmy();
+	AllyArmy* getAllyArmy();
 
 	int getLength(unitType);
 	bool isEmpty(unitType);

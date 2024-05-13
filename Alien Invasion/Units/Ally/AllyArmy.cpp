@@ -1,6 +1,6 @@
-#include "AlliedArmy.h"
+#include "AllyArmy.h"
 
-bool AlliedArmy::addUnit(Units* X)
+bool AllyArmy::addUnit(Units* X)
 {
     switch (X->getType())
     {
@@ -11,7 +11,7 @@ bool AlliedArmy::addUnit(Units* X)
     return true;
 }
 
-bool AlliedArmy::peekUnit(unitType type, Units*& unit)
+bool AllyArmy::peekUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case saverUnit:
@@ -19,7 +19,7 @@ bool AlliedArmy::peekUnit(unitType type, Units*& unit)
     }
 }
 
-bool AlliedArmy::getUnit(unitType type, Units*& unit)
+bool AllyArmy::getUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case saverUnit:
@@ -27,7 +27,7 @@ bool AlliedArmy::getUnit(unitType type, Units*& unit)
     }
 }
 
-int AlliedArmy::getLength(unitType type)
+int AllyArmy::getLength(unitType type)
 {
     switch (type) {
     case saverUnit:
@@ -35,7 +35,7 @@ int AlliedArmy::getLength(unitType type)
     }
 }
 
-bool AlliedArmy::isEmpty(unitType type)
+bool AllyArmy::isEmpty(unitType type)
 {
     switch (type) {
     case saverUnit:
@@ -45,7 +45,7 @@ bool AlliedArmy::isEmpty(unitType type)
     }
 }
 
-void AlliedArmy::print()
+void AllyArmy::print()
 {
     ///     Print all Saver Units
     cout << SU.length() << " SU [";
@@ -53,7 +53,7 @@ void AlliedArmy::print()
     cout << "]\n";
 }
 
-bool AlliedArmy::fight()
+bool AllyArmy::fight()
 {
     bool a = false;
     Units* unit;
@@ -62,7 +62,7 @@ bool AlliedArmy::fight()
     return (a);
 }
 
-AlliedArmy::~AlliedArmy()
+AllyArmy::~AllyArmy()
 {
     Units* temp;
     int n;

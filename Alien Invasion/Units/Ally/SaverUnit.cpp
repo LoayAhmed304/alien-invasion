@@ -14,8 +14,8 @@ bool SaverUnit::attack()
 	bool attacked = false;
 	if (!game->getEarthArmy()->getinfCount())
 	{
-		while (!game->getAlliedArmy()->isEmpty(alliedArmy))
-			game->getAlliedArmy()->getUnit(saverUnit,unit);
+		while (!game->getAllyArmy()->isEmpty(alliedArmy))
+			game->getAllyArmy()->getUnit(saverUnit,unit);
 	}
 	else
 	{

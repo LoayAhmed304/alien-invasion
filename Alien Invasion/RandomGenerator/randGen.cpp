@@ -136,7 +136,7 @@ bool randGen::addUnits()
         for (int i = 0; i < NS; i++)
         {
             generateSaver(newBorn);
-            game->getAlliedArmy()->addUnit(newBorn);
+            game->getAllyArmy()->addUnit(newBorn);
         }
     if (probability())
         for (int i = 0; i < N; i++)

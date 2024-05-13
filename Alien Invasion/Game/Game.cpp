@@ -4,7 +4,7 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
-	sArmy = new AlliedArmy;
+	sArmy = new AllyArmy;
 	setRandom();
 	prepareOutputFile();
 }
@@ -42,7 +42,7 @@ void Game::setRandom()
 		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, spl, sph, shl, shh, scl, sch;		// Variables to store values from the input file
 
 	fstream inputFile;
-	inputFile.open(inputFileName, ios::in);
+	inputFile.open("Inputs/" + inputFileName, ios::in);
 	while (!inputFile.is_open())
 	{
 		cout << "File doesn't exist.\nEnter the input file name: ";
@@ -203,7 +203,7 @@ AlienArmy* Game::getAlienArmy()
 {
 	return aArmy;
 }
-AlliedArmy* Game::getAlliedArmy()
+AllyArmy* Game::getAllyArmy()
 {
 	return sArmy;
 }

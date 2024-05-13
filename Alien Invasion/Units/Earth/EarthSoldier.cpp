@@ -12,23 +12,51 @@ bool EarthSoldier::attack()
 	Units* unit = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
-	for (int i = 0; i < this->getAttackCap(); ++i)
+	if (this->isInfected())
 	{
-		if (game->getUnit(alienSoldier, enemy))
-		{
-			if (!enemy->getTa())
-				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			temp.enqueue(enemy);
+		Units* self;
+		game->getUnit(earthSoldier, self);
 
-			if (!attacked)
+		for (int i = 0; i < this->getAttackCap(); ++i)
+		{
+			if (game->getUnit(earthSoldier, enemy))
 			{
-				game->toLog(unit, enemy);
-				attacked = true;
+				if (!enemy->getTa())
+					enemy->setTa(game->getTimestep());
+				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+				temp.enqueue(enemy);
+
+				if (!attacked)
+				{
+					game->toLog(unit, enemy);
+					attacked = true;
+				}
+				else
+					game->toLog(enemy);
 			}
-			else
+		}
+		game->addUnit(self);
+	}
+	else
+	{
+		for (int i = 0; i < this->getAttackCap(); ++i)
+		{
+			if (game->getUnit(alienSoldier, enemy))
 			{
-				game->toLog(enemy);
+				if (!enemy->getTa())
+					enemy->setTa(game->getTimestep());
+				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+				temp.enqueue(enemy);
+
+				if (!attacked)
+				{
+					game->toLog(unit, enemy);
+					attacked = true;
+				}
+				else
+				{
+					game->toLog(enemy);
+				}
 			}
 		}
 	}

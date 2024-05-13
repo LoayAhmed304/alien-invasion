@@ -286,6 +286,10 @@ bool Game::kill(Units*& unit)
 		++eh;
 		break;
 	}
+	if (unit->getType() < alienSoldier)
+		updateED(unit);
+	else
+		updateAD(unit);
 	updateFile(unit);
 	if(unit->isInfected())
 	unit->getCured();

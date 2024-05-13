@@ -33,14 +33,6 @@ bool Units::getAttacked(double dmg)
 		Td = game->getTimestep();
 		Dd = Td - Ta;
 		Db = Td - Tj;
-		if (this->getType() < alienSoldier)
-		{
-			game->updateED(this);
-		}
-		else
-		{
-			game->updateAD(this);
-		}
 	}
 
 	return true;

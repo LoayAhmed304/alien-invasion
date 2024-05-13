@@ -53,9 +53,7 @@ bool EarthSoldier::attack()
 					attacked = true;
 				}
 				else
-				{
 					game->toLog(enemy);
-				}
 			}
 		}
 	}

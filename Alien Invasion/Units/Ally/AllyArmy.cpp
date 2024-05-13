@@ -7,6 +7,8 @@ bool AllyArmy::addUnit(Units* X)
     case saverUnit:
         SU.enqueue(X);
         break;
+    default:
+        return false;
     }
     return true;
 }
@@ -15,7 +17,9 @@ bool AllyArmy::peekUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case saverUnit:
-        return (SU.peek(unit));
+        return SU.peek(unit);
+    default:
+        return false;
     }
 }
 
@@ -23,7 +27,10 @@ bool AllyArmy::getUnit(unitType type, Units*& unit)
 {
     switch (type) {
     case saverUnit:
-        return (SU.dequeue(unit));
+        return SU.dequeue(unit);
+    default:
+        unit = nullptr;
+        return false;
     }
 }
 
@@ -31,17 +38,20 @@ int AllyArmy::getLength(unitType type)
 {
     switch (type) {
     case saverUnit:
-        return (SU.length());
+        return SU.length();
+    default:
+        return 0;
     }
 }
 
 bool AllyArmy::isEmpty(unitType type)
 {
-    switch (type) {
+    switch (type)
+    {
     case saverUnit:
         return SU.isEmpty();
-    case alliedArmy:
-        return SU.isEmpty();
+    default:
+        return false;
     }
 }
 
@@ -56,16 +66,16 @@ void AllyArmy::print()
 bool AllyArmy::fight()
 {
     bool a = false;
+    
     Units* unit;
     if (peekUnit(saverUnit, unit))
         a = unit->attack();
-    return (a);
+    return a;
 }
 
 AllyArmy::~AllyArmy()
 {
     Units* temp;
-    int n;
     while (SU.dequeue(temp))
     {
         delete temp;

@@ -68,6 +68,7 @@ public:
 	bool canInfect();
 	bool canSpread();
 	bool spreadInfection();
+	void allyArmyNotNeeded();
 	bool getRandomES(Units*&);
 
 	~Game();

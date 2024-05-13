@@ -12,7 +12,6 @@ private:
     LinkedQueue <Units*> ES;
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
-    ///////////
     ArrayStack <Units*> EH;
     int infCount = 0;
     int totalInfected = 0;

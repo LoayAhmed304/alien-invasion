@@ -17,7 +17,7 @@ enum unitType
     alienArmy,
     earthArmy,
     saverUnit,
-    alliedArmy
+    allyArmy
 };
 
 class Units

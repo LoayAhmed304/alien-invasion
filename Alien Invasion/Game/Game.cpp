@@ -49,7 +49,7 @@ void Game::setRandom()
 		cin >> inputFileName;
 		if (inputFileName.find(".txt") == string::npos)
 			inputFileName += ".txt";
-		inputFile.open(inputFileName, ios::in);
+		inputFile.open("Inputs/" + inputFileName, ios::in);
 	}
 
 	if (inputFile.is_open())
@@ -164,7 +164,7 @@ void Game::printAll()
 	eArmy->print();
 	cout << endl;
 
-	if(!sArmy->isEmpty(alliedArmy))
+	if(!sArmy->isEmpty(saverUnit))
 	{
 		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
 		sArmy->print();
@@ -218,14 +218,18 @@ bool Game::isEmpty(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->isEmpty(s);
-	return aArmy->isEmpty(s);
+	else if (s < alienArmy)
+		return aArmy->isEmpty(s);
+	return sArmy->isEmpty(s);
 }
 
 bool Game::getUnit(unitType s, Units*& unit)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
-	return aArmy->getUnit(s, unit);
+	else if(s < alienArmy)
+		return aArmy->getUnit(s, unit);
+	return sArmy->getUnit(s, unit);
 }
 
 bool Game::addUnit(Units*& unit)
@@ -239,7 +243,7 @@ bool Game::isOver(bool a, bool b , bool c)
 {
 	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b))
+		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(saverUnit) || !(a || b))
 		{
 			result = "Tie";
 			updateFile();
@@ -431,6 +435,7 @@ void Game::fight(int c)
 		bool s = sArmy->fight();						//Useless bool
 		bool a = aArmy->fight();
 		spreadInfection();
+		allyArmyNotNeeded();
 
 		if(c==2)
 			printAll();			// Printing the output screen
@@ -512,11 +517,28 @@ bool Game::spreadInfection()
 	return succeded;
 }
 
+void Game::allyArmyNotNeeded()
+{
+	if (!getEarthArmy()->getinfCount())
+	{
+		Units* tempUnit = nullptr;
+		while (getUnit(saverUnit, tempUnit))
+		{
+			delete tempUnit;
+			tempUnit = nullptr;
+		}
+	}
+}
+
 bool Game::getRandomES(Units*& ES)
 {
-	ES = nullptr;
-	int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
-	return eArmy->getRandomES(ES, randomIndex);
+	if (eArmy->getLength(earthSoldier))
+	{
+		ES = nullptr;
+		int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
+		return eArmy->getRandomES(ES, randomIndex);
+	}
+	return false;
 }
 
 Game::~Game()

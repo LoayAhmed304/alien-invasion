@@ -9,7 +9,7 @@ EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g
 bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 
@@ -28,7 +28,7 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else
@@ -44,7 +44,7 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(this, enemy);
 					attacked = true;
 				}
 				else
@@ -65,7 +65,7 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else

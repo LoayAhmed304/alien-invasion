@@ -12,13 +12,6 @@ bool SaverUnit::attack()
 	Units* unit = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
-	if (!game->getEarthArmy()->getinfCount())
-	{
-		while (!game->getAllyArmy()->isEmpty(alliedArmy))
-			game->getAllyArmy()->getUnit(saverUnit,unit);
-	}
-	else
-	{
 		for (int i = 0; i < this->getAttackCap(); ++i)
 		{
 			if (game->getUnit(alienSoldier, enemy))
@@ -50,6 +43,5 @@ bool SaverUnit::attack()
 			else
 				game->addUnit(enemy);
 		}
-	}
 	return attacked;
 }

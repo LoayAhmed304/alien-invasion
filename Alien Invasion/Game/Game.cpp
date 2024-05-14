@@ -446,7 +446,6 @@ void Game::fight(int c)
 		bool e = eArmy->fight();						// Calling both armies to fight one another
 		bool s = sArmy->fight();						// Useless bool
 		bool a = aArmy->fight();
-		
 
 		update();
 
@@ -556,8 +555,6 @@ bool Game::getRandomES(Units*& ES)
 	}
 
 	return false;
-}
-
 void Game::update()
 {
 	spreadInfection();

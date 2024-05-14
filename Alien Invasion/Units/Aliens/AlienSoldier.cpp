@@ -52,6 +52,26 @@ bool AlienSoldier::attack()
 			else
 				game->toLog(enemy);
 		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
+		if (game->getUnit(earthSoldier, enemy))
+		{
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
+			++i;
+
+			if (!attacked)
+			{
+				game->toLog(self, enemy);
+				attacked = true;
+			}
+			else
+				game->toLog(enemy);
+		}
 	}
 
 	if (attacked)

@@ -6,6 +6,7 @@ int Units::aID = 2000;
 int Units::sID = 4000;
 
 Units::Units(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0), infector(false)
+
 {
 	type = t;
 	if (type < alienSoldier)

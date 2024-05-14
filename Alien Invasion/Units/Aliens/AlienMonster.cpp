@@ -11,6 +11,7 @@ bool AlienMonster::attack()
 	Units* enemy = nullptr;
 	Units* self = this;
 	string s;
+
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	bool infects = false;

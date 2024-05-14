@@ -555,6 +555,7 @@ bool Game::getRandomES(Units*& ES)
 	}
 
 	return false;
+}
 void Game::update()
 {
 	spreadInfection();

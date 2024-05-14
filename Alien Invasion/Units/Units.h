@@ -31,7 +31,6 @@ private:
     bool infected;
     bool cured;
     int HT;
-    bool infector;
 protected:
     int id;
     static int eID;

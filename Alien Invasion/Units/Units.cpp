@@ -132,7 +132,7 @@ bool Units::isHealed() const
 void Units::heal()
 {
 	healed = true;
-	game->updateHealed();
+	game->getEarthArmy()->updateHealed();
 }
 
 int Units::getUMLtime() const

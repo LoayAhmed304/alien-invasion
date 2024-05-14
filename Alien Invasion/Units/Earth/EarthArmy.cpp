@@ -164,6 +164,30 @@ bool EarthArmy::getRandomES(Units*& unit, int index)
     return false;
 }
 
+void EarthArmy::updateD(Units* unit)
+{
+    totalDd += unit->getDd();
+    totalDf += unit->getDf();
+    totalDb += unit->getDb();
+}
+
+void EarthArmy::updateHealed()
+{
+    ++totalHealed;
+}
+
+int EarthArmy::getHealed() const
+{
+    return totalHealed;
+}
+
+void EarthArmy::returnD(float& f, float& d, float& b) const
+{
+    f = totalDf;
+    d = totalDd;
+    b = totalDb;
+}
+
 void EarthArmy::incInfected()
 {
     ++infCount;

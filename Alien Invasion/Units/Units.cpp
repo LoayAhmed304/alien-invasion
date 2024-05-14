@@ -25,7 +25,7 @@ Units::Units(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0
 
 bool Units::getAttacked(double dmg)
 {
-	cur_health -= dmg / sqrt(cur_health);
+	cur_health -= dmg;
 
 	if (cur_health <= 0)
 	{

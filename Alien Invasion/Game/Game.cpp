@@ -319,14 +319,20 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::toLog(Units* a, Units* b)
+bool Game::toLog(Units* a, Units* b, string s)
 {
+	if (a == b && a != nullptr)
+		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1;37m got infected" + "\033[1;37m\n";
+	else 
 	if (a && b)
 	{
 		switch (a->getType())
 		{
 		case earthSoldier:
-			log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1; 37m shots[";
+			log += "ES \033[1;34m";
+			if (a->isInfected()) log += "\033[1;32m$\033[1;34m" + to_string(a->getID());
+			else  log += to_string(a->getID());
+			log += "\033[1;37m shots [";
 			break;
 		case earthTank:
 			log += "ET \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
@@ -354,6 +360,7 @@ bool Game::toLog(Units* a, Units* b)
 		switch (b->getType())
 		{
 		case earthSoldier:
+			if (b->isInfected())log += "\033[1;32m$\033[1;34m";
 			log += "\033[1;34m" + to_string(b->getID());
 			break;
 		case earthTank:
@@ -384,7 +391,9 @@ bool Game::toLog(Units* a, Units* b)
 		switch (a->getType())
 		{
 		case earthSoldier:
-			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
+			log += "\033[1;37m, ";
+			if (a->isInfected()) log += "\033[1;32m$\033[1;34m";
+			log += "\033[1;34m" + to_string(a->getID());
 			break;
 		case earthTank:
 			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
@@ -409,11 +418,11 @@ bool Game::toLog(Units* a, Units* b)
 			break;
 		}
 	}
-	else
+	else if(!s.length())
 		log += "\033[1;37m]\n";
-
+	log += s;
 	return false;
-}
+} 
 
 bool Game::peekUnit(unitType s, Units*& unit)
 {
@@ -437,8 +446,8 @@ void Game::fight(int c)
 		bool e = eArmy->fight();						// Calling both armies to fight one another
 		bool s = sArmy->fight();						// Useless bool
 		bool a = aArmy->fight();
-		spreadInfection();
-		allyArmyNotNeeded();
+
+		update();
 
 		if(c==2)
 			printAll();			// Printing the output screen
@@ -513,7 +522,7 @@ bool Game::spreadInfection()
 			{
 				if (toInfect->getInfected())
 				{
-					log += "ES " + to_string(toInfect->getID()) + " got infected\n";
+					toLog(toInfect, toInfect);
 					succeded = true;
 				}
 			}
@@ -546,6 +555,11 @@ bool Game::getRandomES(Units*& ES)
 	}
 
 	return false;
+}
+void Game::update()
+{
+	spreadInfection();
+	allyArmyNotNeeded();
 }
 
 Game::~Game()

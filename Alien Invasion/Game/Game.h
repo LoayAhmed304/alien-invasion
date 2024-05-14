@@ -56,7 +56,7 @@ public:
 
 	bool kill(Units*&);
 	bool toUML(Units*&);
-	bool toLog(Units* = nullptr, Units* = nullptr);
+	bool toLog(Units* = nullptr, Units* = nullptr, string = "");
 
 	// Increments the total earth&alien D(f,d,b)
 	void updateED(Units*);
@@ -72,6 +72,8 @@ public:
 	void allyArmyNotNeeded();
 	bool getRandomES(Units*&);
 
+
+	void update();
 	~Game();
 };
 #endif

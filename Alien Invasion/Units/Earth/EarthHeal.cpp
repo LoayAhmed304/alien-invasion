@@ -21,7 +21,8 @@ bool EarthHeal::attack()
 			{
 				if(ally->getHealthPerc() < 20)
 				{
-					ally->getAttacked(-(getPower() * getHealth() / 100));
+					self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(ally->getCurHealth()));
+					ally->getAttacked(-self->getUAP());
 					ally->incHT();
 					if (!ally->isHealed())
 						ally->heal();

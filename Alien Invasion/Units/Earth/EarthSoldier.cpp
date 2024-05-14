@@ -19,9 +19,10 @@ bool EarthSoldier::attack()
 		{
 			if (game->getUnit(earthSoldier, enemy))
 			{
+				self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+				enemy->getAttacked(self->getUAP());
 				temp.enqueue(enemy);
 
 				if (!attacked)

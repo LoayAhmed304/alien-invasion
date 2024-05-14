@@ -10,29 +10,42 @@ bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
 	Units* self = this;
+	string s;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
+	bool infects = false;
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(earthTank)))
 	{
 		if (game->getUnit(earthSoldier, enemy))
 		{
+			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			if (!game->canInfect() || enemy->isInfected() || enemy->isCured())
+			{
 				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
-			else
+				if (!attacked)
+				{
+					game->toLog(self, enemy);
+					attacked = true;
+				}
+				else
+					game->toLog(enemy);
+			}
+			else 
+			{
 				enemy->getInfected();
+				if (!infects)
+				{
+					s += "AM \033[1;32m" + to_string(self->getID()) + "\033[1;37m infects [\033[1;34m" + to_string(enemy->getID());
+					infects = true;
+				}
+				else
+					s += "\033[1;37m, \033[1;34m" + to_string(enemy->getID());
+			}
 			temp.enqueue(enemy);
 			++i;
-
-			if (!attacked)
-			{
-				game->toLog(self, enemy);
-				attacked = true;
-			}
-			else
-				game->toLog(enemy);
 		}
 
 		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
@@ -40,9 +53,10 @@ bool AlienMonster::attack()
 
 		if (game->getUnit(earthTank, enemy))
 		{
+			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			enemy->getAttacked(self->getUAP());
 			temp.enqueue(enemy);
 			++i;
 
@@ -58,7 +72,11 @@ bool AlienMonster::attack()
 
 	if (attacked)
 		game->toLog();
-
+	if (infects)
+	{
+		s+= "\033[1;37m]\n";
+		game->toLog(nullptr,nullptr,s);
+	}
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())

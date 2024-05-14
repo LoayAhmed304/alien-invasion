@@ -31,6 +31,7 @@ private:
     bool infected;
     bool cured;
     int HT;
+    bool infector;
 protected:
     int id;
     static int eID;
@@ -77,6 +78,8 @@ public:
     virtual void setHT(int);
     virtual void incHT();
 
+    virtual void setUAP(double);
+    virtual double getUAP();
     friend std::ostream& operator<<(std::ostream& os, const Units* obj);
 };
 #endif

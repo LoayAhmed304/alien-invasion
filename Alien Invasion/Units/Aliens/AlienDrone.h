@@ -1,10 +1,8 @@
 #ifndef	ALIEND_DRONE_H
 #define ALIEND_DRONE_H
 #include "../Units.h"
-
-#include "../Units.h"
-
 class Game;
+
 
 class AlienDrone : public Units
 {

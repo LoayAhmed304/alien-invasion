@@ -9,39 +9,62 @@ AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p
 bool AlienSoldier::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
-	for (int i = 0; i < this->getAttackCap(); ++i)
+	int i = 0;
+	while(i<getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(saverUnit)))
 	{
+		if (game->getUnit(saverUnit, enemy))
+		{
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			temp.enqueue(enemy);
+			++i;
+
+			if (!attacked)
+			{
+				game->toLog(self, enemy);
+				attacked = true;
+			}
+			else
+				game->toLog(enemy);
+		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
 		if (game->getUnit(earthSoldier, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			++i;
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
-
 		}
 	}
+
 	if (attacked)
 		game->toLog();
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
 			game->kill(enemy);
-		else if (enemy->getHealthPerc() < 20)
+		else if (enemy->getHealthPerc() < 20 && enemy->getType() != saverUnit)
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);
-
 	}
+
 	return attacked;
 }

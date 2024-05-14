@@ -4,7 +4,7 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
-	sArmy = new AlliedArmy;
+	sArmy = new AllyArmy;
 	setRandom();
 	prepareOutputFile();
 }
@@ -42,14 +42,14 @@ void Game::setRandom()
 		ehl, ehh, ecl, ech, apl, aph, ahl, ahh, acl, ach, spl, sph, shl, shh, scl, sch;		// Variables to store values from the input file
 
 	fstream inputFile;
-	inputFile.open(inputFileName, ios::in);
+	inputFile.open("Inputs/" + inputFileName, ios::in);
 	while (!inputFile.is_open())
 	{
 		cout << "File doesn't exist.\nEnter the input file name: ";
 		cin >> inputFileName;
 		if (inputFileName.find(".txt") == string::npos)
 			inputFileName += ".txt";
-		inputFile.open(inputFileName, ios::in);
+		inputFile.open("Inputs/" + inputFileName, ios::in);
 	}
 
 	if (inputFile.is_open())
@@ -144,10 +144,6 @@ void Game::updateFile(Units* unit)
 		}
 		outputFile.close();
 	}
-	else
-	{
-		throw std::ios_base::failure("Failed to create file");
-	}
 }
 
 void Game::printAll()
@@ -164,7 +160,7 @@ void Game::printAll()
 	eArmy->print();
 	cout << endl;
 
-	if(!sArmy->isEmpty(alliedArmy))
+	if(!sArmy->isEmpty(saverUnit))
 	{
 		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
 		sArmy->print();
@@ -203,10 +199,12 @@ AlienArmy* Game::getAlienArmy()
 {
 	return aArmy;
 }
-AlliedArmy* Game::getAlliedArmy()
+
+AllyArmy* Game::getAllyArmy()
 {
 	return sArmy;
 }
+
 int Game::getLength(unitType s)
 {
 	if (s < alienSoldier)
@@ -218,28 +216,34 @@ bool Game::isEmpty(unitType s)
 {
 	if (s < alienSoldier)
 		return eArmy->isEmpty(s);
-	return aArmy->isEmpty(s);
+	else if (s < alienArmy)
+		return aArmy->isEmpty(s);
+	return sArmy->isEmpty(s);
 }
 
 bool Game::getUnit(unitType s, Units*& unit)
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
-	return aArmy->getUnit(s, unit);
+	else if(s < alienArmy)
+		return aArmy->getUnit(s, unit);
+	return sArmy->getUnit(s, unit);
 }
 
 bool Game::addUnit(Units*& unit)
 {
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
-	return aArmy->addUnit(unit);
+	else if (unit->getType() < alienArmy)
+		return aArmy->addUnit(unit);
+	return sArmy->addUnit(unit);
 }
 
 bool Game::isOver(bool a, bool b , bool c)
 {
 	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(alliedArmy) || !(a || b))
+		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(saverUnit) || !(a || b))
 		{
 			result = "Tie";
 			updateFile();
@@ -258,6 +262,7 @@ bool Game::isOver(bool a, bool b , bool c)
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -292,14 +297,14 @@ bool Game::kill(Units*& unit)
 	else
 		updateAD(unit);
 	updateFile(unit);
-	if(unit->isInfected())
-	unit->getCured();
+	if (unit->isInfected())
+		eArmy->decInfected();
+
 	return killedList.enqueue(unit);
 }
 
 bool Game::toUML(Units*& unit)
 {
-
 	if (unit->getType() == earthSoldier)
 	{
 		unit->enterUML();
@@ -310,6 +315,7 @@ bool Game::toUML(Units*& unit)
 		unit->enterUML();
 		UML.enqueue(unit, INT_MIN);
 	}
+
 	return true;
 }
 
@@ -344,6 +350,7 @@ bool Game::toLog(Units* a, Units* b)
 			log += "SU \033[1;33m" + to_string(a->getID()) + "\033[1;37m shots [";
 			break;
 		}
+
 		switch (b->getType())
 		{
 		case earthSoldier:
@@ -428,9 +435,10 @@ void Game::fight(int c)
 		random->addUnits();						// Adding units to both armies
 
 		bool e = eArmy->fight();						// Calling both armies to fight one another
-		bool s = sArmy->fight();						//Useless bool
+		bool s = sArmy->fight();						// Useless bool
 		bool a = aArmy->fight();
 		spreadInfection();
+		allyArmyNotNeeded();
 
 		if(c==2)
 			printAll();			// Printing the output screen
@@ -478,6 +486,8 @@ void Game::countUML()
 			++Ues;
 		else
 			++Uet;
+		delete unit;
+		unit = nullptr;
 	}
 }
 
@@ -509,14 +519,33 @@ bool Game::spreadInfection()
 			}
 		}
 	}
+
 	return succeded;
+}
+
+void Game::allyArmyNotNeeded()
+{
+	if (!getEarthArmy()->getinfCount())
+	{
+		Units* tempUnit = nullptr;
+		while (getUnit(saverUnit, tempUnit))
+		{
+			delete tempUnit;
+			tempUnit = nullptr;
+		}
+	}
 }
 
 bool Game::getRandomES(Units*& ES)
 {
-	ES = nullptr;
-	int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
-	return eArmy->getRandomES(ES, randomIndex);
+	if (eArmy->getLength(earthSoldier))
+	{
+		ES = nullptr;
+		int randomIndex = random->generateIndex(eArmy->getLength(earthSoldier));
+		return eArmy->getRandomES(ES, randomIndex);
+	}
+
+	return false;
 }
 
 Game::~Game()
@@ -525,10 +554,10 @@ Game::~Game()
 	delete aArmy;
 	delete sArmy;
 	delete random;
-	while (!killedList.isEmpty())
+	Units* temp;
+	while (killedList.dequeue(temp))
 	{
-		Units* temp;
-		killedList.dequeue(temp);
 		delete temp;
+		temp = nullptr;
 	}
 }

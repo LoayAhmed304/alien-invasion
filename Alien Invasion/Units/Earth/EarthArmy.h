@@ -12,11 +12,11 @@ private:
     LinkedQueue <Units*> ES;
     ArrayStack <Units*> ET;
     priQueue <Units*> EG;
-    ///////////
     ArrayStack <Units*> EH;
-    int infCount = 0;
-    int totalInfected = 0;
+    int infCount;
+    int totalInfected;
 public:
+    EarthArmy();
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
     bool getUnit(unitType, Units*&);

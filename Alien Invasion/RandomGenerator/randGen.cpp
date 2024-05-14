@@ -81,6 +81,7 @@ bool randGen::generateEarth(Units*& newBorn)
             newBorn = new EarthHeal(p, h, c, game);
         return true;
     }
+
     return false;
 }
 
@@ -121,6 +122,7 @@ bool randGen::generateSaver(Units*& newBorn)
     int B = 1 + (rand() % 100);
 
     newBorn = new SaverUnit(p, h, c, game);
+
     return true;
 }
 
@@ -136,7 +138,7 @@ bool randGen::addUnits()
         for (int i = 0; i < NS; i++)
         {
             generateSaver(newBorn);
-            game->getAlliedArmy()->addUnit(newBorn);
+            game->getAllyArmy()->addUnit(newBorn);
         }
     if (probability())
         for (int i = 0; i < N; i++)
@@ -154,5 +156,6 @@ bool randGen::addUnits()
             else
                 break;
         }
+
     return true;
 }

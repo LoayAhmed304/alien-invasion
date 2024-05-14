@@ -1,14 +1,14 @@
-#ifndef ALLIED_ARMY_H
-#define ALLIED_ARMY_H
+#ifndef ALLY_ARMY_H
+#define ALLY_ARMY_H
 
 #include "../Units.h"
 #include "../../DataStructures/LinkedQueue.h"
 
-
-class AlliedArmy
+class AllyArmy
 {
 private:
     LinkedQueue <Units*> SU;
+
 public:
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
@@ -16,7 +16,7 @@ public:
     int getLength(unitType);
     bool isEmpty(unitType);
     void print();
-    bool fight();        // Peeks each earth unit and calls its attack
-    ~AlliedArmy();
+    bool fight();        // Peeks each ally unit and calls its attack
+    ~AllyArmy();
 };
 #endif

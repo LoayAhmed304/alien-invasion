@@ -9,7 +9,7 @@ AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p
 bool AlienMonster::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	int i = 0;
@@ -24,36 +24,41 @@ bool AlienMonster::attack()
 			else
 				enemy->getInfected();
 			temp.enqueue(enemy);
+			++i;
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
-			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
 		if (game->getUnit(earthTank, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			++i;
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
-
-			++i;
 		}
 	}
+
 	if (attacked)
 		game->toLog();
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -63,5 +68,6 @@ bool AlienMonster::attack()
 		else
 			game->addUnit(enemy);
 	}
+
 	return attacked;
 }

@@ -9,13 +9,13 @@ EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g
 bool EarthTank::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
+	int i = 0;
 
-	if (game->getLength(earthSoldier) < (game->getLength(alienSoldier) * .3))
+	if (game->getLength(earthSoldier) < float(game->getLength(alienSoldier) * .3))
 	{
-		int i = 0;
 		while (i < getAttackCap() && (!game->isEmpty(alienMonster) || !game->isEmpty(alienSoldier)))
 		{
 			if (game->getUnit(alienSoldier, enemy))
@@ -28,12 +28,16 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else
 					game->toLog(enemy);
 			}
+
+			if (i == getAttackCap())			// Checks whether it has reached its maximum attack capacity
+				break;
+
 			if (game->getUnit(alienMonster, enemy))
 			{
 				if (!enemy->getTa())
@@ -44,7 +48,7 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(this, enemy);
 					attacked = true;
 				}
 				else
@@ -65,7 +69,7 @@ bool EarthTank::attack()
 
 				if (!attacked)
 				{
-					game->toLog(unit, enemy);
+					game->toLog(self, enemy);
 					attacked = true;
 				}
 				else
@@ -78,6 +82,7 @@ bool EarthTank::attack()
 
 	if (attacked)
 		game->toLog();
+
 	while (temp.dequeue(enemy))
 	{
 		if (enemy->isDead())
@@ -85,5 +90,6 @@ bool EarthTank::attack()
 		else
 			game->addUnit(enemy);
 	}
+
 	return attacked;
 }

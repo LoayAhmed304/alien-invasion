@@ -38,8 +38,12 @@
     <ClCompile Include="RandomGenerator\randGen.cpp">
       <Filter>RandomGenerator</Filter>
     </ClCompile>
-    <ClCompile Include="Units\Allied\SaverUnit.cpp" />
-    <ClCompile Include="Units\Allied\AlliedArmy.cpp" />
+    <ClCompile Include="Units\Ally\AllyArmy.cpp">
+      <Filter>Armies\Ally</Filter>
+    </ClCompile>
+    <ClCompile Include="Units\Ally\SaverUnit.cpp">
+      <Filter>Armies\Ally</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\ArrayStack.h">
@@ -111,8 +115,12 @@
     <ClInclude Include="Units\Earth\EarthHeal.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Allied\SaverUnit.h" />
-    <ClInclude Include="Units\Allied\AlliedArmy.h" />
+    <ClInclude Include="Units\Ally\AllyArmy.h">
+      <Filter>Armies\Ally</Filter>
+    </ClInclude>
+    <ClInclude Include="Units\Ally\SaverUnit.h">
+      <Filter>Armies\Ally</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Armies">
@@ -133,8 +141,16 @@
     <Filter Include="RandomGenerator">
       <UniqueIdentifier>{b191fa97-5445-42bf-a681-b5025a266b24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Armies\Ally">
+      <UniqueIdentifier>{ca23a688-f551-4e44-8816-89126b5a4718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inputs">
+      <UniqueIdentifier>{3d080dde-e93b-4cde-94ba-53eb151214ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="Inputs\input.txt">
+      <Filter>Inputs</Filter>
+    </Text>
   </ItemGroup>
 </Project>

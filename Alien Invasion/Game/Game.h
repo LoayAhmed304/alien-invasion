@@ -3,8 +3,9 @@
 
 #include "../Units/Aliens/AlienArmy.h"
 #include "../Units/Earth/EarthArmy.h"
-#include "../Units/Allied/AlliedArmy.h"
+#include "../Units/Ally/AllyArmy.h"
 #include "../RandomGenerator/randGen.h"
+#include <string>
 #include <fstream>
 #include <iomanip>
 using namespace std;
@@ -17,7 +18,7 @@ private:
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
-	AlliedArmy* sArmy;
+	AllyArmy* sArmy;
 
 	priQueue<Units*> UML;
 
@@ -41,7 +42,7 @@ public:
 
 	EarthArmy* getEarthArmy();
 	AlienArmy* getAlienArmy();
-	AlliedArmy* getAlliedArmy();
+	AllyArmy* getAllyArmy();
 
 	int getLength(unitType);
 	bool isEmpty(unitType);
@@ -68,9 +69,9 @@ public:
 	bool canInfect();
 	bool canSpread();
 	bool spreadInfection();
+	void allyArmyNotNeeded();
 	bool getRandomES(Units*&);
 
 	~Game();
 };
-
 #endif

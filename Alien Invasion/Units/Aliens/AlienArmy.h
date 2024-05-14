@@ -5,17 +5,17 @@
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/Deque.h"
 #include "../../DataStructures/RandomArray.h"
-#include <string>
 
 class AlienArmy{
 private:
     LinkedQueue<Units*> AS;
     RandomArray<Units*> AM;
     Deque<Units*> AD;
-    bool swap = true;
-    bool swapPeek = true;
+    bool swap;
+    bool swapPeek;
 
 public:
+    AlienArmy();
     bool addUnit(Units*);
     bool peekUnit(unitType, Units*&);
     bool getUnit(unitType, Units*&);

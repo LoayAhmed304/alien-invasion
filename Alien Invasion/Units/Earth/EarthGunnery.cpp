@@ -9,7 +9,7 @@ EarthGunnery::EarthGunnery(int p, int h, int c, Game* g) : Units(earthGunnery, p
 bool EarthGunnery::attack()
 {
 	Units* enemy = nullptr;
-	Units* unit = this;
+	Units* self = this;
 	LinkedQueue<Units*> temp;
 	bool attacked = false;
 	int i = 0;
@@ -21,42 +21,49 @@ bool EarthGunnery::attack()
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			++i;
 
 			if (!attacked)
 			{
-				game->toLog(unit , enemy);
+				game->toLog(self , enemy);
 				attacked = true;	//EG shots
 			}
 			else
 				game->toLog(enemy);
-
-			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has reached its maximum attack capacity
+			break;
+
 		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			++i;
 
 			if (!attacked)
 			{
-				game->toLog(unit, enemy);
+				game->toLog(self, enemy);
 				attacked = true;
 			}
 			else
 				game->toLog(enemy);
-			++i;
 		}
+
+		if (i == getAttackCap())			// Checks whether it has reached its maximum attack capacity
+			break;
+
 		if (game->getUnit(alienDrone, enemy))
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
 			temp.enqueue(enemy);
+			++i;
 
 			game->toLog(enemy);
-			++i;
 		}
 	}
 	if (attacked)
@@ -69,5 +76,6 @@ bool EarthGunnery::attack()
 		else
 			game->addUnit(enemy);
 	}
+
 	return attacked;
 }

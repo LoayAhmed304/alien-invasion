@@ -79,8 +79,6 @@ public:
     virtual void setHT(int);
     virtual void incHT();
 
-    virtual void setUAP(double);
-    virtual double getUAP();
     friend std::ostream& operator<<(std::ostream& os, const Units* obj);
 };
 #endif

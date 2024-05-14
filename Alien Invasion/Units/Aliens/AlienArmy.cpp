@@ -68,7 +68,7 @@ int AlienArmy::getLength(unitType type)
     }
 }
 
-bool AlienArmy::isEmpty(unitType type)
+bool AlienArmy::isEmpty(unitType type) const
 {
     switch (type) {
     case alienSoldier:
@@ -82,7 +82,7 @@ bool AlienArmy::isEmpty(unitType type)
     }
 }
 
-void AlienArmy::print()
+void AlienArmy::print() const
 {
     /// Print all Alien Soldiers
     cout << AS.length() << " AS [";

@@ -11,11 +11,11 @@ private:
 
 public:
     bool addUnit(Units*);
-    bool peekUnit(unitType, Units*&);
+    bool peekUnit(unitType, Units*&) const;
     bool getUnit(unitType, Units*&);
-    int getLength(unitType);
-    bool isEmpty(unitType);
-    void print();
+    int getLength(unitType) const;
+    bool isEmpty(unitType) const;
+    void print() const;
     bool fight();        // Peeks each ally unit and calls its attack
     ~AllyArmy();
 };

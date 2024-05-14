@@ -40,15 +40,15 @@ public:
 	void fight(int);		// Calls the fight of each army
 	bool isOver(bool, bool, bool);	// Checks whether the war is over
 
-	EarthArmy* getEarthArmy();
-	AlienArmy* getAlienArmy();
-	AllyArmy* getAllyArmy();
+	EarthArmy* getEarthArmy() const;
+	AlienArmy* getAlienArmy() const;
+	AllyArmy* getAllyArmy() const;
 
-	int getLength(unitType);
-	bool isEmpty(unitType);
-	bool getUnit(unitType, Units*&);
-	bool peekUnit(unitType, Units*&);
-	int getTimestep();
+	int getLength(unitType) const;
+	bool isEmpty(unitType) const;
+	bool getUnit(unitType, Units*&) const;
+	bool peekUnit(unitType, Units*&) const;
+	int getTimestep() const;
 	bool getUML(Units*&);
 	bool addUnit(Units*&);
 	void updateFile(Units* = nullptr);	// Updates the output file
@@ -66,11 +66,11 @@ public:
 	void countUML();
 
 	// Units infection
-	bool canInfect();
-	bool canSpread();
+	bool canInfect() const;
+	bool canSpread() const;
 	bool spreadInfection();
 	void allyArmyNotNeeded();
-	bool getRandomES(Units*&);
+	bool getRandomES(Units*&) const;
 
 
 	void update();

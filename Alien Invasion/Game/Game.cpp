@@ -190,29 +190,29 @@ void Game::printAll()
 	cout << endl;
 }
 
-EarthArmy* Game::getEarthArmy()
+EarthArmy* Game::getEarthArmy() const
 {
 	return eArmy;
 }
 
-AlienArmy* Game::getAlienArmy()
+AlienArmy* Game::getAlienArmy() const
 {
 	return aArmy;
 }
 
-AllyArmy* Game::getAllyArmy()
+AllyArmy* Game::getAllyArmy() const
 {
 	return sArmy;
 }
 
-int Game::getLength(unitType s)
+int Game::getLength(unitType s) const
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
 	return aArmy->getLength(s);
 }
 
-bool Game::isEmpty(unitType s)
+bool Game::isEmpty(unitType s) const
 {
 	if (s < alienSoldier)
 		return eArmy->isEmpty(s);
@@ -221,7 +221,7 @@ bool Game::isEmpty(unitType s)
 	return sArmy->isEmpty(s);
 }
 
-bool Game::getUnit(unitType s, Units*& unit)
+bool Game::getUnit(unitType s, Units*& unit) const
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
@@ -424,14 +424,14 @@ bool Game::toLog(Units* a, Units* b, string s)
 	return false;
 } 
 
-bool Game::peekUnit(unitType s, Units*& unit)
+bool Game::peekUnit(unitType s, Units*& unit) const
 {
 	if (s < alienSoldier)
 		return eArmy->peekUnit(s, unit);
 	return aArmy->peekUnit(s, unit);
 }
 
-int Game::getTimestep()
+int Game::getTimestep() const
 {
 	return timestep;
 }
@@ -500,12 +500,12 @@ void Game::countUML()
 	}
 }
 
-bool Game::canInfect()
+bool Game::canInfect() const
 {
 	return random->canInfect();
 }
 
-bool Game::canSpread()
+bool Game::canSpread() const
 {
 	return random->canSpread();
 }
@@ -545,7 +545,7 @@ void Game::allyArmyNotNeeded()
 	}
 }
 
-bool Game::getRandomES(Units*& ES)
+bool Game::getRandomES(Units*& ES) const
 {
 	if (eArmy->getLength(earthSoldier))
 	{

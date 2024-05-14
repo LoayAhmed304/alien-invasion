@@ -18,19 +18,19 @@ private:
 public:
     EarthArmy();
     bool addUnit(Units*);
-    bool peekUnit(unitType, Units*&);
+    bool peekUnit(unitType, Units*&) const;
     bool getUnit(unitType, Units*&);
-    int getLength(unitType);
-    bool isEmpty(unitType);
-    void print();
+    int getLength(unitType) const;
+    bool isEmpty(unitType) const;
+    void print() const;
     bool fight();        // Peeks each earth unit and calls its attack
-    bool inDanger(int);
+    bool inDanger(int) const;
     bool getRandomES(Units*&, int);
 
     void incInfected();
     void decInfected();
-    int getinfCount();
-    int getTotalInfected();
+    int getinfCount() const;
+    int getTotalInfected() const;
 
     ~EarthArmy();
 };

@@ -20,8 +20,8 @@ public:
     bool peekUnit(unitType, Units*&);
     bool getUnit(unitType, Units*&);
     int getLength(unitType);
-    bool isEmpty(unitType);
-    void print();
+    bool isEmpty(unitType) const;
+    void print() const;
     bool fight();        // Peeks each earth unit and calls its attack
     ~AlienArmy();
 };

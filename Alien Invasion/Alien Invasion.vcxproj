@@ -141,7 +141,7 @@
     <ClCompile Include="Units\Earth\EarthHeal.cpp" />
     <ClCompile Include="Units\Earth\EarthSoldier.cpp" />
     <ClCompile Include="Units\Earth\EarthTank.cpp" />
-    <ClCompile Include="Units\Units.cpp" />
+    <ClCompile Include="Units\Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures\RandomArrayADT.h" />
@@ -167,7 +167,7 @@
     <ClInclude Include="Units\Earth\EarthHeal.h" />
     <ClInclude Include="Units\Earth\EarthTank.h" />
     <ClInclude Include="Units\Earth\EarthSoldier.h" />
-    <ClInclude Include="Units\Units.h" />
+    <ClInclude Include="Units\Unit.h" />
     <ClInclude Include="RandomGenerator\randGen.h" />
   </ItemGroup>
   <ItemGroup>

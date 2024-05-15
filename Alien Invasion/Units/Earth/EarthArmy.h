@@ -1,7 +1,7 @@
 #ifndef EARTH_ARMY_H
 #define EARTH_ARMY_H
 
-#include "../Units.h"
+#include "../Unit.h"
 #include "../../DataStructures/LinkedQueue.h"
 #include "../../DataStructures/ArrayStack.h"
 #include "../../DataStructures/priQueue.h"
@@ -9,27 +9,27 @@
 class EarthArmy
 {
 private:
-    LinkedQueue <Units*> ES;
-    ArrayStack <Units*> ET;
-    priQueue <Units*> EG;
-    ArrayStack <Units*> EH;
+    LinkedQueue <Unit*> ES;
+    ArrayStack <Unit*> ET;
+    priQueue <Unit*> EG;
+    ArrayStack <Unit*> EH;
     int infCount;
     int totalDf, totalDd, totalDb;		// Total D(f/d/b) for the destructed units
     int totalHealed;
     int totalInfected;
 public:
     EarthArmy();
-    bool addUnit(Units*);
-    bool peekUnit(unitType, Units*&) const;
-    bool getUnit(unitType, Units*&);
+    bool addUnit(Unit*);
+    bool peekUnit(unitType, Unit*&) const;
+    bool getUnit(unitType, Unit*&);
     int getLength(unitType) const;
     bool isEmpty(unitType) const;
     void print() const;
     bool fight();        // Peeks each earth unit and calls its attack
     bool inDanger(int) const;
-    bool getRandomES(Units*&, int);
+    bool getRandomES(Unit*&, int);
 
-    void updateD(Units*);
+    void updateD(Unit*);
     void updateHealed();
     int getHealed() const;
     void returnD(float&, float&, float&) const;

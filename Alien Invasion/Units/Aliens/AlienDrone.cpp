@@ -1,16 +1,16 @@
 #include "AlienDrone.h"
 #include "../../Game/Game.h"
 
-AlienDrone::AlienDrone(int p, int h, int c, Game* g) : Units(alienDrone, p, h, c, g) 
+AlienDrone::AlienDrone(int p, int h, int c, Game* g) : Unit(alienDrone, p, h, c, g) 
 {
 	id = aID;
 }
 
 bool AlienDrone::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
-	LinkedQueue<Units*> temp;
+	Unit* enemy = nullptr;
+	Unit* self = this;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	int i = 0;
 	while (i < getAttackCap() && (!game->isEmpty(earthTank) || !game->isEmpty(earthGunnery)))

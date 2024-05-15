@@ -1,16 +1,16 @@
 #include "EarthTank.h"
 #include "../../Game/Game.h"
 
-EarthTank::EarthTank(int p, int h, int c, Game* g) : Units(earthTank, p, h, c, g) 
+EarthTank::EarthTank(int p, int h, int c, Game* g) : Unit(earthTank, p, h, c, g) 
 {
 	id = eID;
 }
 
 bool EarthTank::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
-	LinkedQueue<Units*> temp;
+	Unit* enemy = nullptr;
+	Unit* self = this;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	int i = 0;
 

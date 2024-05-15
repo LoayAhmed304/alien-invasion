@@ -1,18 +1,18 @@
 #include "AlienMonster.h"
 #include "../../Game/Game.h"
 
-AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p, h, c, g)
+AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Unit(alienMonster, p, h, c, g)
 {
 	id = aID;
 }
 
 bool AlienMonster::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
+	Unit* enemy = nullptr;
+	Unit* self = this;
 	string s;
 
-	LinkedQueue<Units*> temp;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	bool infects = false;
 	int i = 0;
@@ -47,6 +47,27 @@ bool AlienMonster::attack()
 			}
 			temp.enqueue(enemy);
 			++i;
+		}
+
+		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity
+			break;
+
+		if (game->getUnit(saverUnit, enemy))
+		{
+			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
+			if (!enemy->getTa())
+				enemy->setTa(game->getTimestep());
+			enemy->getAttacked(self->getUAP());
+			temp.enqueue(enemy);
+			++i;
+
+			if (!attacked)
+			{
+				game->toLog(self, enemy);
+				attacked = true;
+			}
+			else
+				game->toLog(enemy);
 		}
 
 		if (i == getAttackCap())			// Checks whether it has exceeded its maximum attack capacity

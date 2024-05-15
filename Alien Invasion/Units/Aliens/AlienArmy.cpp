@@ -3,7 +3,7 @@
 AlienArmy::AlienArmy(): swap(true), swapPeek(true)
 {}
 
-bool AlienArmy::addUnit(Units* X)
+bool AlienArmy::addUnit(Unit* X)
 {
     switch (X->getType())
     {
@@ -26,7 +26,7 @@ bool AlienArmy::addUnit(Units* X)
 }
 
 
-bool AlienArmy::peekUnit(unitType type, Units*& unit)
+bool AlienArmy::peekUnit(unitType type, Unit*& unit)
 {
     switch (type) {
     case alienSoldier:
@@ -41,7 +41,7 @@ bool AlienArmy::peekUnit(unitType type, Units*& unit)
     }
 }
 
-bool AlienArmy::getUnit(unitType type, Units*& unit)
+bool AlienArmy::getUnit(unitType type, Unit*& unit)
 {
     switch (type) {
     case alienSoldier:
@@ -102,7 +102,7 @@ void AlienArmy::print() const
 
 bool AlienArmy::fight()
 {
-    Units* unit;
+    Unit* unit;
     bool a = false, b = false, c = false, d = false;
    if (peekUnit(alienSoldier, unit))
         a = unit->attack();
@@ -119,7 +119,7 @@ bool AlienArmy::fight()
     return (a || b || c || d);
 }
 
-void AlienArmy::updateD(Units* unit)
+void AlienArmy::updateD(Unit* unit)
 {
     totalDf += unit->getDf();
     totalDd += unit->getDd();
@@ -135,7 +135,7 @@ void AlienArmy::returnD(float& f, float& d, float& b) const
 
 AlienArmy::~AlienArmy()
 {
-    Units* temp;
+    Unit* temp;
     for (int i = 0; !AM.isEmpty(); ++i)
     {
         AM.remove(temp);

@@ -1,11 +1,11 @@
-#include "Units.h"
+#include "Unit.h"
 #include "../Game/Game.h"
 
-int Units::eID = 0;
-int Units::aID = 2000;
-int Units::sID = 4000;
+int Unit::eID = 0;
+int Unit::aID = 2000;
+int Unit::sID = 4000;
 
-Units::Units(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0)
+Unit::Unit(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0)
 
 {
 	type = t;
@@ -23,7 +23,7 @@ Units::Units(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0
 	Tj = game->getTimestep();
 }
 
-bool Units::getAttacked(double dmg)
+bool Unit::getAttacked(double dmg)
 {
 	cur_health -= dmg;
 
@@ -37,48 +37,48 @@ bool Units::getAttacked(double dmg)
 
 	return true;
 }
-bool Units::isDead() const
+bool Unit::isDead() const
 {
 	return cur_health == 0;
 }
 
-unitType Units::getType() const
+unitType Unit::getType() const
 {
 	return type;
 }
 
-double Units::getHealth() const
+double Unit::getHealth() const
 {
 	return health;
 }
 
-double Units::getCurHealth() const
+double Unit::getCurHealth() const
 {
 	return cur_health;
 }
 
-int Units::getPower() const
+int Unit::getPower() const
 {
 	return power;
 }
 
-int Units::getAttackCap() const
+int Unit::getAttackCap() const
 {
 	return attack_cap;
 }
 
-int Units::getTa() const
+int Unit::getTa() const
 {
 	return Ta;
 }
 
-void Units::setTa(int ta)
+void Unit::setTa(int ta)
 {
 	Ta = ta;
 	Df = Ta - Tj;
 }
 
-int Units::getTotalUnits(unitType t)
+int Unit::getTotalUnits(unitType t)
 {
 	switch (t)
 	{
@@ -89,64 +89,64 @@ int Units::getTotalUnits(unitType t)
 	}
 }
 
-int Units::getTd() const
+int Unit::getTd() const
 {
 	return Td;
 }
 
-int Units::getID() const
+int Unit::getID() const
 {
 	return id;
 }
 
-int Units::getTj() const
+int Unit::getTj() const
 {
 	return Tj;
 }
 
-int Units::getDf() const
+int Unit::getDf() const
 {
 	return Df;
 }
 
-int Units::getDd() const
+int Unit::getDd() const
 {
 	return Dd;
 }
 
-int Units::getDb() const
+int Unit::getDb() const
 {
 	return Db;
 }
 
-int Units::getHealthPerc() const
+int Unit::getHealthPerc() const
 {
 	return ((cur_health * 100) / health);
 }
 
-bool Units::isHealed() const
+bool Unit::isHealed() const
 {
 	return healed;
 }
 
-void Units::heal()
+void Unit::heal()
 {
 	healed = true;
 	game->getEarthArmy()->updateHealed();
 }
 
-int Units::getUMLtime() const
+int Unit::getUMLtime() const
 {
 	return timeUML;
 }
 
-bool Units::exitUML()
+bool Unit::exitUML()
 {
 	timeUML = 0;
 	return true;
 }
 
-bool Units::enterUML()
+bool Unit::enterUML()
 {
 	timeUML = game->getTimestep();
 	if (!infected)
@@ -154,17 +154,17 @@ bool Units::enterUML()
 	return true;
 }
 
-bool Units::isInfected() const
+bool Unit::isInfected() const
 {
 	return infected;
 }
 
-bool Units::isCured() const
+bool Unit::isCured() const
 {
 	return cured;
 }
 
-bool Units::getInfected()
+bool Unit::getInfected()
 {
 	if (!cured)
 	{
@@ -175,43 +175,43 @@ bool Units::getInfected()
 	return false;
 }
 
-void Units::removeInfected()
+void Unit::removeInfected()
 {
 	infected = false;
 }
 
-void Units::getCured()
+void Unit::getCured()
 {
 	cured = true;
 	game->getEarthArmy()->decInfected();
 }
 
-int Units::getHT() const
+int Unit::getHT() const
 {
 	return HT;
 }
 
-void Units::setHT(int a)
+void Unit::setHT(int a)
 {
 	HT = a;
 }
 
-void Units::incHT()
+void Unit::incHT()
 {
 	++HT;
 }
 
-void Units::setUAP(double dmg)
+void Unit::setUAP(double dmg)
 {
 	UAP = dmg;
 }
 
-double Units::getUAP() const
+double Unit::getUAP() const
 {
 	return UAP;
 }
 
-std::ostream& operator<<(std::ostream& os, const Units* obj)
+std::ostream& operator<<(std::ostream& os, const Unit* obj)
 {
 	string color = "";
 	if (obj->getType() < alienSoldier)

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Units\Units.cpp">
+    <ClCompile Include="Units\Unit.cpp">
       <Filter>Armies</Filter>
     </ClCompile>
     <ClCompile Include="Units\Aliens\AlienArmy.cpp">
@@ -94,7 +94,7 @@
     <ClInclude Include="Units\Earth\EarthSoldier.h">
       <Filter>Armies\Earth</Filter>
     </ClInclude>
-    <ClInclude Include="Units\Units.h">
+    <ClInclude Include="Units\Unit.h">
       <Filter>Armies</Filter>
     </ClInclude>
     <ClInclude Include="Units\Earth\EarthTank.h">

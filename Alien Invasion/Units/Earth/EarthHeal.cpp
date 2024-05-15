@@ -1,17 +1,17 @@
 #include "EarthHeal.h"
 #include "../../Game/Game.h"
 
-EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Units(earthHeal, p, h, c, g)
+EarthHeal::EarthHeal(int p, int h, int c, Game* g) : Unit(earthHeal, p, h, c, g)
 {
 	id = eID;
 }
 
 bool EarthHeal::attack()
 {
-	Units* ally = nullptr;
-	Units* self = this;
+	Unit* ally = nullptr;
+	Unit* self = this;
  	bool healed = false;
-	LinkedQueue<Units*> temp;
+	LinkedQueue<Unit*> temp;
 	for (int i = 0; i < getAttackCap(); i++)
 	{
 

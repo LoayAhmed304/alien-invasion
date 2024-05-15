@@ -14,13 +14,13 @@ class Game {
 private:
 	int timestep;
 	string result;
-	LinkedQueue<Units*> killedList;
+	LinkedQueue<Unit*> killedList;
 	randGen* random;
 	EarthArmy* eArmy;
 	AlienArmy* aArmy;
 	AllyArmy* sArmy;
 
-	priQueue<Units*> UML;
+	priQueue<Unit*> UML;
 
 	string inputFileName;
 	fstream outputFile;
@@ -43,17 +43,17 @@ public:
 
 	int getLength(unitType) const;
 	bool isEmpty(unitType) const;
-	bool getUnit(unitType, Units*&) const;
-	bool peekUnit(unitType, Units*&) const;
+	bool getUnit(unitType, Unit*&) const;
+	bool peekUnit(unitType, Unit*&) const;
 	int getTimestep() const;
-	bool getUML(Units*&);
-	bool addUnit(Units*&);
-	void updateFile(Units* = nullptr);	// Updates the output file
+	bool getUML(Unit*&);
+	bool addUnit(Unit*&);
+	void updateFile(Unit* = nullptr);	// Updates the output file
 	void prepareOutputFile();		// Clears and sets the output file
 
-	bool kill(Units*&);
-	bool toUML(Units*&);
-	bool toLog(Units* = nullptr, Units* = nullptr, string = "");
+	bool kill(Unit*&);
+	bool toUML(Unit*&);
+	bool toLog(Unit* = nullptr, Unit* = nullptr, string = "");
 
 	void countUML();
 
@@ -62,7 +62,7 @@ public:
 	bool canSpread() const;
 	bool spreadInfection();
 	void allyArmyNotNeeded();
-	bool getRandomES(Units*&) const;
+	bool getRandomES(Unit*&) const;
 
 
 	void update();

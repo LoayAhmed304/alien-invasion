@@ -1,5 +1,5 @@
-#ifndef UNITS_H
-#define UNITS_H
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <iostream>
 class Game;
@@ -21,7 +21,7 @@ enum unitType
     allyArmy
 };
 
-class Units
+class Unit
 {
 private:
     unitType type;
@@ -38,7 +38,7 @@ protected:
     static int sID;
     Game* game;
 public:
-    Units(unitType, int, int, int, Game*);
+    Unit(unitType, int, int, int, Game*);
     virtual bool attack() = 0;
     virtual bool getAttacked(double);
     virtual bool isDead() const;
@@ -79,6 +79,6 @@ public:
     virtual void setHT(int);
     virtual void incHT();
 
-    friend std::ostream& operator<<(std::ostream& os, const Units* obj);
+    friend std::ostream& operator<<(std::ostream& os, const Unit* obj);
 };
 #endif

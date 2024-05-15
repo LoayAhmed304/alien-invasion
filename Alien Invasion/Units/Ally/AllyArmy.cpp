@@ -1,6 +1,6 @@
 #include "AllyArmy.h"
 
-bool AllyArmy::addUnit(Units* X)
+bool AllyArmy::addUnit(Unit* X)
 {
     switch (X->getType())
     {
@@ -12,7 +12,7 @@ bool AllyArmy::addUnit(Units* X)
     }
 }
 
-bool AllyArmy::peekUnit(unitType type, Units*& unit) const
+bool AllyArmy::peekUnit(unitType type, Unit*& unit) const
 {
     switch (type) {
     case saverUnit:
@@ -22,7 +22,7 @@ bool AllyArmy::peekUnit(unitType type, Units*& unit) const
     }
 }
 
-bool AllyArmy::getUnit(unitType type, Units*& unit)
+bool AllyArmy::getUnit(unitType type, Unit*& unit)
 {
     switch (type) {
     case saverUnit:
@@ -55,7 +55,7 @@ bool AllyArmy::isEmpty(unitType type) const
 
 void AllyArmy::print() const
 {
-    /// Print all Saver Units
+    /// Print all Saver Unit
     cout << SU.length() << " SU [";
     SU.printAll();
     cout << "]\n";
@@ -64,7 +64,7 @@ void AllyArmy::print() const
 bool AllyArmy::fight()
 {
     bool a = false;
-    Units* unit;
+    Unit* unit;
     if (peekUnit(saverUnit, unit))
         a = unit->attack();
 
@@ -73,7 +73,7 @@ bool AllyArmy::fight()
 
 AllyArmy::~AllyArmy()
 {
-    Units* temp;
+    Unit* temp;
     while (SU.dequeue(temp))
     {
         delete temp;

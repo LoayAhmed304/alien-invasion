@@ -1,16 +1,16 @@
 #include "EarthSoldier.h"
 #include "../../Game/Game.h"
 
-EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Units(earthSoldier, p, h, c, g)
+EarthSoldier::EarthSoldier(int p, int h, int c, Game* g) : Unit(earthSoldier, p, h, c, g)
 {
 	id = eID;
 }
 
 bool EarthSoldier::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
-	LinkedQueue<Units*> temp;
+	Unit* enemy = nullptr;
+	Unit* self = this;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	if (this->isInfected())
 	{

@@ -58,9 +58,9 @@ bool randGen::canSpread() const
     return ((rand() % 101) <= 2);
 }
 
-bool randGen::generateEarth(Units*& newBorn)
+bool randGen::generateEarth(Unit*& newBorn)
 {
-    if (Units::getTotalUnits(earthArmy) < 999)
+    if (Unit::getTotalUnits(earthArmy) < 999)
     {
         int p, h, c;
         p = earthPowerLow + (rand() % (earthPowerHigh - earthPowerLow + 1));
@@ -85,9 +85,9 @@ bool randGen::generateEarth(Units*& newBorn)
     return false;
 }
 
-bool randGen::generateAlien(Units*& newBorn)
+bool randGen::generateAlien(Unit*& newBorn)
 {
-    if (Units::getTotalUnits(alienArmy) < 999)
+    if (Unit::getTotalUnits(alienArmy) < 999)
     {
         int p, h, c;
         p = alienPowerLow + (rand() % (alienPowerHigh - alienPowerLow + 1));
@@ -109,7 +109,7 @@ bool randGen::generateAlien(Units*& newBorn)
     }
     return false;
 }
-bool randGen::generateSaver(Units*& newBorn)
+bool randGen::generateSaver(Unit*& newBorn)
 {
     int p, h, c;
     p = saverPowerLow + (rand() % (saverPowerHigh - saverPowerLow + 1));
@@ -133,7 +133,7 @@ int randGen::generateIndex(int size) const
 
 bool randGen::addUnits()
 {
-    Units* newBorn = nullptr;
+    Unit* newBorn = nullptr;
     if (game->getEarthArmy()->inDanger(infThreshold))
         for (int i = 0; i < NS; i++)
         {

@@ -3,7 +3,7 @@
 EarthArmy::EarthArmy(): infCount(0), totalInfected(0)
 {}
 
-bool EarthArmy::addUnit(Units* X)
+bool EarthArmy::addUnit(Unit* X)
 {
     switch (X->getType())
     {
@@ -23,7 +23,7 @@ bool EarthArmy::addUnit(Units* X)
     return true;
 }
 
-bool EarthArmy::peekUnit(unitType type, Units*& unit) const
+bool EarthArmy::peekUnit(unitType type, Unit*& unit) const
 {
     switch (type) {
     case earthSoldier:
@@ -38,7 +38,7 @@ bool EarthArmy::peekUnit(unitType type, Units*& unit) const
     }
 }
 
-bool EarthArmy::getUnit(unitType type, Units*& unit)
+bool EarthArmy::getUnit(unitType type, Unit*& unit)
 {
     switch (type) {
     case earthSoldier:
@@ -109,7 +109,7 @@ void EarthArmy::print() const
 bool EarthArmy::fight()
 {
     bool a = false, b = false, c = false;
-    Units* unit;
+    Unit* unit;
     if (peekUnit(earthSoldier, unit))
         a = unit->attack();
     if (peekUnit(earthTank, unit))
@@ -123,18 +123,18 @@ bool EarthArmy::fight()
 
 bool EarthArmy::inDanger(int p) const
 {
-    int totalSoldiers = Units::getTotalUnits(earthArmy);
+    int totalSoldiers = Unit::getTotalUnits(earthArmy);
     if(totalSoldiers)
         return (infCount * 100 / totalSoldiers) > p;
 
     return false;
 }
 
-bool EarthArmy::getRandomES(Units*& unit, int index)
+bool EarthArmy::getRandomES(Unit*& unit, int index)
 {
-    Units* dummyUnit = nullptr;
-    Units* target = nullptr;
-    LinkedQueue<Units*> temp;
+    Unit* dummyUnit = nullptr;
+    Unit* target = nullptr;
+    LinkedQueue<Unit*> temp;
     int i = 0;
     while (ES.dequeue(dummyUnit))
     {
@@ -164,7 +164,7 @@ bool EarthArmy::getRandomES(Units*& unit, int index)
     return false;
 }
 
-void EarthArmy::updateD(Units* unit)
+void EarthArmy::updateD(Unit* unit)
 {
     totalDd += unit->getDd();
     totalDf += unit->getDf();
@@ -212,7 +212,7 @@ int EarthArmy::getTotalInfected() const
 
 EarthArmy::~EarthArmy()
 {
-    Units* temp;
+    Unit* temp;
     int n;
     while (ES.dequeue(temp))
     {

@@ -66,7 +66,7 @@ void Game::setRandom()
 	}
 }
 
-void Game::updateFile(Units* unit)
+void Game::updateFile(Unit* unit)
 {
 	string fileName = "output.txt";
 	outputFile.open("output.txt", ios::app);
@@ -82,9 +82,9 @@ void Game::updateFile(Units* unit)
 			countUML();
 
 			// Create variables to store the data to be dealt with easier
-			float totalEarthUnits = Units::getTotalUnits(earthArmy);
+			float totalEarthUnits = Unit::getTotalUnits(earthArmy);
 			float totalDestructedEarthUnits = es + et + eg + eh;
-			float totalAlienUnits = Units::getTotalUnits(alienArmy);
+			float totalAlienUnits = Unit::getTotalUnits(alienArmy);
 			float totalDestructedAlienUnits = as + ad + am;
 			float EDf, EDd, EDb, ADf, ADd, ADb;
 			eArmy->returnD(EDf, EDd, EDb);
@@ -156,9 +156,9 @@ void Game::printAll()
 
 	cout << "Current Timestep " << timestep << endl;
 
-	if (Units::getTotalUnits(earthArmy) >= 999)
+	if (Unit::getTotalUnits(earthArmy) >= 999)
 		cout << "Earth units limit exceeded\n";
-	if (Units::getTotalUnits(alienArmy) >= 999)
+	if (Unit::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
 	cout << "\n\033[44m============== Earth Army Alive Units ============\033[40m\n";
@@ -228,7 +228,7 @@ bool Game::isEmpty(unitType s) const
 	return sArmy->isEmpty(s);
 }
 
-bool Game::getUnit(unitType s, Units*& unit) const
+bool Game::getUnit(unitType s, Unit*& unit) const
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
@@ -237,7 +237,7 @@ bool Game::getUnit(unitType s, Units*& unit) const
 	return sArmy->getUnit(s, unit);
 }
 
-bool Game::addUnit(Units*& unit)
+bool Game::addUnit(Unit*& unit)
 {
 	if (unit->getType() < alienSoldier)
 		return eArmy->addUnit(unit);
@@ -273,7 +273,7 @@ bool Game::isOver(bool a, bool b , bool c)
 	return false;
 }
 
-bool Game::kill(Units*& unit)
+bool Game::kill(Unit*& unit)
 {
 	switch (unit->getType())
 	{
@@ -310,7 +310,7 @@ bool Game::kill(Units*& unit)
 	return killedList.enqueue(unit);
 }
 
-bool Game::toUML(Units*& unit)
+bool Game::toUML(Unit*& unit)
 {
 	if (unit->getType() == earthSoldier)
 	{
@@ -326,7 +326,7 @@ bool Game::toUML(Units*& unit)
 	return true;
 }
 
-bool Game::toLog(Units* a, Units* b, string s)
+bool Game::toLog(Unit* a, Unit* b, string s)
 {
 	if (a == b && a != nullptr)
 		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1;37m got infected" + "\033[1;37m\n";
@@ -431,7 +431,7 @@ bool Game::toLog(Units* a, Units* b, string s)
 	return false;
 } 
 
-bool Game::peekUnit(unitType s, Units*& unit) const
+bool Game::peekUnit(unitType s, Unit*& unit) const
 {
 	if (s < alienSoldier)
 		return eArmy->peekUnit(s, unit);
@@ -465,7 +465,7 @@ void Game::fight(int c)
 	}
 }
 
-bool Game::getUML(Units*& unit)
+bool Game::getUML(Unit*& unit)
 {
 	int p;
 	if (UML.dequeue(unit, p))
@@ -475,7 +475,7 @@ bool Game::getUML(Units*& unit)
 
 void Game::countUML()
 {
-	Units* unit = nullptr;
+	Unit* unit = nullptr;
 	int n;
 	while (UML.dequeue(unit, n))
 	{
@@ -505,7 +505,7 @@ bool Game::spreadInfection()
 	{
 		if (canSpread())
 		{
-			Units* toInfect = nullptr;
+			Unit* toInfect = nullptr;
 			if (getRandomES(toInfect))
 			{
 				if (toInfect->getInfected())
@@ -524,7 +524,7 @@ void Game::allyArmyNotNeeded()
 {
 	if (!getEarthArmy()->getinfCount())
 	{
-		Units* tempUnit = nullptr;
+		Unit* tempUnit = nullptr;
 		while (getUnit(saverUnit, tempUnit))
 		{
 			delete tempUnit;
@@ -533,7 +533,7 @@ void Game::allyArmyNotNeeded()
 	}
 }
 
-bool Game::getRandomES(Units*& ES) const
+bool Game::getRandomES(Unit*& ES) const
 {
 	if (eArmy->getLength(earthSoldier))
 	{
@@ -556,7 +556,7 @@ Game::~Game()
 	delete aArmy;
 	delete sArmy;
 	delete random;
-	Units* temp;
+	Unit* temp;
 	while (killedList.dequeue(temp))
 	{
 		delete temp;

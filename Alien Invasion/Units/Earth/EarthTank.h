@@ -1,9 +1,9 @@
 #ifndef	EARTH_TANK_H
 #define EARTH_TANK_H
-#include "../Units.h"
+#include "../Unit.h"
 class Game;
 
-class EarthTank : public Units
+class EarthTank : public Unit
 {
 public:
 	EarthTank(int p, int h, int c, Game* g);

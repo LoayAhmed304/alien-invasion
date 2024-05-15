@@ -1,9 +1,9 @@
 #ifndef	SAVER_UNIT_H
 #define SAVER_UNIT_H
-#include "../Units.h"
+#include "../Unit.h"
 class Game;
 
-class SaverUnit : public Units
+class SaverUnit : public Unit
 {
 public:
 	SaverUnit(int p, int h, int c, Game* g);

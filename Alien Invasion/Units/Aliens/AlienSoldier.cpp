@@ -1,16 +1,16 @@
 #include "AlienSoldier.h"
 #include "../../Game/Game.h"
 
-AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Units(alienSoldier, p, h, c, g)
+AlienSoldier::AlienSoldier(int p, int h, int c, Game* g) : Unit(alienSoldier, p, h, c, g)
 {
 	id = aID;
 }
 
 bool AlienSoldier::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
-	LinkedQueue<Units*> temp;
+	Unit* enemy = nullptr;
+	Unit* self = this;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	int i = 0;
 	while(i<getAttackCap() && (!game->isEmpty(earthSoldier) || !game->isEmpty(saverUnit)))

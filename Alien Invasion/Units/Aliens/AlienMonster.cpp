@@ -1,18 +1,18 @@
 #include "AlienMonster.h"
 #include "../../Game/Game.h"
 
-AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Units(alienMonster, p, h, c, g)
+AlienMonster::AlienMonster(int p, int h, int c, Game* g) : Unit(alienMonster, p, h, c, g)
 {
 	id = aID;
 }
 
 bool AlienMonster::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
+	Unit* enemy = nullptr;
+	Unit* self = this;
 	string s;
 
-	LinkedQueue<Units*> temp;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	bool infects = false;
 	int i = 0;

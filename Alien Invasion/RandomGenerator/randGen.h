@@ -33,9 +33,9 @@ public:
 	bool probability() const;
 	bool canInfect() const;
 	bool canSpread() const;
-	bool generateEarth(Units*&);
-	bool generateAlien(Units*&);
-	bool generateSaver(Units*&);
+	bool generateEarth(Unit*&);
+	bool generateAlien(Unit*&);
+	bool generateSaver(Unit*&);
 	int generateIndex(int) const;
 	bool addUnits();
 };

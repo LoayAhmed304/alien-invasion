@@ -1,16 +1,16 @@
 #include "SaverUnit.h"
 #include "../../Game/Game.h"
 
-SaverUnit::SaverUnit(int p, int h, int c, Game* g) : Units(saverUnit, p, h, c, g)
+SaverUnit::SaverUnit(int p, int h, int c, Game* g) : Unit(saverUnit, p, h, c, g)
 {
 	id = sID;
 }
 
 bool SaverUnit::attack()
 {
-	Units* enemy = nullptr;
-	Units* self = this;
-	LinkedQueue<Units*> temp;
+	Unit* enemy = nullptr;
+	Unit* self = this;
+	LinkedQueue<Unit*> temp;
 	bool attacked = false;
 	for (int i = 0; i < this->getAttackCap(); ++i)
 	{

@@ -1,18 +1,18 @@
 #ifndef ALLY_ARMY_H
 #define ALLY_ARMY_H
 
-#include "../Units.h"
+#include "../Unit.h"
 #include "../../DataStructures/LinkedQueue.h"
 
 class AllyArmy
 {
 private:
-    LinkedQueue <Units*> SU;
+    LinkedQueue <Unit*> SU;
 
 public:
-    bool addUnit(Units*);
-    bool peekUnit(unitType, Units*&) const;
-    bool getUnit(unitType, Units*&);
+    bool addUnit(Unit*);
+    bool peekUnit(unitType, Unit*&) const;
+    bool getUnit(unitType, Unit*&);
     int getLength(unitType) const;
     bool isEmpty(unitType) const;
     void print() const;

@@ -1,9 +1,9 @@
 #ifndef ALIEN_SOLDIER_H
 #define ALIEN_SOLDIER_H
-#include "../Units.h"
+#include "../Unit.h"
 class Game;
 
-class AlienSoldier : public Units
+class AlienSoldier : public Unit
 {
 public:
 	AlienSoldier(int p, int h, int c, Game* g);

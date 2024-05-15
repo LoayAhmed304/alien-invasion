@@ -41,7 +41,7 @@ public:
     Units(unitType, int, int, int, Game*);
     virtual bool attack() = 0;
     virtual bool getAttacked(double);
-    virtual bool isDead();
+    virtual bool isDead() const;
     virtual unitType getType() const;
     virtual double getHealth() const;
     virtual double getCurHealth() const;
@@ -58,27 +58,27 @@ public:
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
+    virtual double getUAP() const;
+    virtual void setUAP(double);
     virtual void setTa(int);
 
-    virtual bool isHealed();
+    virtual bool isHealed() const;
     virtual void heal();
 
-    virtual int getUMLtime();
+    virtual int getUMLtime() const;
     virtual bool exitUML();
     virtual bool enterUML();
 
     virtual bool isInfected() const;
-    virtual bool isCured();
+    virtual bool isCured() const;
     virtual bool getInfected();
     virtual void removeInfected();
     virtual void getCured();
 
-    virtual int getHT();
+    virtual int getHT() const;
     virtual void setHT(int);
     virtual void incHT();
 
-    virtual void setUAP(double);
-    virtual double getUAP();
     friend std::ostream& operator<<(std::ostream& os, const Units* obj);
 };
 #endif

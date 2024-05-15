@@ -12,7 +12,7 @@ bool AllyArmy::addUnit(Units* X)
     }
 }
 
-bool AllyArmy::peekUnit(unitType type, Units*& unit)
+bool AllyArmy::peekUnit(unitType type, Units*& unit) const
 {
     switch (type) {
     case saverUnit:
@@ -32,7 +32,7 @@ bool AllyArmy::getUnit(unitType type, Units*& unit)
     }
 }
 
-int AllyArmy::getLength(unitType type)
+int AllyArmy::getLength(unitType type) const
 {
     switch (type) {
     case saverUnit:
@@ -42,7 +42,7 @@ int AllyArmy::getLength(unitType type)
     }
 }
 
-bool AllyArmy::isEmpty(unitType type)
+bool AllyArmy::isEmpty(unitType type) const
 {
     switch (type)
     {
@@ -53,7 +53,7 @@ bool AllyArmy::isEmpty(unitType type)
     }
 }
 
-void AllyArmy::print()
+void AllyArmy::print() const
 {
     /// Print all Saver Units
     cout << SU.length() << " SU [";

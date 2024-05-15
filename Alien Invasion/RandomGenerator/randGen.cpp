@@ -43,17 +43,17 @@ randGen::randGen(int n, int ns, int es, int et, int eg, int eh, int as,
     game = g;
 }
 
-bool randGen::probability()
+bool randGen::probability() const
 {
     return ((rand() % 101) <= prob);
 }
 
-bool randGen::canInfect()
+bool randGen::canInfect() const
 {
     return ((rand() % 101) <= inf);
 }
 
-bool randGen::canSpread()
+bool randGen::canSpread() const
 {
     return ((rand() % 101) <= 2);
 }
@@ -126,7 +126,7 @@ bool randGen::generateSaver(Units*& newBorn)
     return true;
 }
 
-int randGen::generateIndex(int size)
+int randGen::generateIndex(int size) const
 {
     return (rand() % size);
 }

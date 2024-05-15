@@ -23,7 +23,7 @@ bool EarthArmy::addUnit(Units* X)
     return true;
 }
 
-bool EarthArmy::peekUnit(unitType type, Units*& unit)
+bool EarthArmy::peekUnit(unitType type, Units*& unit) const
 {
     switch (type) {
     case earthSoldier:
@@ -53,7 +53,7 @@ bool EarthArmy::getUnit(unitType type, Units*& unit)
     }
 }
 
-int EarthArmy::getLength(unitType type)
+int EarthArmy::getLength(unitType type) const
 {
     switch (type) {
     case earthSoldier:
@@ -67,7 +67,7 @@ int EarthArmy::getLength(unitType type)
     }
 }
 
-bool EarthArmy::isEmpty(unitType type)
+bool EarthArmy::isEmpty(unitType type) const
 {
     switch (type) {
     case earthSoldier:
@@ -83,7 +83,7 @@ bool EarthArmy::isEmpty(unitType type)
     }
 }
 
-void EarthArmy::print()
+void EarthArmy::print() const
 {
     /// Print all Earth Soldiers
     cout << ES.length() << " ES [";
@@ -121,7 +121,7 @@ bool EarthArmy::fight()
     return (a || b || c);
 }
 
-bool EarthArmy::inDanger(int p)
+bool EarthArmy::inDanger(int p) const
 {
     int totalSoldiers = Units::getTotalUnits(earthArmy);
     if(totalSoldiers)
@@ -164,6 +164,30 @@ bool EarthArmy::getRandomES(Units*& unit, int index)
     return false;
 }
 
+void EarthArmy::updateD(Units* unit)
+{
+    totalDd += unit->getDd();
+    totalDf += unit->getDf();
+    totalDb += unit->getDb();
+}
+
+void EarthArmy::updateHealed()
+{
+    ++totalHealed;
+}
+
+int EarthArmy::getHealed() const
+{
+    return totalHealed;
+}
+
+void EarthArmy::returnD(float& f, float& d, float& b) const
+{
+    f = totalDf;
+    d = totalDd;
+    b = totalDb;
+}
+
 void EarthArmy::incInfected()
 {
     ++infCount;
@@ -176,12 +200,12 @@ void EarthArmy::decInfected()
         --infCount;
 }
 
-int EarthArmy::getinfCount()
+int EarthArmy::getinfCount() const
 {
     return infCount;
 }
 
-int EarthArmy::getTotalInfected()
+int EarthArmy::getTotalInfected() const
 {
     return totalInfected;
 }

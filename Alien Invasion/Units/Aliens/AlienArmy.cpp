@@ -68,7 +68,7 @@ int AlienArmy::getLength(unitType type)
     }
 }
 
-bool AlienArmy::isEmpty(unitType type)
+bool AlienArmy::isEmpty(unitType type) const
 {
     switch (type) {
     case alienSoldier:
@@ -82,7 +82,7 @@ bool AlienArmy::isEmpty(unitType type)
     }
 }
 
-void AlienArmy::print()
+void AlienArmy::print() const
 {
     /// Print all Alien Soldiers
     cout << AS.length() << " AS [";
@@ -117,6 +117,20 @@ bool AlienArmy::fight()
     }
 
     return (a || b || c || d);
+}
+
+void AlienArmy::updateD(Units* unit)
+{
+    totalDf += unit->getDf();
+    totalDd += unit->getDd();
+    totalDb += unit->getDb();
+}
+
+void AlienArmy::returnD(float& f, float& d, float& b) const
+{
+    f = totalDf;
+    d = totalDd;
+    b = totalDb;
 }
 
 AlienArmy::~AlienArmy()

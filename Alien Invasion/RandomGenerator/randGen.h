@@ -30,13 +30,13 @@ public:
 		int as, int am, int ad, int probability, int infection, int infthreshold,
 		int epl, int eph, int ehl, int ehh, int ecl, int ech,
 		int apl, int aph, int ahl, int ahh, int acl, int ach, int spl, int sph, int shl, int shh, int scl, int sch, Game* g);
-	bool probability();
-	bool canInfect();
-	bool canSpread();
+	bool probability() const;
+	bool canInfect() const;
+	bool canSpread() const;
 	bool generateEarth(Units*&);
 	bool generateAlien(Units*&);
 	bool generateSaver(Units*&);
-	int generateIndex(int);
+	int generateIndex(int) const;
 	bool addUnits();
 };
 #endif

@@ -37,7 +37,7 @@ bool Units::getAttacked(double dmg)
 
 	return true;
 }
-bool Units::isDead()
+bool Units::isDead() const
 {
 	return cur_health == 0;
 }
@@ -124,7 +124,7 @@ int Units::getHealthPerc() const
 	return ((cur_health * 100) / health);
 }
 
-bool Units::isHealed()
+bool Units::isHealed() const
 {
 	return healed;
 }
@@ -132,10 +132,10 @@ bool Units::isHealed()
 void Units::heal()
 {
 	healed = true;
-	game->updateHealed();
+	game->getEarthArmy()->updateHealed();
 }
 
-int Units::getUMLtime()
+int Units::getUMLtime() const
 {
 	return timeUML;
 }
@@ -159,7 +159,7 @@ bool Units::isInfected() const
 	return infected;
 }
 
-bool Units::isCured()
+bool Units::isCured() const
 {
 	return cured;
 }
@@ -186,7 +186,7 @@ void Units::getCured()
 	game->getEarthArmy()->decInfected();
 }
 
-int Units::getHT()
+int Units::getHT() const
 {
 	return HT;
 }
@@ -206,7 +206,7 @@ void Units::setUAP(double dmg)
 	UAP = dmg;
 }
 
-double Units::getUAP()
+double Units::getUAP() const
 {
 	return UAP;
 }

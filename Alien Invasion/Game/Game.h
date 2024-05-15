@@ -26,9 +26,6 @@ private:
 	fstream outputFile;
 	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
-	int totalEDf, totalEDd, totalEDb;		// Earth total D(f/d/b)
-	int totalADf, totalADd, totalADb;		// Alien total D(f/d/b)
-	int healed;
 
 	string log;		// To store the current units fighting and their opponents
 
@@ -40,15 +37,15 @@ public:
 	void fight(int);		// Calls the fight of each army
 	bool isOver(bool, bool, bool);	// Checks whether the war is over
 
-	EarthArmy* getEarthArmy();
-	AlienArmy* getAlienArmy();
-	AllyArmy* getAllyArmy();
+	EarthArmy* getEarthArmy() const;
+	AlienArmy* getAlienArmy() const;
+	AllyArmy* getAllyArmy() const;
 
-	int getLength(unitType);
-	bool isEmpty(unitType);
-	bool getUnit(unitType, Units*&);
-	bool peekUnit(unitType, Units*&);
-	int getTimestep();
+	int getLength(unitType) const;
+	bool isEmpty(unitType) const;
+	bool getUnit(unitType, Units*&) const;
+	bool peekUnit(unitType, Units*&) const;
+	int getTimestep() const;
 	bool getUML(Units*&);
 	bool addUnit(Units*&);
 	void updateFile(Units* = nullptr);	// Updates the output file
@@ -58,19 +55,14 @@ public:
 	bool toUML(Units*&);
 	bool toLog(Units* = nullptr, Units* = nullptr, string = "");
 
-	// Increments the total earth&alien D(f,d,b)
-	void updateED(Units*);
-	void updateAD(Units*);
-
-	void updateHealed();
 	void countUML();
 
 	// Units infection
-	bool canInfect();
-	bool canSpread();
+	bool canInfect() const;
+	bool canSpread() const;
 	bool spreadInfection();
 	void allyArmyNotNeeded();
-	bool getRandomES(Units*&);
+	bool getRandomES(Units*&) const;
 
 
 	void update();

@@ -17,7 +17,8 @@ void Game::start()
 	} while (choice != 1 && choice != 2);
 	if (choice == 1)
 		cout << "Silent Mode\nSimulation Starts...\n";
-	fight(choice);
+	
+	war(choice);
 	if (choice == 1)
 		cout << "Simulation ends, Output file is created\n";
 }
@@ -246,11 +247,11 @@ bool Game::addUnit(Unit*& unit)
 	return sArmy->addUnit(unit);
 }
 
-bool Game::isOver(bool a, bool b, bool c)
+bool Game::isOver(bool fought)
 {
 	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(saverUnit) || !(a || b))
+		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(saverUnit) || !fought)
 		{
 			result = "Tie";
 			updateFile();
@@ -385,26 +386,34 @@ int Game::getTimestep() const
 	return timestep;
 }
 
-void Game::fight(int c)
+void Game::war(int c)
 {
 	bool over = false;
+	bool fought = false;
 	while (!over)
 	{
-		random->addUnits();						// Adding units to both armies
+		random->addUnits();		// Adding units to all armies
 
-		bool e = eArmy->fight();						// Calling both armies to fight one another
-		bool s = sArmy->fight();						// Useless bool
-		bool a = aArmy->fight();
+		fought = fight();		// Calling both armies to fight one another
+		
+		if (c == 2)				// Printing the output screen if in interactive mode
+			printAll();
 
+		over = isOver(fought);	// Check the winning status
 		update();
-
-		if (c == 2)
-			printAll();			// Printing the output screen
-
-		over = isOver(e, a, s);
 
 		++timestep;
 	}
+}
+
+bool Game::fight()
+{
+	bool e, a;
+	e = eArmy->fight();
+	sArmy->fight();		// No need to get the fighting status of saver units
+	a = aArmy->fight();
+
+	return e || a;
 }
 
 bool Game::getUML(Unit*& unit)

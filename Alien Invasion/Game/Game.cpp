@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0),Ues(0), Uet(0)
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), Ues(0), Uet(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -54,7 +54,7 @@ void Game::setRandom()
 	if (inputFile.is_open())
 	{
 		inputFile >> N >> NS >> es >> et >> eg >> eh >> as >> am >> ad >> probability >> inf >> inft;									// Reading first 10 digits
-		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach ;
+		inputFile >> epl >> eph >> ehl >> ehh >> ecl >> ech >> apl >> aph >> ahl >> ahh >> acl >> ach;
 		inputFile >> spl >> sph >> shl >> shh >> scl >> sch;
 		random = new randGen(N, NS, es, et, eg, eh, as, am, ad, probability, inf, inft, epl, abs(eph),							// Take absolute to any high-value 
 			ehl, abs(ehh), ecl, abs(ech), apl, abs(aph), ahl, abs(ahh), acl, abs(ach), spl, abs(sph), shl, abs(shh), scl, abs(sch), this);						//	to handle the range dash '-'
@@ -74,7 +74,7 @@ void Game::updateFile(Unit* unit)
 	{
 		if (unit)
 		{
-			outputFile << unit->getTd() << "\t\t" << unit->getID() << "\t\t" << unit->getTj() << "\t\t" 
+			outputFile << unit->getTd() << "\t\t" << unit->getID() << "\t\t" << unit->getTj() << "\t\t"
 				<< unit->getDf() << "\t\t" << unit->getDd() << "\t\t" << unit->getDb() << "\n";
 		}
 		else
@@ -95,7 +95,7 @@ void Game::updateFile(Unit* unit)
 
 			// Earth Army Statistics
 			outputFile << "Earth Army: \n";
-			
+
 			outputFile << "\tTotal number of units:\n\t";
 			outputFile << "\tES: " << getLength(earthSoldier) + es + Ues;
 			outputFile << "\tET: " << getLength(earthTank) + et + Uet;
@@ -104,12 +104,12 @@ void Game::updateFile(Unit* unit)
 
 			outputFile << "\tUnits Destruction %: \n\t";
 			outputFile << "\tES: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues != 0) ? float(es + Ues) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%";
-			outputFile << "\tET: " << setprecision(4) << ((getLength(earthTank) + et + Uet !=0 ) ? float(et + Uet) / (getLength(earthTank) + et + Uet) * 100  : 0)<< "%";
-			outputFile << "\tEG: " << setprecision(4) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0)  << "%";
+			outputFile << "\tET: " << setprecision(4) << ((getLength(earthTank) + et + Uet != 0) ? float(et + Uet) / (getLength(earthTank) + et + Uet) * 100 : 0) << "%";
+			outputFile << "\tEG: " << setprecision(4) << ((getLength(earthGunnery) + eg != 0) ? float(eg) / (getLength(earthGunnery) + eg) * 100 : 0) << "%";
 			outputFile << "\tEH: " << setprecision(4) << ((getLength(earthHeal) + eh != 0) ? float(eh) / (getLength(earthHeal) + eh) * 100 : 0) << "%\n";
 
 			outputFile << "\tUnits Relative Destruction %: \n\t\t";
-			outputFile << setprecision(4) << ((totalEarthUnits != 0) ? (totalDestructedEarthUnits + Uet + Ues) / totalEarthUnits * 100.0 : 0)<< "%\n";
+			outputFile << setprecision(4) << ((totalEarthUnits != 0) ? (totalDestructedEarthUnits + Uet + Ues) / totalEarthUnits * 100.0 : 0) << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
 			outputFile << "\tDf: " << ((totalDestructedEarthUnits != 0) ? EDf / totalDestructedEarthUnits : 0);
@@ -119,10 +119,10 @@ void Game::updateFile(Unit* unit)
 			outputFile << "\tDf/Db%: " << setprecision(4) << ((EDb != 0) ? EDf / EDb * 100 : 0) << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << ((EDb != 0) ? EDd / EDb * 100 : 0) << "%\n";
 
-			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits !=0) ? float(eArmy->getHealed()) / totalEarthUnits  * 100 : 0) << "%\n";
-			outputFile << "\tInfected Percentage: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues !=0)? float(getEarthArmy()->getTotalInfected()) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%\n\n";
+			outputFile << "\tHealed Percentage: " << setprecision(4) << ((totalEarthUnits != 0) ? float(eArmy->getHealed()) / totalEarthUnits * 100 : 0) << "%\n";
+			outputFile << "\tInfected Percentage: " << setprecision(4) << ((getLength(earthSoldier) + es + Ues != 0) ? float(getEarthArmy()->getTotalInfected()) / (getLength(earthSoldier) + es + Ues) * 100 : 0) << "%\n\n";
 
-      
+
 			// Alien Army Statistics
 			outputFile << "Alien Army: \n";
 
@@ -140,7 +140,7 @@ void Game::updateFile(Unit* unit)
 			outputFile << setprecision(4) << ((totalAlienUnits != 0) ? totalDestructedAlienUnits / totalAlienUnits * 100.0 : 0) << "%\n";
 
 			outputFile << "\tAverage values of: \n\t";
-			outputFile << "\tDf: " << ((totalDestructedAlienUnits != 0)? ADf / totalDestructedAlienUnits : 0);
+			outputFile << "\tDf: " << ((totalDestructedAlienUnits != 0) ? ADf / totalDestructedAlienUnits : 0);
 			outputFile << "\tDd: " << ((totalDestructedAlienUnits != 0) ? ADd / totalDestructedAlienUnits : 0);
 			outputFile << "\tDb: " << ((totalDestructedAlienUnits != 0) ? ADb / totalDestructedAlienUnits : 0) << "\n\t";
 
@@ -165,7 +165,7 @@ void Game::printAll()
 	eArmy->print();
 	cout << endl;
 
-	if(!sArmy->isEmpty(saverUnit))
+	if (!sArmy->isEmpty(saverUnit))
 	{
 		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
 		sArmy->print();
@@ -214,7 +214,7 @@ int Game::getLength(unitType s) const
 {
 	if (s < alienSoldier)
 		return eArmy->getLength(s);
-	else if(s<alienArmy)
+	else if (s < alienArmy)
 		return aArmy->getLength(s);
 	return sArmy->getLength(s);
 }
@@ -232,7 +232,7 @@ bool Game::getUnit(unitType s, Unit*& unit) const
 {
 	if (s < alienSoldier)
 		return eArmy->getUnit(s, unit);
-	else if(s < alienArmy)
+	else if (s < alienArmy)
 		return aArmy->getUnit(s, unit);
 	return sArmy->getUnit(s, unit);
 }
@@ -246,7 +246,7 @@ bool Game::addUnit(Unit*& unit)
 	return sArmy->addUnit(unit);
 }
 
-bool Game::isOver(bool a, bool b , bool c)
+bool Game::isOver(bool a, bool b, bool c)
 {
 	if (timestep >= 40)
 	{
@@ -330,106 +330,48 @@ bool Game::toLog(Unit* a, Unit* b, string s)
 {
 	if (a == b && a != nullptr)
 		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1;37m got infected" + "\033[1;37m\n";
-	else 
-	if (a && b)
-	{
-		switch (a->getType())
+	else
+		if (a && b)
 		{
-		case earthSoldier:
-			log += "ES \033[1;34m";
-			if (a->isInfected()) log += "\033[1;32m$\033[1;34m" + to_string(a->getID());
-			else  log += to_string(a->getID());
-			log += "\033[1;37m shots [";
-			break;
-		case earthTank:
-			log += "ET \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
-			break;
-		case earthGunnery:
-			log += "EG \033[1;34m" + to_string(a->getID()) + "\033[1;37m shots [";
-			break;
-		case alienSoldier:
-			log += "AS \033[1;32m" + to_string(a->getID()) + "\033[1;37m shots [";
-			break;
-		case alienMonster:
-			log += "AM \033[1;32m" + to_string(a->getID()) + "\033[1;37m attacks [";
-			break;
-		case alienDrone:
-			log += "AD \033[1;32m" + to_string(a->getID()) + "\033[1;37m shots [";
-			break;
-		case earthHeal:
-			log += "EH \033[1;34m" + to_string(a->getID()) + "\033[1;37m heals [";
-			break;
-		case saverUnit:
-			log += "SU \033[1;33m" + to_string(a->getID()) + "\033[1;37m shots [";
-			break;
+			switch (a->getType())
+			{
+			case earthSoldier:
+				log = log + "ES " + a + " shots [";
+				break;
+			case earthTank:
+				log = log + "ET " + a + " shots [";
+				break;
+			case earthGunnery:
+				log = log + "EG " + a + " shots [";
+				break;
+			case alienSoldier:
+				log = log + "AS " + a + " shots [";
+				break;
+			case alienMonster:
+				log = log + "AM " + a + " attacks [";
+				break;
+			case alienDrone:
+				log = log + "AD " + a + " shots [";
+				break;
+			case earthHeal:
+				log = log + "EH " + a + " heals [";
+				break;
+			case saverUnit:
+				log = log + "SU " + a + " shots [";
+				break;
+			}
+			log = log + b;
 		}
-
-		switch (b->getType())
+		else if (a)
 		{
-		case earthSoldier:
-			if (b->isInfected())log += "\033[1;32m$\033[1;34m";
-			log += "\033[1;34m" + to_string(b->getID());
-			break;
-		case earthTank:
-			log += "\033[1;34m" + to_string(b->getID());
-			break;
-		case earthGunnery:
-			log += "\033[1;34m" + to_string(b->getID());
-			break;
-		case alienSoldier:
-			log += "\033[1;32m" + to_string(b->getID());
-			break;
-		case alienMonster:
-			log += "\033[1;32m" + to_string(b->getID());
-			break;
-		case alienDrone:
-			log += "\033[1;32m" + to_string(b->getID());
-			break;
-		case earthHeal:
-			log += "\033[1;34m" + to_string(b->getID());
-			break;
-		case saverUnit:
-			log += "\033[1;33m" + to_string(b->getID());
-			break;
-		}
-	}
-	else if (a)
-	{
-		switch (a->getType())
-		{
-		case earthSoldier:
 			log += "\033[1;37m, ";
-			if (a->isInfected()) log += "\033[1;32m$\033[1;34m";
-			log += "\033[1;34m" + to_string(a->getID());
-			break;
-		case earthTank:
-			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
-			break;
-		case earthGunnery:
-			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
-			break;
-		case alienSoldier:
-			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
-			break;
-		case alienMonster:
-			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
-			break;
-		case alienDrone:
-			log += "\033[1;37m, \033[1;32m" + to_string(a->getID());
-			break;
-		case earthHeal:
-			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
-			break;
-		case saverUnit:
-			log += "\033[1;37m, \033[1;34m" + to_string(a->getID());
-			break;
+			log = log + a;
 		}
-	}
-	else if(!s.length())
-		log += "\033[1;37m]\n";
+		else if (!s.length())
+			log += "\033[1;37m]\n";
 	log += s;
-	return false;
-} 
+	return true;
+}
 
 bool Game::peekUnit(unitType s, Unit*& unit) const
 {
@@ -456,7 +398,7 @@ void Game::fight(int c)
 
 		update();
 
-		if(c==2)
+		if (c == 2)
 			printAll();			// Printing the output screen
 
 		over = isOver(e, a, s);
@@ -501,7 +443,7 @@ bool Game::canSpread() const
 bool Game::spreadInfection()
 {
 	bool succeded = false;
-	for(int i = 0; i < eArmy->getinfCount(); ++i)
+	for (int i = 0; i < eArmy->getinfCount(); ++i)
 	{
 		if (canSpread())
 		{

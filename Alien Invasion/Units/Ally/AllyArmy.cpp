@@ -55,7 +55,7 @@ bool AllyArmy::isEmpty(unitType type) const
 
 void AllyArmy::print() const
 {
-    /// Print all Saver Unit
+    /// Print all Saver Units
     cout << SU.length() << " SU [";
     SU.printAll();
     cout << "]\n";

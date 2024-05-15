@@ -24,7 +24,6 @@ private:
 
 	string inputFileName;
 	fstream outputFile;
-	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
 
 	string log;		// To store the current units fighting and their opponents
@@ -34,8 +33,9 @@ public:
 	void start();
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the output screen
-	void fight(int);		// Calls the fight of each army
-	bool isOver(bool, bool, bool);	// Checks whether the war is over
+	void war(int);		// Calls the fight of each army
+	bool fight();
+	bool isOver(bool);	// Checks whether the war is over
 
 	EarthArmy* getEarthArmy() const;
 	AlienArmy* getAlienArmy() const;
@@ -55,7 +55,7 @@ public:
 	bool toUML(Unit*&);
 	bool toLog(Unit* = nullptr, Unit* = nullptr, string = "");
 
-	void countUML();
+	void countUML(float&, float&);
 
 	// Units infection
 	bool canInfect() const;

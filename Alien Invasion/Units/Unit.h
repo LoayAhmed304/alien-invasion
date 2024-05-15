@@ -79,6 +79,7 @@ public:
     virtual void setHT(int);
     virtual void incHT();
 
-    friend std::ostream& operator<<(std::ostream& os, const Unit* obj);
+    friend ostream& operator<<(ostream& os, const Unit* obj);
+    friend string operator+(const string& lhs, const Unit* obj);
 };
 #endif

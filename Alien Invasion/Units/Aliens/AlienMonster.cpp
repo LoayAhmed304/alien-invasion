@@ -39,11 +39,11 @@ bool AlienMonster::attack()
 				enemy->getInfected();
 				if (!infects)
 				{
-					s += "AM \033[1;32m" + to_string(self->getID()) + "\033[1;37m infects [\033[1;34m" + to_string(enemy->getID());
+					s += "AM \033[1;32m" + to_string(self->getID()) + "\033[0m infects [\033[1;34m" + to_string(enemy->getID());
 					infects = true;
 				}
 				else
-					s += "\033[1;37m, \033[1;34m" + to_string(enemy->getID());
+					s += "\033[0m, \033[1;34m" + to_string(enemy->getID());
 			}
 			temp.enqueue(enemy);
 			++i;
@@ -96,7 +96,7 @@ bool AlienMonster::attack()
 		game->toLog();
 	if (infects)
 	{
-		s+= "\033[1;37m]\n";
+		s+= "\033[0m]\n";
 		game->toLog(nullptr,nullptr,s);
 	}
 	while (temp.dequeue(enemy))

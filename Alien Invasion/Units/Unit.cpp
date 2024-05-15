@@ -216,7 +216,7 @@ std::ostream& operator<<(std::ostream& os, const Unit* obj)
 	string color = "";
 	if (obj->getType() < alienSoldier)
 		color = "\033[1;34m";
-	else if(obj->getType() == saverUnit)
+	else if (obj->getType() == saverUnit)
 		color = "\033[1;33m";
 	else
 		color = "\033[1;32m";
@@ -225,4 +225,19 @@ std::ostream& operator<<(std::ostream& os, const Unit* obj)
 	os << color << obj->id << "\033[0m";
 
 	return os;
+}
+
+string operator+(const string& lhs, const Unit* obj)
+{
+	string s = "";
+	string x = "";
+	if (obj->getType() < alienSoldier)
+		s = "\033[1;34m";
+	else if (obj->getType() == saverUnit)
+		s = "\033[1;33m";
+	else
+		s = "\033[1;32m";
+	if (obj->infected)
+		x += "\033[1;32m$\033[1;34m";
+	return lhs + x + s + to_string(obj->getID()) + "\033[0m";
 }

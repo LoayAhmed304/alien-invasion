@@ -155,39 +155,39 @@ void Game::updateFile(Unit* unit)
 void Game::printAll()
 {
 
-	cout << "Current Timestep " << timestep << endl;
+	cout << "\033[5mCurrent Timestep " << timestep << "\033[0m\n";
 
 	if (Unit::getTotalUnits(earthArmy) >= 999)
 		cout << "Earth units limit exceeded\n";
 	if (Unit::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
-	cout << "\n\033[44m============== Earth Army Alive Units ============\033[40m\n";
+	cout << "\n\033[1;34m============= Earth Army Alive Units ============\033[0m\n";
 	eArmy->print();
 	cout << endl;
 
 	if (!sArmy->isEmpty(saverUnit))
 	{
-		cout << "\n\033[104m============== Allied Army Alive Units ============\033[40m\n";
+		cout << "\n\033[1;33m============== Allied Army Alive Units ============\033[0m\n";
 		sArmy->print();
 		cout << endl;
 	}
 
-	cout << "\033[42m============== Alien Army Alive Units ==============\033[40m\n";
+	cout << "\033[1;32m============== Alien Army Alive Units ==============\033[0m\n";
 	aArmy->print();
 	cout << endl;
 
-	cout << "\033[45m============== Units fighting at current step =============\033[40m\n";
+	cout << "\033[1;35m============== Units fighting at current step =============\033[0m\n";
 	cout << log;
 	log.clear();
 	cout << endl;
 
-	cout << "\033[41m============== Killed/Destructed Units =============\033[40m\n";
+	cout << "\033[1;31m============== Killed/Destructed Units =============\033[0m\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
 	cout << "]\n\n";
 
-	cout << "\033[43m============== UML =============\033[40m\n";
+	cout << "\033[1;2;2m============== UML =============\033[0m\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n";
@@ -330,7 +330,7 @@ bool Game::toUML(Unit*& unit)
 bool Game::toLog(Unit* a, Unit* b, string s)
 {
 	if (a == b && a != nullptr)
-		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[1;37m got infected" + "\033[1;37m\n";
+		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[0m got infected" + "\033[0m\n";
 	else
 		if (a && b)
 		{
@@ -365,11 +365,11 @@ bool Game::toLog(Unit* a, Unit* b, string s)
 		}
 		else if (a)
 		{
-			log += "\033[1;37m, ";
+			log += "\033[0m, ";
 			log = log + a;
 		}
 		else if (!s.length())
-			log += "\033[1;37m]\n";
+			log += "\033[0m]\n";
 	log += s;
 	return true;
 }

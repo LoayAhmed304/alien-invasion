@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0), Ues(0), Uet(0)
+Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0)
 {
 	eArmy = new EarthArmy;
 	aArmy = new AlienArmy;
@@ -80,16 +80,16 @@ void Game::updateFile(Unit* unit)
 		}
 		else
 		{
-			countUML();
-
 			// Create variables to store the data to be dealt with easier
 			float totalEarthUnits = Unit::getTotalUnits(earthArmy);
 			float totalDestructedEarthUnits = es + et + eg + eh;
 			float totalAlienUnits = Unit::getTotalUnits(alienArmy);
 			float totalDestructedAlienUnits = as + ad + am;
 			float EDf, EDd, EDb, ADf, ADd, ADb;
+			float Ues, Uet;
 			eArmy->returnD(EDf, EDd, EDb);
 			aArmy->returnD(ADf, ADd, ADb);
+			countUML(Ues, Uet);
 
 			// Battle result (in earth army's (our) point of view)
 			outputFile << "\nBattle Result: " << result << endl << endl;
@@ -251,13 +251,7 @@ bool Game::isOver(bool fought)
 {
 	if (timestep >= 40)
 	{
-		if (eArmy->isEmpty(earthArmy) && aArmy->isEmpty(alienArmy) && sArmy->isEmpty(saverUnit) || !fought)
-		{
-			result = "Tie";
-			updateFile();
-			return true;
-		}
-		else if (eArmy->isEmpty(earthArmy))
+		if (eArmy->isEmpty(earthArmy))
 		{
 			result = "Loss";
 			updateFile();
@@ -266,6 +260,12 @@ bool Game::isOver(bool fought)
 		else if (aArmy->isEmpty(alienArmy))
 		{
 			result = "Win";
+			updateFile();
+			return true;
+		}
+		else if (!fought)
+		{
+			result = "Tie";
 			updateFile();
 			return true;
 		}
@@ -424,8 +424,9 @@ bool Game::getUML(Unit*& unit)
 	return false;
 }
 
-void Game::countUML()
+void Game::countUML(float& es, float&et)
 {
+	float Ues = 0 , Uet = 0;
 	Unit* unit = nullptr;
 	int n;
 	while (UML.dequeue(unit, n))
@@ -437,6 +438,8 @@ void Game::countUML()
 		delete unit;
 		unit = nullptr;
 	}
+	es = Ues;
+	et = Uet;
 }
 
 bool Game::canInfect() const

@@ -24,7 +24,6 @@ private:
 
 	string inputFileName;
 	fstream outputFile;
-	int Ues, Uet;
 	int es, et, eg, eh, as, am, ad;		// Destructed units
 
 	string log;		// To store the current units fighting and their opponents
@@ -56,7 +55,7 @@ public:
 	bool toUML(Unit*&);
 	bool toLog(Unit* = nullptr, Unit* = nullptr, string = "");
 
-	void countUML();
+	void countUML(float&, float&);
 
 	// Units infection
 	bool canInfect() const;

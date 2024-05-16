@@ -20,12 +20,11 @@ bool AlienMonster::attack()
 	{
 		if (game->getUnit(earthSoldier, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
 			if (!game->canInfect() || enemy->isInfected() || enemy->isCured())
 			{
-				enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+				enemy->getAttacked(self->getUAP(enemy));
 				if (!attacked)
 				{
 					game->toLog(self, enemy);
@@ -54,10 +53,9 @@ bool AlienMonster::attack()
 
 		if (game->getUnit(saverUnit, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP());
+			enemy->getAttacked(self->getUAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -75,10 +73,9 @@ bool AlienMonster::attack()
 
 		if (game->getUnit(earthTank, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP());
+			enemy->getAttacked(self->getUAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -103,7 +100,7 @@ bool AlienMonster::attack()
 	{
 		if (enemy->isDead())
 			game->kill(enemy);
-		else if (enemy->getHealthPerc() < 20)
+		else if (enemy->getHealthPerc() < 20 && enemy->getType() != saverUnit)
 			game->toUML(enemy);
 		else
 			game->addUnit(enemy);

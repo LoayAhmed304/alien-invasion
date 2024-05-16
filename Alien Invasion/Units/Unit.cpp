@@ -5,7 +5,7 @@ int Unit::eID = 0;
 int Unit::aID = 2000;
 int Unit::sID = 4000;
 
-Unit::Unit(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0)
+Unit::Unit(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), id(0), healed(false), infected(false), cured(false), HT(0)
 
 {
 	type = t;
@@ -201,14 +201,10 @@ void Unit::incHT()
 	++HT;
 }
 
-void Unit::setUAP(double dmg)
-{
-	UAP = dmg;
-}
 
-double Unit::getUAP() const
+double Unit::getUAP(Unit*unit) 
 {
-	return UAP;
+	return (power * cur_health / 100) / sqrt(unit->getCurHealth());
 }
 
 std::ostream& operator<<(std::ostream& os, const Unit* obj)

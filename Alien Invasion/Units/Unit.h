@@ -58,7 +58,7 @@ public:
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
-    virtual double getUAP(Unit*);
+    virtual double UAP(Unit*) const;
     virtual void setTa(int);
 
     virtual bool isHealed() const;

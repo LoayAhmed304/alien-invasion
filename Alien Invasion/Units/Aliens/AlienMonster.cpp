@@ -24,7 +24,7 @@ bool AlienMonster::attack()
 				enemy->setTa(game->getTimestep());
 			if (!game->canInfect() || enemy->isInfected() || enemy->isCured())
 			{
-				enemy->getAttacked(self->getUAP(enemy));
+				enemy->getAttacked(self->UAP(enemy));
 				if (!attacked)
 				{
 					game->toLog(self, enemy);
@@ -38,11 +38,11 @@ bool AlienMonster::attack()
 				enemy->getInfected();
 				if (!infects)
 				{
-					s += "AM \033[1;32m" + to_string(self->getID()) + "\033[0m infects [\033[1;34m" + to_string(enemy->getID());
+					s += "AM " + game->getColor("green") + to_string(self->getID()) + game->getColor("white") + " infects[" + game->getColor("blue") + to_string(enemy->getID());
 					infects = true;
 				}
 				else
-					s += "\033[0m, \033[1;34m" + to_string(enemy->getID());
+					s += game->getColor("white") + ", " + game->getColor("blue") + to_string(enemy->getID());
 			}
 			temp.enqueue(enemy);
 			++i;
@@ -55,7 +55,7 @@ bool AlienMonster::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP(enemy));
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -75,7 +75,7 @@ bool AlienMonster::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP(enemy));
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -93,7 +93,7 @@ bool AlienMonster::attack()
 		game->toLog();
 	if (infects)
 	{
-		s+= "\033[0m]\n";
+		s+= game->getColor("white") + "]\n";
 		game->toLog(nullptr,nullptr,s);
 	}
 	while (temp.dequeue(enemy))

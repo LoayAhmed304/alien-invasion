@@ -21,7 +21,7 @@ bool EarthSoldier::attack()
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(self->getUAP(enemy));
+				enemy->getAttacked(self->UAP(enemy));
 				temp.enqueue(enemy);
 
 				if (!attacked)
@@ -43,7 +43,7 @@ bool EarthSoldier::attack()
 			{
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(self->getUAP(enemy));
+				enemy->getAttacked(self->UAP(enemy));
 				temp.enqueue(enemy);
 
 				if (!attacked)

@@ -19,7 +19,7 @@ bool AlienDrone::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP(enemy));
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -39,7 +39,7 @@ bool AlienDrone::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP(enemy));
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 

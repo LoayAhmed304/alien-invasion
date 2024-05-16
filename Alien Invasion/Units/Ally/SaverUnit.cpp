@@ -18,7 +18,7 @@ bool SaverUnit::attack()
 		{
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(this->getPower() * this->getCurHealth() / 100);
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 
 			if (!attacked)

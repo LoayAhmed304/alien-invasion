@@ -10,16 +10,21 @@ Game::Game() : timestep(1), as(0), am(0), ad(0), es(0), eg(0), et(0), eh(0)
 
 void Game::start()
 {
-	int choice;
 	do {
 		cout << "==================Pick Mode==================\n1)Silent Mode\n2)Interactive Mode\n";
-		cin >> choice;
-	} while (choice != 1 && choice != 2);
-	if (choice == 1)
+		cin >> playMode;
+	} while (playMode != 1 && playMode != 2);
+	if (playMode == 1)
 		cout << "Silent Mode\nSimulation Starts...\n";
-	
-	war(choice);
-	if (choice == 1)
+	else
+		do {
+			cout << "==================Pick Theme==================\n1)Default Mode \n2)Colored Mode \n";
+			cin >> playTheme;
+		} while (playTheme != 1 && playTheme != 2);
+
+	war(playMode);
+
+	if (playMode == 1)
 		cout << "Simulation ends, Output file is created\n";
 }
 
@@ -85,10 +90,13 @@ void Game::updateFile(Unit* unit)
 			float totalDestructedEarthUnits = es + et + eg + eh;
 			float totalAlienUnits = Unit::getTotalUnits(alienArmy);
 			float totalDestructedAlienUnits = as + ad + am;
-			float EDf, EDd, EDb, ADf, ADd, ADb;
+			float totalAllyUnits = Unit::getTotalUnits(allyArmy);
+			float totalDestructedAllyUnits = su;
+			float EDf, EDd, EDb, ADf, ADd, ADb, SDf, SDd, SDb;
 			float Ues, Uet;
 			eArmy->returnD(EDf, EDd, EDb);
 			aArmy->returnD(ADf, ADd, ADb);
+			sArmy->returnD(SDf, SDd, SDb);
 			countUML(Ues, Uet);
 
 			// Battle result (in earth army's (our) point of view)
@@ -147,6 +155,7 @@ void Game::updateFile(Unit* unit)
 
 			outputFile << "\tDf/Db%: " << setprecision(4) << ((ADb != 0) ? ADf / ADb * 100 : 0) << "%";
 			outputFile << "\tDd/Db%: " << setprecision(4) << ((ADb != 0) ? ADd / ADb * 100 : 0) << "%\n\n";
+
 		}
 		outputFile.close();
 	}
@@ -155,39 +164,32 @@ void Game::updateFile(Unit* unit)
 void Game::printAll()
 {
 
-	cout << "\033[5mCurrent Timestep " << timestep << "\033[0m\n";
+	cout << getColor("blinking") << "\nCurrent Timestep " << timestep << getColor("white") << "\n";
 
 	if (Unit::getTotalUnits(earthArmy) >= 999)
 		cout << "Earth units limit exceeded\n";
 	if (Unit::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
-	cout << "\n\033[1;34m============= Earth Army Alive Units ============\033[0m\n";
+	cout << "\n==============" << getColor("blue") << " Earth Army Alive Units " << getColor("white") <<"======================\n";
 	eArmy->print();
-	cout << endl;
 
-	if (!sArmy->isEmpty(saverUnit))
-	{
-		cout << "\n\033[1;33m============== Allied Army Alive Units ============\033[0m\n";
-		sArmy->print();
-		cout << endl;
-	}
+	cout << "\n==============" << getColor("yellow") << " Ally Army Alive Units " << getColor("white") << "=======================\n";
+	sArmy->print();
 
-	cout << "\033[1;32m============== Alien Army Alive Units ==============\033[0m\n";
+	cout << "\n==============" << getColor("green") << " Alien Army Alive Units " << getColor("white") << "======================\n";
 	aArmy->print();
-	cout << endl;
 
-	cout << "\033[1;35m============== Units fighting at current step =============\033[0m\n";
+	cout << "\n==============" << getColor("gray") << " Fighting at current step " << getColor("white") << "====================\n";
 	cout << log;
 	log.clear();
-	cout << endl;
 
-	cout << "\033[1;31m============== Killed/Destructed Units =============\033[0m\n";
+	cout << "\n==============" << getColor("red") << " Killed/Destructed Units " << getColor("white") << "=====================\n";
 	cout << killedList.length() << " units [";
 	killedList.printAll();
-	cout << "]\n\n";
+	cout << "]\n";
 
-	cout << "\033[1;2;2m============== UML =============\033[0m\n";
+	cout << "\n==============" << getColor("cyan") << " Units Maintenance List " << getColor("white")<< "======================\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n";
@@ -299,11 +301,17 @@ bool Game::kill(Unit*& unit)
 	case earthHeal:
 		++eh;
 		break;
+	case saverUnit:
+		++su;
+		break;
 	}
 	if (unit->getType() < alienSoldier)
 		eArmy->updateD(unit);
+	else if(unit->getType() == saverUnit)
+		sArmy->updateD(unit);
 	else
 		aArmy->updateD(unit);
+
 	updateFile(unit);
 	if (unit->isInfected())
 		eArmy->decInfected();
@@ -330,7 +338,7 @@ bool Game::toUML(Unit*& unit)
 bool Game::toLog(Unit* a, Unit* b, string s)
 {
 	if (a == b && a != nullptr)
-		log += "ES \033[1;34m" + to_string(a->getID()) + "\033[0m got infected" + "\033[0m\n";
+		log += "ES " + getColor("blue") +to_string(a->getID()) + getColor("white") + " got infected\n";
 	else
 		if (a && b)
 		{
@@ -503,6 +511,33 @@ void Game::update()
 	spreadInfection();
 	allyArmyNotNeeded();
 }
+
+string Game::getColor(string color) 
+{
+	if (playTheme == 2) 
+	{
+		if (color == "blue")
+			return "\033[1;94m"; // Blue
+		if (color == "green")
+			return "\033[1;32m"; // Green
+		if (color == "yellow")
+			return "\033[33m"; // Yellow
+		if (color == "purple")
+			return "\033[1;35m"; // Purple
+		if (color == "red")
+			return "\033[0;31m"; // Red
+		if (color == "gray")
+			return "\033[1;90m"; // Gray
+		if (color == "white")
+			return "\033[1;0m"; // White
+		if (color == "blinking")
+			return "\033[1;5m"; // Blinking
+		if (color == "cyan")
+			return "\033[1;36m"; // cyan
+	}
+	return ""; // Default: empty string
+}
+
 
 Game::~Game()
 {

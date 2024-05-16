@@ -25,7 +25,7 @@ class Unit
 {
 private:
     unitType type;
-    int Tj, Ta, Td, Df, Dd, Db, UAP, power, attack_cap, cur_health, timeUML;
+    int Tj, Ta, Td, Df, Dd, Db, power, attack_cap, cur_health, timeUML;
     double health;
     bool healed;
     bool infected;
@@ -58,8 +58,7 @@ public:
     virtual int getDd() const;
     virtual int getDb() const;
     virtual int getTa() const;
-    virtual double getUAP() const;
-    virtual void setUAP(double);
+    virtual double UAP(Unit*) const;
     virtual void setTa(int);
 
     virtual bool isHealed() const;

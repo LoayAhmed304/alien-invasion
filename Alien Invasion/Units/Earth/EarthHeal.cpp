@@ -21,8 +21,7 @@ bool EarthHeal::attack()
 			{
 				if(ally->getHealthPerc() < 20)
 				{
-					self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(ally->getCurHealth()));
-					ally->getAttacked(-self->getUAP());
+					ally->getAttacked(-self->UAP(ally));
 					ally->incHT();
 					if (!ally->isHealed())
 						ally->heal();
@@ -70,7 +69,7 @@ bool EarthHeal::attack()
 			}
 			else
 			{
-				ally->getAttacked(pow(ally->getCurHealth(), 2));
+				ally->getAttacked(ally->getCurHealth());
 				game->kill(ally);
 				--i;
 			}
@@ -85,7 +84,7 @@ bool EarthHeal::attack()
 		game->toLog();
 		game->getUnit(earthHeal, self);
 		self->setTa(game->getTimestep());
-		self->getAttacked(pow(self->getCurHealth(), 1.5));
+		self->getAttacked(self->getCurHealth());
 		game->kill(self);
 	}
 

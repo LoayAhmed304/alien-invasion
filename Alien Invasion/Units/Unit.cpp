@@ -5,7 +5,7 @@ int Unit::eID = 0;
 int Unit::aID = 2000;
 int Unit::sID = 4000;
 
-Unit::Unit(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), UAP(0), id(0), healed(false), infected(false), cured(false), HT(0)
+Unit::Unit(unitType t, int p, int h, int c, Game* g) : Ta(0), Td(0), timeUML(0), Db(0), Dd(0), Df(0), id(0), healed(false), infected(false), cured(false), HT(0)
 
 {
 	type = t;
@@ -201,28 +201,24 @@ void Unit::incHT()
 	++HT;
 }
 
-void Unit::setUAP(double dmg)
-{
-	UAP = dmg;
-}
 
-double Unit::getUAP() const
+double Unit::UAP(Unit*unit) const
 {
-	return UAP;
+	return (power * cur_health / 100) / sqrt(unit->getCurHealth());
 }
 
 std::ostream& operator<<(std::ostream& os, const Unit* obj)
 {
-	string color = "";
+	string color;
 	if (obj->getType() < alienSoldier)
-		color = "\033[1;34m";
+		color = obj->game->getColor("blue");
 	else if (obj->getType() == saverUnit)
-		color = "\033[1;33m";
+		color = obj->game->getColor("yellow");
 	else
-		color = "\033[1;32m";
+		color = obj->game->getColor("green");
 	if (obj->infected)
-		os << "\033[1;32m$\033[1;34m";
-	os << color << obj->id << "\033[0m";
+		os << obj->game->getColor("green") + "$" + obj->game->getColor("blue");
+	os << color << obj->id << obj->game->getColor("white");
 
 	return os;
 }
@@ -232,12 +228,12 @@ string operator+(const string& lhs, const Unit* obj)
 	string s = "";
 	string x = "";
 	if (obj->getType() < alienSoldier)
-		s = "\033[1;34m";
+		s = obj->game->getColor("blue");
 	else if (obj->getType() == saverUnit)
-		s = "\033[1;33m";
+		s = obj->game->getColor("yellow");
 	else
-		s = "\033[1;32m";
+		s = obj->game->getColor("green");
 	if (obj->infected)
-		x += "\033[1;32m$\033[1;34m";
-	return lhs + x + s + to_string(obj->getID()) + "\033[0m";
+		x += obj->game->getColor("green") + "$" + obj->game->getColor("blue");;
+	return lhs + x + s + to_string(obj->getID()) + obj->game->getColor("white");;
 }

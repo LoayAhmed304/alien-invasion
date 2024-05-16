@@ -24,10 +24,11 @@ private:
 
 	string inputFileName;
 	fstream outputFile;
-	int es, et, eg, eh, as, am, ad;		// Destructed units
+	int es, et, eg, eh, as, am, ad ,su;		// Destructed units
 
 	string log;		// To store the current units fighting and their opponents
-
+	int playMode;
+	int playTheme;
 public:
 	Game();
 	void start();
@@ -64,8 +65,8 @@ public:
 	void allyArmyNotNeeded();
 	bool getRandomES(Unit*&) const;
 
-
 	void update();
+	string getColor(string);
 	~Game();
 };
 #endif

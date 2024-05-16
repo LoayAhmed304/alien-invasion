@@ -8,6 +8,7 @@ class AllyArmy
 {
 private:
     LinkedQueue <Unit*> SU;
+    int totalDf, totalDd, totalDb;		// Total D(f/d/b) for the destructed units
 
 public:
     bool addUnit(Unit*);
@@ -17,6 +18,8 @@ public:
     bool isEmpty(unitType) const;
     void print() const;
     bool fight();        // Peeks each ally unit and calls its attack
+    void returnD(float&, float&, float&) const;
+    void updateD(Unit*);
     ~AllyArmy();
 };
 #endif

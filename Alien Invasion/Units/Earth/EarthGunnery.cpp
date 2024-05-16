@@ -17,10 +17,9 @@ bool EarthGunnery::attack()
 	{
 		if (game->getUnit(alienMonster, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP());
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -38,10 +37,9 @@ bool EarthGunnery::attack()
 
 		if (game->getUnit(alienDrone, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP());
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 
@@ -59,10 +57,9 @@ bool EarthGunnery::attack()
 
 		if (game->getUnit(alienDrone, enemy))
 		{
-			self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 			if (!enemy->getTa())
 				enemy->setTa(game->getTimestep());
-			enemy->getAttacked(self->getUAP());
+			enemy->getAttacked(self->UAP(enemy));
 			temp.enqueue(enemy);
 			++i;
 

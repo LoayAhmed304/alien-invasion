@@ -20,10 +20,9 @@ bool EarthTank::attack()
 		{
 			if (game->getUnit(alienSoldier, enemy))
 			{
-				self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(self->getUAP());
+				enemy->getAttacked(self->UAP(enemy));
 				temp.enqueue(enemy);
 				++i;
 
@@ -41,10 +40,9 @@ bool EarthTank::attack()
 
 			if (game->getUnit(alienMonster, enemy))
 			{
-				self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(self->getUAP());
+				enemy->getAttacked(self->UAP(enemy));
 				temp.enqueue(enemy);
 				++i;
 
@@ -64,10 +62,9 @@ bool EarthTank::attack()
 		{
 			if (game->getUnit(alienMonster, enemy))
 			{
-				self->setUAP((self->getPower() * self->getCurHealth() / 100) / sqrt(enemy->getCurHealth()));
 				if (!enemy->getTa())
 					enemy->setTa(game->getTimestep());
-				enemy->getAttacked(self->getUAP());
+				enemy->getAttacked(self->UAP(enemy));
 				temp.enqueue(enemy);
 
 				if (!attacked)

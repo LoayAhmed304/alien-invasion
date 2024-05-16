@@ -171,16 +171,16 @@ void Game::printAll()
 	if (Unit::getTotalUnits(alienArmy) >= 999)
 		cout << "Alien units limit exceeded\n";
 
-	cout << "\n==============" << getColor("blue") << " Earth Army Alive Units " << getColor("white") <<"======================\n";
+	cout << "\n============== Earth Army Alive Units ======================\n";
 	eArmy->print();
 
-	cout << "\n==============" << getColor("yellow") << " Ally Army Alive Units " << getColor("white") << "=======================\n";
+	cout << "\n============== Ally Army Alive Units =======================\n";
 	sArmy->print();
 
-	cout << "\n==============" << getColor("green") << " Alien Army Alive Units " << getColor("white") << "======================\n";
+	cout << "\n============== Alien Army Alive Units ======================\n";
 	aArmy->print();
 
-	cout << "\n==============" << getColor("gray") << " Fighting at current step " << getColor("white") << "====================\n";
+	cout << "\n============== Fighting at current step ====================\n";
 	cout << log;
 	log.clear();
 
@@ -189,7 +189,7 @@ void Game::printAll()
 	killedList.printAll();
 	cout << "]\n";
 
-	cout << "\n==============" << getColor("cyan") << " Units Maintenance List " << getColor("white")<< "======================\n";
+	cout << "\n============== Units Maintenance List ======================\n";
 	cout << UML.length() << " units [";
 	UML.printAll();
 	cout << "]\n\n";
@@ -522,18 +522,12 @@ string Game::getColor(string color)
 			return "\033[1;32m"; // Green
 		if (color == "yellow")
 			return "\033[33m"; // Yellow
-		if (color == "purple")
-			return "\033[1;35m"; // Purple
 		if (color == "red")
 			return "\033[0;31m"; // Red
-		if (color == "gray")
-			return "\033[1;90m"; // Gray
 		if (color == "white")
 			return "\033[1;0m"; // White
 		if (color == "blinking")
 			return "\033[1;5m"; // Blinking
-		if (color == "cyan")
-			return "\033[1;36m"; // cyan
 	}
 	return ""; // Default: empty string
 }

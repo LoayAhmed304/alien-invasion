@@ -31,11 +31,11 @@ private:
 	int playTheme;
 public:
 	Game();
-	void start();
+	void start();		// Takes input to pick the desired mode
 	void setRandom();	// Reads the input file and initializes randGen object
 	void printAll();	// Prints all the output screen
-	void war(int);		// Calls the fight of each army
-	bool fight();
+	void war(int);		// Main loop
+	bool fight();		// Calls the fight of each army
 	bool isOver(bool);	// Checks whether the war is over
 
 	EarthArmy* getEarthArmy() const;
@@ -61,11 +61,11 @@ public:
 	// Units infection
 	bool canInfect() const;
 	bool canSpread() const;
-	bool spreadInfection();
-	void allyArmyNotNeeded();
+	bool spreadInfection();		// Spreads the infection between ES
+	void allyArmyNotNeeded();	// Checks if ally army is needed
 	bool getRandomES(Unit*&) const;
 
-	void update();
+	void update();		// Checks for the status that needs to be checked every timestep
 	string getColor(string);
 	~Game();
 };

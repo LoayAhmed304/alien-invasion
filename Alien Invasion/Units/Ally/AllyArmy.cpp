@@ -71,19 +71,6 @@ bool AllyArmy::fight()
     return a;
 }
 
-void AllyArmy::returnD(float& f, float& d, float& b) const
-{
-    f = totalDf;
-    d = totalDd;
-    b = totalDb;
-}
-
-void AllyArmy::updateD(Unit* unit)
-{
-    totalDd += unit->getDd();
-    totalDf += unit->getDf();
-    totalDb += unit->getDb();
-}
 AllyArmy::~AllyArmy()
 {
     Unit* temp;

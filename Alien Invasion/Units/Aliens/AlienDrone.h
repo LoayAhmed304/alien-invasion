@@ -1,5 +1,5 @@
-#ifndef	ALIEND_DRONE_H
-#define ALIEND_DRONE_H
+#ifndef	ALIEN_DRONE_H
+#define ALIEN_DRONE_H
 #include "../Unit.h"
 class Game;
 

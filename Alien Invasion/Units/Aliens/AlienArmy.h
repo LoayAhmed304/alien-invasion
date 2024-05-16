@@ -11,7 +11,7 @@ private:
     LinkedQueue<Unit*> AS;
     RandomArray<Unit*> AM;
     Deque<Unit*> AD;
-    float totalDf, totalDd, totalDb;    // Total D(f,d,b) for the destructed units
+    float totalDf, totalDd, totalDb;    // Total D(f/d/b) for the destructed units (float for the decimal represntation in output file creation)
     bool swap;
     bool swapPeek;
 

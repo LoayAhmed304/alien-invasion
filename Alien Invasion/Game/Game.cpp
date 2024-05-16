@@ -96,7 +96,6 @@ void Game::updateFile(Unit* unit)
 			float Ues, Uet;
 			eArmy->returnD(EDf, EDd, EDb);
 			aArmy->returnD(ADf, ADd, ADb);
-			sArmy->returnD(SDf, SDd, SDb);
 			countUML(Ues, Uet);
 
 			// Battle result (in earth army's (our) point of view)
@@ -307,9 +306,7 @@ bool Game::kill(Unit*& unit)
 	}
 	if (unit->getType() < alienSoldier)
 		eArmy->updateD(unit);
-	else if(unit->getType() == saverUnit)
-		sArmy->updateD(unit);
-	else
+	else if(unit->getType() < alienArmy)
 		aArmy->updateD(unit);
 
 	updateFile(unit);
@@ -394,7 +391,7 @@ int Game::getTimestep() const
 	return timestep;
 }
 
-void Game::war(int c)
+void Game::war(int c)		// Main loop (As desired: Generate, Fight, Print)
 {
 	bool over = false;
 	bool fought = false;
@@ -432,7 +429,7 @@ bool Game::getUML(Unit*& unit)
 	return false;
 }
 
-void Game::countUML(float& es, float&et)
+void Game::countUML(float& es, float& et)	// Destructs the UML and counts the number of ET & EG
 {
 	float Ues = 0 , Uet = 0;
 	Unit* unit = nullptr;
@@ -512,7 +509,7 @@ void Game::update()
 	allyArmyNotNeeded();
 }
 
-string Game::getColor(string color) 
+string Game::getColor(string color)		// To set the output display colors
 {
 	if (playTheme == 2) 
 	{
@@ -533,7 +530,7 @@ string Game::getColor(string color)
 }
 
 
-Game::~Game()
+Game::~Game()		// UML is destructed in countUML() function
 {
 	delete eArmy;
 	delete aArmy;

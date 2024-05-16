@@ -14,7 +14,7 @@ private:
     priQueue <Unit*> EG;
     ArrayStack <Unit*> EH;
     int infCount;
-    int totalDf, totalDd, totalDb;		// Total D(f/d/b) for the destructed units
+    float totalDf, totalDd, totalDb;		// Total D(f/d/b) for the destructed units (float for the decimal represntation in output file creation)
     int totalHealed;
     int totalInfected;
 public:

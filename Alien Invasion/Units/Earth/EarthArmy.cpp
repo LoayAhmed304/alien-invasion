@@ -214,6 +214,11 @@ EarthArmy::~EarthArmy()
 {
     Unit* temp;
     int n;
+    while (EH.pop(temp))
+    {
+        delete temp;
+        temp = nullptr;
+    }
     while (ES.dequeue(temp))
     {
         delete temp;

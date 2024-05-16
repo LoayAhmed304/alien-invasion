@@ -136,9 +136,8 @@ void AlienArmy::returnD(float& f, float& d, float& b) const
 AlienArmy::~AlienArmy()
 {
     Unit* temp;
-    for (int i = 0; !AM.isEmpty(); ++i)
+    while (AM.remove(temp))
     {
-        AM.remove(temp);
         delete temp;
         temp = nullptr;
     }
